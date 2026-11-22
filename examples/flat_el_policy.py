@@ -62,53 +62,124 @@ def fit_V(pcs, sigma_fn, Hs, K=6, n=200, ridge=0.3):
     return coefs
 
 
+def _cheb(coef, t):
+    Tk_1, Tk = 1, t
+    out = coef[0] + coef[1] * t
+    for k in range(2, coef.shape[0]):
+        Tk_1, Tk = Tk, 2 * t * Tk - Tk_1
+        out = out + coef[k] * Tk
+    return out
+
+
+def _el_w(p, v, a, j, phi, V, Hs, wp, wH):
+    """w = snap from L and Q for the given phi(p), V(p) (shared by every piece type)."""
+    zero3 = ca.DM.zeros(3)
+    pv, pva, pvaj = ca.vertcat(p, v), ca.vertcat(p, v, a), ca.vertcat(p, v, a, j)
+    d1, d2 = ca.vertcat(v, a), ca.vertcat(v, a, j)
+    H = 0.5 * ca.dot(v, v) + V
+    ph1 = ca.jtimes(phi, p, v)
+    ph2 = ca.jtimes(ph1, pv, d1)
+    ph3 = ca.jtimes(ph2, pva, d2)
+    eH = H - Hs
+    sp_ = ca.sqrt(ca.dot(v, v))
+    vh = v / sp_
+    gV = ca.gradient(V, p)
+    mu = ca.dot(vh, a + gV)                    # H' = |v| mu
+    mu1 = ca.jtimes(mu, pva, d2)
+    Vtt = ca.dot(vh, ca.mtimes(ca.hessian(V, p)[0], vh))
+    Lag = (0.5 * ca.dot(ph2, ph2) - 3 * wp ** 2 * ca.dot(ph1, ph1) + 0.5 * wp ** 4 * ca.dot(phi, phi)
+           + 0.5 * mu ** 2)
+    QH = -3 * wH * mu1 - (3 * wH ** 2 - Vtt) * mu - wH ** 3 * eH / sp_
+    Q = ca.mtimes(ca.jacobian(phi, p).T, -4 * wp * ph3 - 4 * wp ** 3 * ph1) + vh * QH
+    La, Lv, Lp = ca.gradient(Lag, a), ca.gradient(Lag, v), ca.gradient(Lag, p)
+    M = ca.jacobian(La, a)
+    DLv = ca.jtimes(Lv, pva, d2)
+    DLa = ca.jtimes(La, pva, d2)
+    DDLa = ca.jtimes(DLa, pvaj, ca.vertcat(v, a, j, zero3))
+    w = ca.solve(M, Q - Lp + DLv - DDLa)
+    return w, ca.vertcat(ca.norm_2(phi), eH, H)
+
+
+class PolyELPolicy:
+    """Same law on polynomial pieces (poly_plan spec): one function for every piece, the piece's numbers as input.
+    Piece i: x = e1.(p - O), t = 2 x / l - 1, phi = (e2.(p - O) - f(t), e3.(p - O) - g(t)), V = h(t), H* = 0."""
+
+    def __init__(self, spec, wp=16.0, wH=12.0):
+        self.spec = spec
+        nf, nh = len(spec[0]["f"]), len(spec[0]["h"])
+        p, v, a, j = (ca.SX.sym(nm, 3) for nm in "pvaj")
+        prm = ca.SX.sym("prm", 13 + 2 * nf + nh)
+        O, e1, e2, e3, l = prm[0:3], prm[3:6], prm[6:9], prm[9:12], prm[12]
+        fc, gc, hc = prm[13:13 + nf], prm[13 + nf:13 + 2 * nf], prm[13 + 2 * nf:]
+        q = p - O
+        t = 2 * ca.dot(e1, q) / l - 1
+        phi = ca.vertcat(ca.dot(e2, q) - _cheb(fc, t), ca.dot(e3, q) - _cheb(gc, t))
+        w, info = _el_w(p, v, a, j, phi, _cheb(hc, t), 0.0, wp, wH)
+        self.F = ca.Function("w_poly", [p, v, a, j, prm], [w, info])
+        self.prm = [np.concatenate([s["O"], s["e1"], s["e2"], s["e3"], [s["l"]], s["f"], s["g"], s["h"]]) for s in spec]
+        self.fun = [(lambda pr: (lambda p_, v_, a_, j_: self.F(p_, v_, a_, j_, pr)))(pr) for pr in self.prm]
+
+    def piece(self, p):
+        """Smallest |phi| among the pieces whose x-window (0 <= x <= l) contains p; if none is within 1 m (the outside
+        of a joint lies beyond both neighbours' windows), the same with windows widened by 0.5 m; none: nearest piece
+        start. No memory."""
+        for slack in (0.0, 0.5):
+            best, bd = None, np.inf
+            for i, s in enumerate(self.spec):
+                q = p - s["O"]
+                x = q @ s["e1"]
+                if not (-slack <= x <= s["l"] + slack):
+                    continue
+                t = 2 * x / s["l"] - 1
+                dd = np.hypot(q @ s["e2"] - np.polynomial.chebyshev.chebval(t, s["f"]),
+                              q @ s["e3"] - np.polynomial.chebyshev.chebval(t, s["g"]))
+                if dd < bd:
+                    best, bd = i, dd
+            if best is not None and bd < 1.0:
+                return best
+        if best is None:
+            best = int(np.argmin([np.linalg.norm(p - s["O"]) for s in self.spec]))
+        return best
+
+
 class FlatELPolicy:
-    def __init__(self, path, sigma_fn, wp=8.0, wH=4.0, K=6, Hs=None):
+    def __init__(self, path, sigma_fn=None, wp=8.0, wH=4.0, K=6, Hs=None, V_spec=None):
+        """V_spec (from v_plan.plan_V): per piece V = sum c_k T_k(x), x = 2 (e.(p - o) - l0)/(l1 - l0) - 1, H* = 0.
+        Without it, V is fitted to sigma_fn (experiment-only polynomial / harmonic space)."""
         self.L = path.length
         self.pcs = pp.pieces_of(path)
-        sg = sigma_fn(np.linspace(0, self.L, 2000))
-        self.Hs = 0.5 * sg.max() ** 2 + 1.0 if Hs is None else Hs
-        self.Vc = fit_V(self.pcs, sigma_fn, self.Hs, K)
+        if V_spec is None:
+            sg = sigma_fn(np.linspace(0, self.L, 2000))
+            self.Hs = 0.5 * sg.max() ** 2 + 1.0 if Hs is None else Hs
+            self.Vc = fit_V(self.pcs, sigma_fn, self.Hs, K)
+        else:
+            self.Hs = 0.0
+            self.Vc = [None] * len(self.pcs)
         p, v, a, j = (ca.SX.sym(nm, 3) for nm in "pvaj")
-        zero3 = ca.DM.zeros(3)
         self.fun = []
-        for P, cf in zip(self.pcs, self.Vc):
+        for ip, (P, cf) in enumerate(zip(self.pcs, self.Vc)):
             if P["kind"] == "line":
                 n1, n2 = _perp_basis(P["u"])
                 phi = ca.vertcat(ca.dot(n1, p - P["a"]), ca.dot(n2, p - P["a"]))
-                xi = ca.dot(P["u"], p - P["a"]) / P["len"]
-                V = sum(cf[k] * xi ** k for k in range(K + 1))
+                if cf is not None:
+                    xi = ca.dot(P["u"], p - P["a"]) / P["len"]
+                    V = sum(cf[k] * xi ** k for k in range(K + 1))
             else:
                 q = p - P["c"]
                 phi = ca.vertcat(ca.dot(P["n"], q), (ca.dot(q, q) - P["R"] ** 2) / (2 * P["R"]))
-                x, y = ca.dot(q, P["e1"]) / P["R"], ca.dot(q, P["e2"]) / P["R"]
-                mons = _harmonic(x, y, K)
-                V = sum(cf[k] * mons[k] for k in range(len(mons)))
-            pv, pva, pvaj = ca.vertcat(p, v), ca.vertcat(p, v, a), ca.vertcat(p, v, a, j)
-            d1, d2 = ca.vertcat(v, a), ca.vertcat(v, a, j)
-            H = 0.5 * ca.dot(v, v) + V
-            ph1 = ca.jtimes(phi, p, v)
-            ph2 = ca.jtimes(ph1, pv, d1)
-            ph3 = ca.jtimes(ph2, pva, d2)
-            eH = H - self.Hs
-            sp_ = ca.sqrt(ca.dot(v, v))
-            vh = v / sp_
-            gV = ca.gradient(V, p)
-            mu = ca.dot(vh, a + gV)                    # H' = |v| mu
-            mu1 = ca.jtimes(mu, pva, d2)
-            Vtt = ca.dot(vh, ca.mtimes(ca.hessian(V, p)[0], vh))
-            Lag = (0.5 * ca.dot(ph2, ph2) - 3 * wp ** 2 * ca.dot(ph1, ph1) + 0.5 * wp ** 4 * ca.dot(phi, phi)
-                   + 0.5 * mu ** 2)
-            # E-L along v: mu'' + V_tt mu = Q_H; this Q_H gives (l + wH)^3 for the energy error
-            QH = -3 * wH * mu1 - (3 * wH ** 2 - Vtt) * mu - wH ** 3 * eH / sp_
-            Q = ca.mtimes(ca.jacobian(phi, p).T, -4 * wp * ph3 - 4 * wp ** 3 * ph1) + vh * QH
-            La, Lv, Lp = ca.gradient(Lag, a), ca.gradient(Lag, v), ca.gradient(Lag, p)
-            M = ca.jacobian(La, a)
-            DLv = ca.jtimes(Lv, pva, d2)
-            DLa = ca.jtimes(La, pva, d2)
-            DDLa = ca.jtimes(DLa, pvaj, ca.vertcat(v, a, j, zero3))       # the part without w
-            w = ca.solve(M, Q - Lp + DLv - DDLa)
-            info = ca.vertcat(ca.norm_2(phi), eH, H)
+                if cf is not None:
+                    x, y = ca.dot(q, P["e1"]) / P["R"], ca.dot(q, P["e2"]) / P["R"]
+                    mons = _harmonic(x, y, K)
+                    V = sum(cf[k] * mons[k] for k in range(len(mons)))
+            if V_spec is not None:                                 # V = g(l(p)), Chebyshev in the projection
+                sp_ = V_spec[ip]
+                xx = 2 * (ca.dot(sp_["e"], p - sp_["o"]) - sp_["l0"]) / (sp_["l1"] - sp_["l0"]) - 1
+                Tk_1, Tk = 1, xx
+                V = sp_["coef"][0] + sp_["coef"][1] * xx
+                for k in range(2, len(sp_["coef"])):
+                    Tk_1, Tk = Tk, 2 * xx * Tk - Tk_1
+                    V = V + sp_["coef"][k] * Tk
+            w, info = _el_w(p, v, a, j, phi, V, self.Hs, wp, wH)
             self.fun.append(ca.Function("w", [p, v, a, j], [w, info]))
 
     def piece(self, p):
@@ -136,9 +207,12 @@ class ThrustPlant:
         return u
 
 
-def fly(quad, pol, p0, v0, a0, j0, t_end, mode="A", dt=0.0005, ctrl_every=2, w_lim=15.0, plant=None):
+def fly(quad, pol, p0, v0, a0, j0, t_end, mode="A", dt=0.0005, ctrl_every=2, w_lim=15.0, plant=None, meas_a=True):
     """mode A: the controller integrates c, c' itself; mode B: c, c' are states of the vehicle (ThrustPlant).
-    Log: t, |phi|, H - H*, H, p(3), |w_xy|, motor_sat, c, c', piece."""
+    meas_a: the law's a is the measured acceleration (accelerometer: a = c z - g + d, external force d included);
+    otherwise a = c z - g from the thrust model.
+    Log: t, |phi|, H - H*, H, p(3), |w_xy|, motor_sat, c, c', piece, requested motor max / Tmax, min / Tmax
+    (before clipping)."""
     import quad_sim as qs
     plant = quad if plant is None else plant
     fv = a0 + G * EZ
@@ -150,7 +224,8 @@ def fly(quad, pol, p0, v0, a0, j0, t_end, mode="A", dt=0.0005, ctrl_every=2, w_l
     tp = ThrustPlant(quad)
     tp.c, tp.cd = c, cd
     n = int(t_end / dt)
-    log = np.zeros((n, 12))
+    log = np.zeros((n, 14))
+    ureq = np.full(4, quad.m * c / 4)
     u = np.full(4, quad.m * c / 4)
     info, i = np.zeros(3), pol.piece(p0)
     dtc = dt * ctrl_every
@@ -163,7 +238,7 @@ def fly(quad, pol, p0, v0, a0, j0, t_end, mode="A", dt=0.0005, ctrl_every=2, w_l
             z = R[:, 2]
             w_w = R @ wb
             wz = np.cross(w_w, z)
-            a = c * z - G * EZ
+            a = plant.deriv(x, u)[3:6] if meas_a else c * z - G * EZ
             j = cd * z + c * wz
             i = pol.piece(p)
             w, info = (np.array(y).ravel() for y in pol.fun[i](p, v, a, j))
@@ -178,6 +253,8 @@ def fly(quad, pol, p0, v0, a0, j0, t_end, mode="A", dt=0.0005, ctrl_every=2, w_l
                     alpha_b[:2] -= (alpha_b[:2] @ wb[:2]) / nw ** 2 * wb[:2]
             tau = quad.J @ alpha_b + np.cross(wb, quad.J @ wb)
             if mode == "B":
+                c_req = tp.c + tp.cd * dtc + 0.5 * cdd * dtc * dtc
+                ureq = quad.Mxinv @ np.concatenate([[quad.m * c_req], tau])
                 u = tp.apply(cdd, tau, dtc)
             else:                                            # A: controller's own integrator (does not see clipping)
                 c += cd * dtc + 0.5 * cdd * dtc * dtc
@@ -186,7 +263,8 @@ def fly(quad, pol, p0, v0, a0, j0, t_end, mode="A", dt=0.0005, ctrl_every=2, w_l
                 u = np.clip(quad.Mxinv @ np.concatenate([[quad.m * c], tau]), quad.Tmin, quad.Tmax)
         x = plant.step(x, u, dt)
         sat = np.any(u >= quad.Tmax - 1e-9) or np.any(u <= quad.Tmin + 1e-9)
-        log[k] = (k * dt, info[0], info[1], info[2], *x[0:3], np.linalg.norm(x[10:12]), sat, c, cd, i)
+        log[k] = (k * dt, info[0], info[1], info[2], *x[0:3], np.linalg.norm(x[10:12]), sat, c, cd, i,
+                  ureq.max() / quad.Tmax, ureq.min() / quad.Tmax)
         if not np.all(np.isfinite(x)) or info[0] > 20:
             return log[:k + 1]
     return log
