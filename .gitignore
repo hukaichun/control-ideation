@@ -1,0 +1,12 @@
+# separate repositories / external clones
+PX4-Autopilot/
+third_party/
+# regenerable
+.venv/
+build/
+__pycache__/
+*.pyc
+# simulation data and flight logs
+logs/
+# local settings
+.claude/settings.local.json
