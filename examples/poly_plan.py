@@ -177,22 +177,67 @@ def plan(path, gates, motor, sigma0_fn, ds=0.25, tol=0.24, lam=1e-6, w_max=15.0,
     return r3
 
 
-def smooth_path(pcs, gate_at, gates, tol, w_fit=1.0, n=40, w_d3=0.0):
-    """Path alone: G3 joints and gates, close to the start, small third derivative. Returns (f, g coefficients per
-    piece, joint betas)."""
+def _seg_dist(p, b):
+    lam = np.clip((p - b["a"]) @ b["u"], 0, b["len"])
+    return np.linalg.norm(p - b["a"] - lam * b["u"])
+
+
+def smooth_path(pcs, gate_at, gates, tol, w_fit=1.0, n=40, w_d3=0.0, boxes=None, w_bend=0.0, discs=None, beta_iters=0,
+                w_box=None):
+    """Path alone: G3 joints and gates, close to the start (w_fit), small second / third derivative (w_bend, w_d3).
+    boxes: corridor, a list of boxes around the segments of a polyline, dict(a, u, n1, n2, len, r, rz); each of the n
+    samples of a piece must stay in the box nearest to its starting point (linear constraints); discs: list of
+    (centre, radius) at the polyline's vertices: a sample starting within 1.2 radius of one stays in that disc instead.
+    beta_iters > 0: the joint reparametrisation (b1, b2, b3) is held fixed, which makes the problem a convex QP, and
+    re-estimated from the result, beta_iters times (robust when the start is far from feasible).
+    w_box: corridor as a penalty w_box * (amount outside)^2 instead of hard constraints (always feasible).
+    Each piece may also slide along its own chord (O -> O + sh e1, one variable per piece, linear), so the joints
+    can move; the pieces' O are updated in place.
+    Returns (f, g coefficients per piece, joint betas)."""
     nf = DEG_P + 1
     nP = len(pcs)
     z = ca.MX.sym("z", nP * 2 * nf)
-    beta = ca.MX.sym("b", 3 * nP)
+    beta = ca.MX.sym("b", 3 * nP)              # variables, or parameters when beta_iters > 0
+    sh = ca.MX.sym("sh", nP)
+    Osym = [ca.DM(pc["O"]) + sh[i] * ca.DM(pc["e1"]) for i, pc in enumerate(pcs)]
     J, gs, lb, ub = 0, [], [], []
     z0 = np.concatenate([np.concatenate([pc["f"], pc["g"]]) for pc in pcs])
     for i, pc in enumerate(pcs):
         t = np.linspace(-1, 1, n)
-        R0, _, _, R3 = cheb_rows(t, DEG_P, 3, 2 / pc["l"])
+        R0, _, R2, R3 = cheb_rows(t, DEG_P, 3, 2 / pc["l"])
         for q in (0, 1):
             zz = z[i * 2 * nf + q * nf:i * 2 * nf + (q + 1) * nf]
             d = ca.mtimes(ca.DM(R0), zz - z0[i * 2 * nf + q * nf:i * 2 * nf + (q + 1) * nf])
-            J += w_fit * ca.sumsqr(d) / n + w_d3 * ca.sumsqr(ca.mtimes(ca.DM(R3), zz)) * pc["l"] / n
+            J += (w_fit * ca.sumsqr(d) / n + w_d3 * ca.sumsqr(ca.mtimes(ca.DM(R3), zz)) * pc["l"] / n
+                  + w_bend * ca.sumsqr(ca.mtimes(ca.DM(R2), zz)) * pc["l"] / n)
+        if boxes is not None:
+            x_ = pc["l"] * (t + 1) / 2
+            f0, g0 = R0 @ pc["f"], R0 @ pc["g"]
+            P0_ = pc["O"] + np.outer(x_, pc["e1"]) + np.outer(f0, pc["e2"]) + np.outer(g0, pc["e3"])
+            fz, gz = z[i * 2 * nf:i * 2 * nf + nf], z[i * 2 * nf + nf:(i + 1) * 2 * nf]
+            Pk = (ca.repmat(Osym[i].T, n, 1) + ca.DM(np.outer(x_, pc["e1"]))
+                  + ca.mtimes(ca.mtimes(ca.DM(R0), fz), ca.DM(pc["e2"]).T)
+                  + ca.mtimes(ca.mtimes(ca.DM(R0), gz), ca.DM(pc["e3"]).T))
+            for k in range(n):
+                if discs is not None:
+                    dv = [np.linalg.norm(P0_[k] - c_) for c_, _ in discs]
+                    di = int(np.argmin(dv))
+                    if dv[di] < 1.2 * discs[di][1]:
+                        q_ = Pk[k, :].T - ca.DM(discs[di][0])
+                        if w_box is None:
+                            gs.append(ca.dot(q_, q_)); lb.append(np.zeros(1)); ub.append(np.full(1, discs[di][1] ** 2))
+                        else:
+                            J += w_box * ca.fmax(0, ca.norm_2(q_) - discs[di][1]) ** 2 / n
+                        continue
+                bi = int(np.argmin([_seg_dist(P0_[k], b) for b in boxes]))
+                b = boxes[bi]
+                q_ = Pk[k, :].T - ca.DM(b["a"])
+                cq = ca.vertcat(ca.dot(q_, ca.DM(b["u"])), ca.dot(q_, ca.DM(b["n1"])), ca.dot(q_, ca.DM(b["n2"])))
+                lo_, hi_ = np.array([-b["r"], -b["r"], -b["rz"]]), np.array([b["len"] + b["r"], b["r"], b["rz"]])
+                if w_box is None:
+                    gs.append(cq); lb.append(lo_); ub.append(hi_)
+                else:
+                    J += w_box * (ca.sumsqr(ca.fmax(0, ca.DM(lo_) - cq)) + ca.sumsqr(ca.fmax(0, cq - ca.DM(hi_)))) / n
     def ends(i, tt):
         pc = pcs[i]
         Rp = cheb_rows(np.array([tt]), DEG_P, 3, 2 / pc["l"])
@@ -200,7 +245,7 @@ def smooth_path(pcs, gate_at, gates, tol, w_fit=1.0, n=40, w_d3=0.0):
         x_ = pc["l"] * (tt + 1) / 2
         out = []
         for d in range(4):
-            base = ca.DM(pc["O"] + x_ * pc["e1"]) if d == 0 else (ca.DM(pc["e1"]) if d == 1 else ca.DM.zeros(3))
+            base = Osym[i] + ca.DM(x_ * pc["e1"]) if d == 0 else (ca.DM(pc["e1"]) if d == 1 else ca.DM.zeros(3))
             out.append(base + ca.mtimes(ca.DM(Rp[d]), fz) * ca.DM(pc["e2"]) + ca.mtimes(ca.DM(Rp[d]), gz) * ca.DM(pc["e3"]))
         return out
     for i in range(nP):
@@ -213,17 +258,61 @@ def smooth_path(pcs, gate_at, gates, tol, w_fit=1.0, n=40, w_d3=0.0):
     for gi, (i, xg) in enumerate(gate_at):
         pc = pcs[i]
         Rp = cheb_rows(np.array([2 * xg / pc["l"] - 1]), DEG_P, 0, 1.0)[0]
-        pg_ = (ca.DM(pc["O"] + xg * pc["e1"]) + ca.mtimes(ca.DM(Rp), z[i * 2 * nf:i * 2 * nf + nf]) * ca.DM(pc["e2"])
+        pg_ = (Osym[i] + ca.DM(xg * pc["e1"]) + ca.mtimes(ca.DM(Rp), z[i * 2 * nf:i * 2 * nf + nf]) * ca.DM(pc["e2"])
                + ca.mtimes(ca.DM(Rp), z[i * 2 * nf + nf:(i + 1) * 2 * nf]) * ca.DM(pc["e3"]))
         gs.append(ca.sumsqr(pg_ - ca.DM(gates[gi]))); lb.append(np.zeros(1)); ub.append(np.full(1, tol ** 2))
-    lbx = np.full(nP * 2 * nf + 3 * nP, -np.inf); ubx = -lbx.copy()
-    lbx[nP * 2 * nf::3] = 0.2
+    global SMOOTH_STATS
+    if beta_iters > 0:
+        S = ca.nlpsol("smoothqp", "ipopt", {"x": ca.vertcat(z, sh), "p": beta, "f": J, "g": ca.vertcat(*gs)},
+                      {"ipopt.print_level": 0, "print_time": False, "ipopt.max_iter": 500})
+        zc, shc, stats = z0.copy(), np.zeros(nP), []
+        for _ in range(beta_iters):
+            bc = _beta_est(pcs, zc)
+            sol = S(x0=np.concatenate([zc, shc]), p=bc, lbg=np.concatenate(lb), ubg=np.concatenate(ub))
+            xs = np.array(sol["x"]).ravel()
+            zc, shc = xs[:nP * 2 * nf], xs[nP * 2 * nf:]
+            stats.append(S.stats()["return_status"])
+        for i, pc in enumerate(pcs):
+            pc["O"] = pc["O"] + shc[i] * pc["e1"]
+        bc = _beta_est(pcs, zc)
+        SMOOTH_STATS = dict(status=stats[-1], all=stats, f=float(sol["f"]), shift=float(np.abs(shc).max()))
+        return zc, bc
+    lbx = np.full(nP * 2 * nf + 3 * nP + nP, -np.inf); ubx = -lbx.copy()
+    lbx[nP * 2 * nf:nP * 2 * nf + 3 * nP:3] = 0.2
     b0 = np.tile([1.0, 0, 0], nP)
-    S = ca.nlpsol("smooth", "ipopt", {"x": ca.vertcat(z, beta), "f": J, "g": ca.vertcat(*gs)},
+    S = ca.nlpsol("smooth", "ipopt", {"x": ca.vertcat(z, beta, sh), "f": J, "g": ca.vertcat(*gs)},
                   {"ipopt.print_level": 0, "print_time": False, "ipopt.max_iter": 500})
-    sol = S(x0=np.concatenate([z0, b0]), lbx=lbx, ubx=ubx, lbg=np.concatenate(lb), ubg=np.concatenate(ub))
+    sol = S(x0=np.concatenate([z0, b0, np.zeros(nP)]), lbx=lbx, ubx=ubx, lbg=np.concatenate(lb), ubg=np.concatenate(ub))
     xs = np.array(sol["x"]).ravel()
-    return xs[:nP * 2 * nf], xs[nP * 2 * nf:]
+    for i, pc in enumerate(pcs):
+        pc["O"] = pc["O"] + xs[nP * 2 * nf + 3 * nP + i] * pc["e1"]
+    SMOOTH_STATS = dict(status=S.stats()["return_status"], iters=S.stats()["iter_count"], f=float(sol["f"]))
+    return xs[:nP * 2 * nf], xs[nP * 2 * nf:nP * 2 * nf + 3 * nP]
+
+
+def _ends_num(pc, zz, tt):
+    """World-frame x-derivatives 1..3 of a piece at t = tt (numeric)."""
+    nf = DEG_P + 1
+    Rp = cheb_rows(np.array([tt]), DEG_P, 3, 2 / pc["l"])
+    f, g = zz[:nf], zz[nf:2 * nf]
+    return [(pc["e1"] if d == 1 else 0) + (Rp[d] @ f)[0] * pc["e2"] + (Rp[d] @ g)[0] * pc["e3"] for d in (1, 2, 3)]
+
+
+def _beta_est(pcs, z):
+    """Joint reparametrisation (b1, b2, b3) that best matches the two sides (least squares along the tangent)."""
+    nf = DEG_P + 1
+    nP = len(pcs)
+    out = np.zeros(3 * nP)
+    for i in range(nP):
+        k = (i + 1) % nP
+        A1, A2, A3 = _ends_num(pcs[i], z[i * 2 * nf:(i + 1) * 2 * nf], 1.0)
+        B1, B2, B3 = _ends_num(pcs[k], z[k * 2 * nf:(k + 1) * 2 * nf], -1.0)
+        nb = B1 @ B1
+        b1 = max(A1 @ B1 / nb, 0.2)
+        b2 = (A2 - b1 ** 2 * B2) @ B1 / nb
+        b3 = (A3 - b1 ** 3 * B3 - 3 * b1 * b2 * B2) @ B1 / nb
+        out[3 * i:3 * i + 3] = (b1, b2, b3)
+    return out
 
 
 def _plan(pcs, gate_at, gates, path, P0, s0, motor, sigma0_fn, ds, tol, lam, w_max, eta, f_min, max_iter, ipopt_tol,
@@ -341,7 +430,7 @@ def _plan(pcs, gate_at, gates, path, P0, s0, motor, sigma0_fn, ds, tol, lam, w_m
     gv, jv = (np.array(y) for y in _sample_fun().map(N)(Xs.reshape(N, 14).T, frames, dxs[None, :], np.tile(par[:, None], (1, N))))
     st = solver.stats()
     return dict(spec=spec, lap=float(jv.sum()), status=st["return_status"], iters=st["iter_count"], t_build=t_build,
-                t_solve=t_solve, gate_at=gate_at, zall=zs, beta=xs_all[nz + 14 * N:])
+                t_solve=t_solve, gate_at=gate_at, zall=zs, beta=xs_all[nz + 14 * N:], g_samples=gv, dt_samples=jv)
 
 
 # ---------------------------------------------------------------- helpers for flying / checking
@@ -397,7 +486,12 @@ def pieces_from(P, gates, maxang=np.deg2rad(60.0), maxlen=6.0):
         ii = np.arange(i0, i1 + 1) % n
         Q = P[ii]; O = Q[0]; ch = Q[-1] - O; l = np.linalg.norm(ch); e1 = ch / l
         dev = Q - O - np.outer((Q - O) @ e1, e1); k = np.argmax(np.linalg.norm(dev, axis=1))
-        e2 = dev[k] / np.linalg.norm(dev[k]); e3 = np.cross(e1, e2)
+        if np.linalg.norm(dev[k]) > 1e-6:
+            e2 = dev[k] / np.linalg.norm(dev[k])
+        else:                                            # straight piece: any perpendicular, horizontal if possible
+            e2 = np.cross([0.0, 0.0, 1.0], e1) if abs(e1[2]) < 0.9 else np.cross([1.0, 0.0, 0.0], e1)
+            e2 /= np.linalg.norm(e2)
+        e3 = np.cross(e1, e2)
         x = (Q - O) @ e1
         if not np.all(np.diff(x) > 0): return None
         t = 2 * x / l - 1
