@@ -190,6 +190,7 @@ def main():
     print(f"map {SEED}: A* {len(raw)} cells -> {len(poly)} vertices -> {len(spec)} pieces | plan {r['status']} lap {lap:.2f} s "
           f"| plan outside corridor by {box_out:.3f} m, clearance {clear(S):.2f} m | time: A* {T['astar']:.2f} "
           f"shortcut {T['shortcut']:.2f} smooth {T['smooth']:.2f} speed {T['speed']:.2f} s", flush=True)
+    np.savez(f"../logs/astar_demo_{SEED}.npz", spec=np.array(spec, dtype=object), pil=pil, wps=wps, lap=lap)
     pol = fe.PolyELPolicy(spec, wp=16, wH=12)
     p0, v0, a0, j0 = pp.state_at(spec[0], 0.0)
     log = fe.fly(quad, pol, p0, v0, a0, j0, 2.2 * lap, mode="B")

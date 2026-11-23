@@ -71,8 +71,9 @@ def _cheb(coef, t):
     return out
 
 
-def _el_w(p, v, a, j, phi, V, Hs, wp, wH):
-    """w = snap from L and Q for the given phi(p), V(p) (shared by every piece type)."""
+def _el_w(p, v, a, j, phi, V, Hs, wp, wH, energy=True):
+    """w = snap from L and Q for the given phi(p), V(p) (shared by every piece type).
+    energy=False: only the phi terms (needs phi with 3 components, e.g. a point phi = p - p*)."""
     zero3 = ca.DM.zeros(3)
     pv, pva, pvaj = ca.vertcat(p, v), ca.vertcat(p, v, a), ca.vertcat(p, v, a, j)
     d1, d2 = ca.vertcat(v, a), ca.vertcat(v, a, j)
@@ -88,9 +89,9 @@ def _el_w(p, v, a, j, phi, V, Hs, wp, wH):
     mu1 = ca.jtimes(mu, pva, d2)
     Vtt = ca.dot(vh, ca.mtimes(ca.hessian(V, p)[0], vh))
     Lag = (0.5 * ca.dot(ph2, ph2) - 3 * wp ** 2 * ca.dot(ph1, ph1) + 0.5 * wp ** 4 * ca.dot(phi, phi)
-           + 0.5 * mu ** 2)
+           + (0.5 * mu ** 2 if energy else 0))
     QH = -3 * wH * mu1 - (3 * wH ** 2 - Vtt) * mu - wH ** 3 * eH / sp_
-    Q = ca.mtimes(ca.jacobian(phi, p).T, -4 * wp * ph3 - 4 * wp ** 3 * ph1) + vh * QH
+    Q = ca.mtimes(ca.jacobian(phi, p).T, -4 * wp * ph3 - 4 * wp ** 3 * ph1) + (vh * QH if energy else 0)
     La, Lv, Lp = ca.gradient(Lag, a), ca.gradient(Lag, v), ca.gradient(Lag, p)
     M = ca.jacobian(La, a)
     DLv = ca.jtimes(Lv, pva, d2)
@@ -100,11 +101,25 @@ def _el_w(p, v, a, j, phi, V, Hs, wp, wH):
     return w, ca.vertcat(ca.norm_2(phi), eH, H)
 
 
+class PointELPolicy:
+    """Experiment: phi = p - p* (the path is one point), no energy term. Each axis of e = p - p* follows
+    e4 + 4w e3 + 6w^2 e2 + 4w^3 e1 + w^4 e = 0 (e_k = k-th time derivative)."""
+
+    def __init__(self, p_star, wp=16.0):
+        p, v, a, j = (ca.SX.sym(nm, 3) for nm in "pvaj")
+        w, info = _el_w(p, v, a, j, p - ca.DM(p_star), ca.SX(0), 0.0, wp, 1.0, energy=False)
+        self.fun = [ca.Function("w_point", [p, v, a, j], [w, info])]
+
+    def piece(self, p):
+        return 0
+
+
 class PolyELPolicy:
     """Same law on polynomial pieces (poly_plan spec): one function for every piece, the piece's numbers as input.
     Piece i: x = e1.(p - O), t = 2 x / l - 1, phi = (e2.(p - O) - f(t), e3.(p - O) - g(t)), V = h(t), H* = 0."""
 
-    def __init__(self, spec, wp=16.0, wH=12.0):
+    def __init__(self, spec, wp=16.0, wH=12.0, V_global=None):
+        """V_global: optional casadi function V(p) used instead of the pieces' h (experiments)."""
         self.spec = spec
         nf, nh = len(spec[0]["f"]), len(spec[0]["h"])
         p, v, a, j = (ca.SX.sym(nm, 3) for nm in "pvaj")
@@ -114,7 +129,7 @@ class PolyELPolicy:
         q = p - O
         t = 2 * ca.dot(e1, q) / l - 1
         phi = ca.vertcat(ca.dot(e2, q) - _cheb(fc, t), ca.dot(e3, q) - _cheb(gc, t))
-        w, info = _el_w(p, v, a, j, phi, _cheb(hc, t), 0.0, wp, wH)
+        w, info = _el_w(p, v, a, j, phi, _cheb(hc, t) if V_global is None else V_global(p), 0.0, wp, wH)
         self.F = ca.Function("w_poly", [p, v, a, j, prm], [w, info])
         self.prm = [np.concatenate([s["O"], s["e1"], s["e2"], s["e3"], [s["l"]], s["f"], s["g"], s["h"]]) for s in spec]
         self.fun = [(lambda pr: (lambda p_, v_, a_, j_: self.F(p_, v_, a_, j_, pr)))(pr) for pr in self.prm]
@@ -212,7 +227,7 @@ def fly(quad, pol, p0, v0, a0, j0, t_end, mode="A", dt=0.0005, ctrl_every=2, w_l
     meas_a: the law's a is the measured acceleration (accelerometer: a = c z - g + d, external force d included);
     otherwise a = c z - g from the thrust model.
     Log: t, |phi|, H - H*, H, p(3), |w_xy|, motor_sat, c, c', piece, requested motor max / Tmax, min / Tmax
-    (before clipping)."""
+    (before clipping), body z-axis vertical component (1 level, < 0 upside down)."""
     import quad_sim as qs
     plant = quad if plant is None else plant
     fv = a0 + G * EZ
@@ -224,7 +239,7 @@ def fly(quad, pol, p0, v0, a0, j0, t_end, mode="A", dt=0.0005, ctrl_every=2, w_l
     tp = ThrustPlant(quad)
     tp.c, tp.cd = c, cd
     n = int(t_end / dt)
-    log = np.zeros((n, 14))
+    log = np.zeros((n, 15))
     ureq = np.full(4, quad.m * c / 4)
     u = np.full(4, quad.m * c / 4)
     info, i = np.zeros(3), pol.piece(p0)
@@ -264,7 +279,7 @@ def fly(quad, pol, p0, v0, a0, j0, t_end, mode="A", dt=0.0005, ctrl_every=2, w_l
         x = plant.step(x, u, dt)
         sat = np.any(u >= quad.Tmax - 1e-9) or np.any(u <= quad.Tmin + 1e-9)
         log[k] = (k * dt, info[0], info[1], info[2], *x[0:3], np.linalg.norm(x[10:12]), sat, c, cd, i,
-                  ureq.max() / quad.Tmax, ureq.min() / quad.Tmax)
+                  ureq.max() / quad.Tmax, ureq.min() / quad.Tmax, qs.rot(x[6:10])[2, 2])
         if not np.all(np.isfinite(x)) or info[0] > 20:
             return log[:k + 1]
     return log
