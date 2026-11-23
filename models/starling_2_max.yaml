@@ -1,0 +1,147 @@
+# ModalAI Starling 2 Max (D0012), first rough model ("土炮第一版").
+# Top block: the keys quad_sim.Quad reads (same as rpg quad.yaml), plus rotor positions.
+# Below: everything else copied from the sources, for PX4 / Gazebo work later.
+# Frame of this file: body x forward, y left, z up (FLU). PX4's CA_ROTOR* are FRD (y right, z down).
+#
+# Sources
+#  [shop]  https://www.modalai.com/products/starling-2-max                      mass 566 g, battery
+#  [ds]    https://docs.modalai.com/starling-2-max-datasheet/                   dimensions, motors, props, STEP
+#  [px4]   gitlab voxl-public/px4-parameters  params/v1.14/platforms/D0012_Starling_2_Max.params
+#  [pos]   gitlab voxl-public/px4-parameters  params/v1.18/D0012/starling_2_max_{indoor,outdoor}_position.params
+#  [esc]   gitlab voxl-public/voxl-esc  voxl-esc-params/D0012_Starling_MAX/esc_params_m0129_custom_2204_1500kv_7x3.7x3.xml
+#  [x500]  PX4-Autopilot Tools/simulation/gz/models/x500{,_base}/model.sdf     values ModalAI does not give
+#  (calc)  computed here, see the notes
+#  (est)   estimate, replace when measured
+
+# ---------------------------------------------------------------- read by quad_sim.Quad
+mass: 0.566                       # kg [shop]
+arm_length: 0.1611                # m, centre to motor, sqrt(0.095^2 + 0.13^2) from [ds]; used only if rotors is absent
+rotors:                           # [x, y, yaw torque about +z / thrust], FLU, positions from [ds] motor-to-motor;
+                                  # magnitude = torque_coeff; sign from the spin (CCW rotor -> negative about +z)
+  - [ 0.095, -0.130, -0.016]      # front right  (PX4 rotor 0, KM > 0: CCW)
+  - [-0.095,  0.130, -0.016]      # rear left    (PX4 rotor 1, CCW)
+  - [ 0.095,  0.130,  0.016]      # front left   (PX4 rotor 2, KM < 0: CW)
+  - [-0.095, -0.130,  0.016]      # rear right   (PX4 rotor 3, CW)
+inertia: [[0.00253, 0, 0],        # kg m^2 (est), lumped masses: 4 x 30 g motor + prop at the rotors, 188 g battery
+          [0, 0.00183, 0],        #   (4 x VTC6) as a 70x70x40 mm block 3 cm below centre, remaining 258 g as a
+          [0, 0, 0.00386]]        #   140x90x50 mm block; the STEP has the shape but not the mass distribution
+thrust_min: 0.199                 # N per rotor at 2000 rpm (VOXL_ESC_RPM_MIN [px4]), (calc) k * w^2
+TWR_max: 5.15                     # (calc) 4 * 7.16 N at 12000 rpm (VOXL_ESC_RPM_MAX [px4]) / (m g); 6.05 at the ESC cap 13000
+omega_max_xy: 2.27                # rad/s, MC_ROLLRATE_MAX = MC_PITCHRATE_MAX = 130 deg/s [px4] (PX4 setpoint limit, not physics)
+omega_max_z: 2.62                 # rad/s, MC_YAWRATE_MAX = 150 deg/s [px4]
+torque_coeff: 0.016               # m, physical yaw torque / thrust [x500]. Not PX4's KM 0.05 (kept in px4: below):
+                                  # with 0.05 in Gazebo, ModalAI's yaw gains oscillate (+-9 deg growing, 2026-11-23);
+                                  # with 0.016 yaw holds to 0.03 deg. So 0.05 is PX4's allocation default, not physics.
+
+# ---------------------------------------------------------------- shape [ds]
+shape:
+  diagonal_prop_to_prop: 0.512
+  width_prop_to_prop: 0.450
+  length_prop_to_prop: 0.380
+  height: 0.120
+  motor_to_motor: {length_x: 0.190, width_y: 0.260}
+  frame: 3 mm carbon fibre
+  step_file: on the [ds] page (not downloaded)
+
+# ---------------------------------------------------------------- motors, propellers [esc] [ds]
+motor:
+  model: 2204 1500KV per [esc] file name; [ds] says 2203.5 1500KV
+  motor_kv: 1500
+  pole_pairs: 7                   # num_cycles_per_rev
+  rpm_min: 2000                   # ESC min_rpm, also VOXL_ESC_RPM_MIN
+  rpm_max_esc: 13000              # ESC max_rpm
+  rpm_max_px4: 12000              # VOXL_ESC_RPM_MAX: PX4 output 1.0 maps to this
+  esc_rpm_kp: 50
+  esc_rpm_ki: 20
+  esc_voltage_vs_rpm: [476.9716515409892, 0.4337070025406246, 5.797336492676575e-05]   # a0, a1, a2 (comment in the file says Emax RS1306 3x3x3: probably not refitted)
+propeller:
+  spec: 7x3.7x3                   # from the [esc] file name: 7 in, pitch 3.7 in, 3 blades; [ds]: 180 mm tri-blade
+  diameter: 0.178
+motor_constant: 4.53e-6           # N / (rad/s)^2 (calc), see notes
+moment_constant: 0.016            # m, Gazebo momentConstant = torque_coeff (see there)
+time_constant_up: 0.0125          # s [x500]
+time_constant_down: 0.025         # s [x500]
+rotor_drag_coefficient: 8.06428e-05   # [x500] (13 in props; scale when better known)
+rolling_moment_coefficient: 1.0e-06   # [x500]
+hover:
+  thrust_per_rotor: 1.388         # N, 0.566 * 9.81 / 4
+  rpm: 5285                       # (calc) see notes
+  omega: 553.5                    # rad/s
+
+# ---------------------------------------------------------------- battery [shop] [esc]
+battery:
+  layout: 2 x 2S in series = 4S, Sony VTC6 18650 (or any 2S 18650 Li-ion with XT30)
+  capacity_mah: 3000
+  v_nominal: 14.5                 # vbat_nominal_mv [esc]
+  v_max: 16.8                     # [ds]
+  cell:                           # Sony VTC6 public figures, from memory: check against the datasheet
+    v_nominal: 3.6
+    v_max: 4.2
+    v_cutoff: 2.5
+    max_continuous_a: 15          # 30 A with an 80 C temperature cut-off
+    internal_resistance_ohm: 0.013   # AC 1 kHz; DC under load is higher
+  discharge_curve: null           # TODO from the VTC6 datasheet
+  avg_current_a: 3.4              # BAT_AVRG_CURRENT [px4]
+
+# ---------------------------------------------------------------- PX4 [px4] (later duplicates win, as when loading the file)
+px4:
+  CA_ROTOR_COUNT: 4
+  CA_ROTOR_PX: [0.085, -0.085, 0.085, -0.085]     # FRD. Does NOT match the datasheet (0.095 / 0.130), see notes
+  CA_ROTOR_PY: [0.0625, -0.0625, -0.0625, 0.0625]
+  CA_ROTOR_KM: [0.05, 0.05, -0.05, -0.05]
+  MPC_THR_HOVER: 0.13
+  THR_MDL_FAC: 0.9
+  MPC_THR_MIN: 0.04
+  MPC_THR_MAX: 0.60
+  VOXL_ESC_RPM_MIN: 2000
+  VOXL_ESC_RPM_MAX: 12000
+  IMU_GYRO_CUTOFF: 80.0
+  IMU_DGYRO_CUTOFF: 40.0
+  MC_AIRMODE: 0
+  MC_ROLL_P: 8.0
+  MC_ROLLRATE_P: 0.064            # first entry 0.06
+  MC_ROLLRATE_I: 0.100            # first entry 0.05
+  MC_ROLLRATE_D: 0.0013           # first entry 0.0015
+  MC_ROLLRATE_K: 1.0
+  MC_PITCH_P: 8.0
+  MC_PITCHRATE_P: 0.064           # first entry 0.07
+  MC_PITCHRATE_I: 0.096           # first entry 0.05
+  MC_PITCHRATE_D: 0.0011          # first entry 0.0015
+  MC_PITCHRATE_K: 1.0
+  MC_YAW_P: 2.8
+  MC_YAWRATE_P: 0.07
+  MC_YAWRATE_I: 0.5
+  MC_YAWRATE_D: 0.0
+  MC_YAWRATE_K: 1.0
+  MC_ROLL_CUTOFF: 25.0
+  MC_PITCH_CUTOFF: 25.0
+  MC_YAW_CUTOFF: 15.0
+  MC_ROLLRATE_MAX: 130.0
+  MC_PITCHRATE_MAX: 130.0
+  MC_YAWRATE_MAX: 150.0
+
+position:                         # [pos]
+  indoor:  {MPC_XY_VEL_MAX: 3.0, MPC_XY_CRUISE: 3.0, MPC_VEL_MANUAL: 3.0, MPC_Z_VEL_MAX_UP: 1.0, MPC_Z_VEL_MAX_DN: 1.0,
+            MPC_ACC_HOR: 3.0, MPC_ACC_UP_MAX: 3.0, MPC_ACC_DOWN_MAX: 3.0, MPC_JERK_MAX: 40.0, MPC_TILTMAX_AIR: 30.0,
+            MPC_MAN_TILT_MAX: 35.0, MPC_XY_P: 3.0, MPC_XY_VEL_P_ACC: 3.0, MPC_XY_VEL_I_ACC: 0.05, MPC_XY_VEL_D_ACC: 0.0,
+            MPC_Z_P: 5.0, MPC_Z_VEL_P_ACC: 12.0, MPC_Z_VEL_I_ACC: 2.0, MPC_Z_VEL_D_ACC: 0.0, MPC_LAND_SPEED: 1.0}
+  outdoor: {MPC_XY_VEL_MAX: 20.0, MPC_XY_CRUISE: 15.0, MPC_VEL_MANUAL: 20.0, MPC_Z_VEL_MAX_UP: 10.0, MPC_Z_VEL_MAX_DN: 4.0,
+            MPC_ACC_HOR: 6.0, MPC_ACC_UP_MAX: 4.0, MPC_ACC_DOWN_MAX: 3.0, MPC_JERK_MAX: 40.0, MPC_TILTMAX_AIR: 45.0,
+            MPC_MAN_TILT_MAX: 45.0, MPC_XY_P: 0.95, MPC_XY_VEL_P_ACC: 1.8, MPC_XY_VEL_I_ACC: 0.40, MPC_XY_VEL_D_ACC: 0.20,
+            MPC_Z_P: 5.0, MPC_Z_VEL_P_ACC: 8.0, MPC_Z_VEL_I_ACC: 2.0, MPC_Z_VEL_D_ACC: 0.0, MPC_LAND_SPEED: 1.2}
+  both:    {MPC_POS_MODE: 4, MPC_VELD_LP: 5.0, MPC_Z_VEL_ALL: -3.0}
+  datasheet_speed: {cruise: 15, dash: 20}         # m/s [ds]
+
+camera: null                      # orientation: forum.modalai.com/topic/5410; extrinsics file for D0012 not found yet
+
+# ---------------------------------------------------------------- notes
+# motor_constant: PX4 hover thrust 0.13 through the thrust curve f(u) = 0.9 u^2 + 0.1 u gives output u = 0.3285;
+#   output maps linearly to 2000..12000 rpm -> 5285 rpm = 553.5 rad/s; k = 1.388 / 553.5^2 = 4.53e-6.
+#   Check: C_T = T / (rho n^2 D^4) = 0.145 for the 7 in tri-blade, a normal value. (Reading 0.13 as thrust ~ rpm^2
+#   of 12000 rpm instead would give 4327 rpm, k = 6.8e-6, C_T = 0.22: too high, so the first reading is used.)
+#   Replace with the ESC-logged hover rpm on the real drone.
+# Rotor positions: PX4's CA_ROTOR (0.085, 0.0625) is longer in x than in y; the datasheet's motor-to-motor
+#   190 mm (length) x 260 mm (width) is wider in y. The datasheet is self-consistent (prop-to-prop = motor-to-motor
+#   + 180 mm prop; diagonal 512 mm), so the physics here uses it (decided 2026-11-23); PX4's values are kept above. To check
+#   on the real frame (or in the STEP).
+# torque_coeff: PX4's KM 0.05 is its allocation default; physics uses x500's 0.016 (Gazebo test, see torque_coeff).

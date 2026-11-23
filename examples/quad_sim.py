@@ -10,6 +10,7 @@ import yaml
 G = 9.81
 EZ = np.array([0.0, 0.0, 1.0])
 QUAD = Path(__file__).resolve().parents[1] / "third_party/rpg_time_optimal/quads/quad.yaml"
+STARLING_2_MAX = Path(__file__).resolve().parents[1] / "models/starling_2_max.yaml"
 
 
 def quat_mul(a, b):
@@ -37,15 +38,21 @@ def quat_from_z(z):
 
 
 class Quad:
-    def __init__(self):
-        q = yaml.safe_load(QUAD.read_text())
+    def __init__(self, path=None):
+        """path: model yaml (default: rpg quad.yaml). With a 'rotors' list ([x, y, yaw torque / thrust] per rotor,
+        body FLU) the mixer comes from it; otherwise the symmetric X with arm_length and torque_coeff."""
+        q = yaml.safe_load((QUAD if path is None else Path(path)).read_text())
         self.m, l, c = q["mass"], q["arm_length"], q["torque_coeff"]
         self.J = np.array(q["inertia"], float)
         self.Jinv = np.linalg.inv(self.J)
         self.Tmax = q["TWR_max"] * self.m * G / 4
         self.Tmin = q["thrust_min"]
         self.wxy, self.wz = q["omega_max_xy"], q["omega_max_z"]
-        self.Mx = np.array([[1, 1, 1, 1], [l, -l, -l, l], [-l, -l, l, l], [c, -c, c, -c]], float)
+        if "rotors" in q:
+            r = np.array(q["rotors"], float)
+            self.Mx = np.vstack([np.ones(len(r)), r[:, 1], -r[:, 0], r[:, 2]])
+        else:
+            self.Mx = np.array([[1, 1, 1, 1], [l, -l, -l, l], [-l, -l, l, l], [c, -c, c, -c]], float)
         self.Mxinv = np.linalg.inv(self.Mx)
         self.A = 4 * self.Tmax / self.m                  # max thrust acceleration
 
