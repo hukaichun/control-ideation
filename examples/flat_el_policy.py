@@ -227,7 +227,7 @@ def fly(quad, pol, p0, v0, a0, j0, t_end, mode="A", dt=0.0005, ctrl_every=2, w_l
     meas_a: the law's a is the measured acceleration (accelerometer: a = c z - g + d, external force d included);
     otherwise a = c z - g from the thrust model.
     Log: t, |phi|, H - H*, H, p(3), |w_xy|, motor_sat, c, c', piece, requested motor max / Tmax, min / Tmax
-    (before clipping), body z-axis vertical component (1 level, < 0 upside down)."""
+    (before clipping), body z-axis vertical component (1 level, < 0 upside down), body z-axis in world (3)."""
     import quad_sim as qs
     plant = quad if plant is None else plant
     fv = a0 + G * EZ
@@ -239,7 +239,7 @@ def fly(quad, pol, p0, v0, a0, j0, t_end, mode="A", dt=0.0005, ctrl_every=2, w_l
     tp = ThrustPlant(quad)
     tp.c, tp.cd = c, cd
     n = int(t_end / dt)
-    log = np.zeros((n, 15))
+    log = np.zeros((n, 18))
     ureq = np.full(4, quad.m * c / 4)
     u = np.full(4, quad.m * c / 4)
     info, i = np.zeros(3), pol.piece(p0)
@@ -279,7 +279,7 @@ def fly(quad, pol, p0, v0, a0, j0, t_end, mode="A", dt=0.0005, ctrl_every=2, w_l
         x = plant.step(x, u, dt)
         sat = np.any(u >= quad.Tmax - 1e-9) or np.any(u <= quad.Tmin + 1e-9)
         log[k] = (k * dt, info[0], info[1], info[2], *x[0:3], np.linalg.norm(x[10:12]), sat, c, cd, i,
-                  ureq.max() / quad.Tmax, ureq.min() / quad.Tmax, qs.rot(x[6:10])[2, 2])
+                  ureq.max() / quad.Tmax, ureq.min() / quad.Tmax, qs.rot(x[6:10])[2, 2], *qs.rot(x[6:10])[:, 2])
         if not np.all(np.isfinite(x)) or info[0] > 20:
             return log[:k + 1]
     return log

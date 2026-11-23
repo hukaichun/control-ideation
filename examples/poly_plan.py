@@ -183,7 +183,7 @@ def _seg_dist(p, b):
 
 
 def smooth_path(pcs, gate_at, gates, tol, w_fit=1.0, n=40, w_d3=0.0, boxes=None, w_bend=0.0, discs=None, beta_iters=0,
-                w_box=None):
+                w_box=None, fixed=()):
     """Path alone: G3 joints and gates, close to the start (w_fit), small second / third derivative (w_bend, w_d3).
     boxes: corridor, a list of boxes around the segments of a polyline, dict(a, u, n1, n2, len, r, rz); each of the n
     samples of a piece must stay in the box nearest to its starting point (linear constraints); discs: list of
@@ -192,7 +192,7 @@ def smooth_path(pcs, gate_at, gates, tol, w_fit=1.0, n=40, w_d3=0.0, boxes=None,
     re-estimated from the result, beta_iters times (robust when the start is far from feasible).
     w_box: corridor as a penalty w_box * (amount outside)^2 instead of hard constraints (always feasible).
     Each piece may also slide along its own chord (O -> O + sh e1, one variable per piece, linear), so the joints
-    can move; the pieces' O are updated in place.
+    can move; the pieces' O are updated in place. fixed: indices of pieces kept exactly as given (f, g and O).
     Returns (f, g coefficients per piece, joint betas)."""
     nf = DEG_P + 1
     nP = len(pcs)
@@ -279,6 +279,9 @@ def smooth_path(pcs, gate_at, gates, tol, w_fit=1.0, n=40, w_d3=0.0, boxes=None,
         return zc, bc
     lbx = np.full(nP * 2 * nf + 3 * nP + nP, -np.inf); ubx = -lbx.copy()
     lbx[nP * 2 * nf:nP * 2 * nf + 3 * nP:3] = 0.2
+    for i in fixed:
+        lbx[i * 2 * nf:(i + 1) * 2 * nf] = ubx[i * 2 * nf:(i + 1) * 2 * nf] = z0[i * 2 * nf:(i + 1) * 2 * nf]
+        lbx[nP * 2 * nf + 3 * nP + i] = ubx[nP * 2 * nf + 3 * nP + i] = 0.0
     b0 = np.tile([1.0, 0, 0], nP)
     S = ca.nlpsol("smooth", "ipopt", {"x": ca.vertcat(z, beta, sh), "f": J, "g": ca.vertcat(*gs)},
                   {"ipopt.print_level": 0, "print_time": False, "ipopt.max_iter": 500})
@@ -316,7 +319,8 @@ def _beta_est(pcs, z):
 
 
 def _plan(pcs, gate_at, gates, path, P0, s0, motor, sigma0_fn, ds, tol, lam, w_max, eta, f_min, max_iter, ipopt_tol,
-          z_start, b_start, fix_path, trust=None):
+          z_start, b_start, fix_path, trust=None, fix_h=None):
+    """fix_h: optional {piece index: h coefficients}, speed fixed on those pieces."""
     t_start = time.perf_counter()
     nP = len(pcs)
     nf, nv = DEG_P + 1, DEG_V + 1
@@ -401,8 +405,12 @@ def _plan(pcs, gate_at, gates, path, P0, s0, motor, sigma0_fn, ds, tol, lam, w_m
         t = 2 * ((Q - pc["O"]) @ pc["e1"]) / pc["l"] - 1
         sq = np.unwrap(s0[pc["ii"]], period=Lp)
         z0[off(i) + 2 * nf:off(i) + 2 * nf + nv] = C.chebfit(t, -0.5 * sigma0_fn(sq % Lp) ** 2, DEG_V)
+    for i, h in (fix_h or {}).items():
+        z0[off(i) + 2 * nf:off(i) + 2 * nf + nv] = h
     b0 = np.asarray(b_start, float)
     lbx = np.full(nz + 14 * N + 3 * nP, -np.inf); ubx = -lbx.copy()
+    for i in (fix_h or {}):
+        lbx[off(i) + 2 * nf:off(i + 1)] = ubx[off(i) + 2 * nf:off(i + 1)] = z0[off(i) + 2 * nf:off(i + 1)]
     lbx[nz + 14 * N::3] = 0.2
     if fix_path:                                   # speed only: path and joint betas fixed
         for i in range(nP):
