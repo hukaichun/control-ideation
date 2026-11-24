@@ -1,0 +1,49 @@
+elastic band: a_lat 20.4 m/s^2 (reserve 0.3), v_d 10 m/s -> R_min 4.90 m, clearance 0.5 m, stiffness weight 100.0, stiff band within R_min/2 of the taut one, mazes [0, 1, 2, 3, 4]
+maze 0: A* chain 45.3 m (117 points) | taut: Solve_Succeeded (41 it, 0.2 s) 43.5 m | stiff: Solve_Succeeded (178 it, 1.2 s) 43.9 m, curvature over the limit at 7% of points (peak 0.22 1/m, limit 0.20)
+ taut:
+  fit: 8 pieces, err 0.061 m (0.1 s) | speed: Solve_Succeeded time 4.23 s (2.7 s) | length 43.5 m, turns 7, k max 0.64 1/m, clearance 0.44 m
+  flight: reached the goal line at 4.14 s, 0.00 m from the goal | |phi| max 0.004 m, clearance 0.43 m, sat 0.0%, max |w| 15.3
+ stiff:
+  fit: 8 pieces, err 0.022 m (0.1 s) | speed: Solve_Succeeded time 4.23 s (2.6 s) | length 43.9 m, turns 8, k max 0.27 1/m, clearance 0.48 m
+  flight: reached the goal line at 4.21 s, 0.00 m from the goal | |phi| max 0.023 m, clearance 0.48 m, sat 0.1%, max |w| 15.7
+maze 1: A* chain 41.2 m (106 points) | taut: Solve_Succeeded (15 it, 0.1 s) 39.9 m | stiff: Solve_Succeeded (74 it, 0.4 s) 39.9 m, curvature over the limit at 0% of points (peak 0.21 1/m, limit 0.20)
+ taut:
+  fit: 7 pieces, err 0.029 m (0.1 s) | speed: Solve_Succeeded time 3.47 s (2.2 s) | length 39.9 m, turns 5, k max 0.34 1/m, clearance 0.47 m
+  flight: reached the goal line at 3.42 s, 0.00 m from the goal | |phi| max 0.005 m, clearance 0.46 m, sat 0.1%, max |w| 15.5
+ stiff:
+  fit: 7 pieces, err 0.015 m (0.1 s) | speed: Solve_Succeeded time 3.32 s (3.0 s) | length 39.9 m, turns 2, k max 0.24 1/m, clearance 0.48 m
+  flight: reached the goal line at 3.27 s, 0.01 m from the goal | |phi| max 0.005 m, clearance 0.48 m, sat 0.2%, max |w| 15.4
+maze 2: A* chain 46.4 m (119 points) | taut: Solve_Succeeded (20 it, 0.1 s) 44.3 m | stiff: Solve_Succeeded (194 it, 1.3 s) 46.0 m, curvature over the limit at 21% of points (peak 0.26 1/m, limit 0.20)
+ taut:
+  fit: 8 pieces, err 0.042 m (0.1 s) | speed: Solve_Succeeded time 4.08 s (4.9 s) | length 44.3 m, turns 5, k max 0.69 1/m, clearance 0.46 m
+  flight: reached the goal line at 4.02 s, 0.00 m from the goal | |phi| max 0.005 m, clearance 0.46 m, sat 0.1%, max |w| 15.7
+ stiff:
+  fit: 8 pieces, err 0.019 m (0.1 s) | speed: Solve_Succeeded time 3.99 s (3.8 s) | length 46.0 m, turns 2, k max 0.30 1/m, clearance 0.49 m
+  flight: reached the goal line at 3.94 s, 0.01 m from the goal | |phi| max 0.001 m, clearance 0.49 m, sat 0.1%, max |w| 15.4
+maze 3: A* chain 44.4 m (114 points) | taut: Solve_Succeeded (14 it, 0.1 s) 43.0 m | stiff: Solve_Succeeded (108 it, 0.7 s) 43.1 m, curvature over the limit at 0% of points (peak 0.21 1/m, limit 0.20)
+ taut:
+  fit: 8 pieces, err 0.019 m (0.1 s) | speed: Solve_Succeeded time 3.61 s (2.6 s) | length 43.0 m, turns 2, k max 0.43 1/m, clearance 0.48 m
+  flight: reached the goal line at 3.58 s, 0.00 m from the goal | |phi| max 0.003 m, clearance 0.48 m, sat 0.0%, max |w| 15.1
+ stiff:
+  fit: 8 pieces, err 0.012 m (0.1 s) | speed: Solve_Succeeded time 3.55 s (2.9 s) | length 43.1 m, turns 2, k max 0.23 1/m, clearance 0.48 m
+  flight: reached the goal line at 3.51 s, 0.00 m from the goal | |phi| max 0.003 m, clearance 0.48 m, sat 0.1%, max |w| 15.3
+maze 4: A* chain 48.3 m (123 points) | taut: Solve_Succeeded (26 it, 0.2 s) 46.5 m | stiff: Solve_Succeeded (118 it, 0.9 s) 46.5 m, curvature over the limit at 0% of points (peak 0.21 1/m, limit 0.20)
+ taut:
+  fit: 8 pieces, err 0.052 m (0.1 s) | speed: Solve_Succeeded time 4.57 s (2.8 s) | length 46.4 m, turns 14, k max 0.36 1/m, clearance 0.45 m
+  flight: reached the goal line at 4.52 s, 0.00 m from the goal | |phi| max 0.036 m, clearance 0.45 m, sat 0.3%, max |w| 15.9
+ stiff:
+  fit: 8 pieces, err 0.012 m (0.1 s) | speed: Solve_Succeeded time 3.87 s (2.6 s) | length 46.5 m, turns 3, k max 0.23 1/m, clearance 0.48 m
+  flight: reached the goal line at 3.81 s, 0.01 m from the goal | |phi| max 0.006 m, clearance 0.48 m, sat 0.1%, max |w| 16.1
+
+summary (comparison: experiments/2026-11-24_baseline_corridor_smooth):
+maze | variant | plan time s (baseline) | length m (baseline) | turns (baseline) | k max 1/m | clearance flown m | |phi| max m
+0 | taut | 4.23 (3.94) | 43.5 (48.4) | 7 (1) | 0.64 | 0.43 | 0.004
+0 | stiff | 4.23 (3.94) | 43.9 (48.4) | 8 (1) | 0.27 | 0.48 | 0.023
+1 | taut | 3.47 (3.13) | 39.9 (40.4) | 5 (6) | 0.34 | 0.46 | 0.005
+1 | stiff | 3.32 (3.13) | 39.9 (40.4) | 2 (6) | 0.24 | 0.48 | 0.005
+2 | taut | 4.08 (4.58) | 44.3 (46.0) | 5 (7) | 0.69 | 0.46 | 0.005
+2 | stiff | 3.99 (4.58) | 46.0 (46.0) | 2 (7) | 0.30 | 0.49 | 0.001
+3 | taut | 3.61 (3.67) | 43.0 (43.5) | 2 (1) | 0.43 | 0.48 | 0.003
+3 | stiff | 3.55 (3.67) | 43.1 (43.5) | 2 (1) | 0.23 | 0.48 | 0.003
+4 | taut | 4.57 (3.81) | 46.4 (47.0) | 14 (3) | 0.36 | 0.45 | 0.036
+4 | stiff | 3.87 (3.81) | 46.5 (47.0) | 3 (3) | 0.23 | 0.48 | 0.006

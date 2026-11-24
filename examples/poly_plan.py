@@ -183,7 +183,7 @@ def _seg_dist(p, b):
 
 
 def smooth_path(pcs, gate_at, gates, tol, w_fit=1.0, n=40, w_d3=0.0, boxes=None, w_bend=0.0, discs=None, beta_iters=0,
-                w_box=None, fixed=()):
+                w_box=None, fixed=(), closed=True):
     """Path alone: G3 joints and gates, close to the start (w_fit), small second / third derivative (w_bend, w_d3).
     boxes: corridor, a list of boxes around the segments of a polyline, dict(a, u, n1, n2, len, r, rz); each of the n
     samples of a piece must stay in the box nearest to its starting point (linear constraints); discs: list of
@@ -193,6 +193,7 @@ def smooth_path(pcs, gate_at, gates, tol, w_fit=1.0, n=40, w_d3=0.0, boxes=None,
     w_box: corridor as a penalty w_box * (amount outside)^2 instead of hard constraints (always feasible).
     Each piece may also slide along its own chord (O -> O + sh e1, one variable per piece, linear), so the joints
     can move; the pieces' O are updated in place. fixed: indices of pieces kept exactly as given (f, g and O).
+    closed=False: open path, no joint between the last piece and the first.
     Returns (f, g coefficients per piece, joint betas)."""
     nf = DEG_P + 1
     nP = len(pcs)
@@ -248,7 +249,7 @@ def smooth_path(pcs, gate_at, gates, tol, w_fit=1.0, n=40, w_d3=0.0, boxes=None,
             base = Osym[i] + ca.DM(x_ * pc["e1"]) if d == 0 else (ca.DM(pc["e1"]) if d == 1 else ca.DM.zeros(3))
             out.append(base + ca.mtimes(ca.DM(Rp[d]), fz) * ca.DM(pc["e2"]) + ca.mtimes(ca.DM(Rp[d]), gz) * ca.DM(pc["e3"]))
         return out
-    for i in range(nP):
+    for i in range(nP if closed else nP - 1):
         k = (i + 1) % nP
         Pa, Pb = ends(i, 1.0), ends(k, -1.0)
         b1, b2, b3 = beta[3 * i], beta[3 * i + 1], beta[3 * i + 2]
@@ -267,14 +268,14 @@ def smooth_path(pcs, gate_at, gates, tol, w_fit=1.0, n=40, w_d3=0.0, boxes=None,
                       {"ipopt.print_level": 0, "print_time": False, "ipopt.max_iter": 500})
         zc, shc, stats = z0.copy(), np.zeros(nP), []
         for _ in range(beta_iters):
-            bc = _beta_est(pcs, zc)
+            bc = _beta_est(pcs, zc, closed)
             sol = S(x0=np.concatenate([zc, shc]), p=bc, lbg=np.concatenate(lb), ubg=np.concatenate(ub))
             xs = np.array(sol["x"]).ravel()
             zc, shc = xs[:nP * 2 * nf], xs[nP * 2 * nf:]
             stats.append(S.stats()["return_status"])
         for i, pc in enumerate(pcs):
             pc["O"] = pc["O"] + shc[i] * pc["e1"]
-        bc = _beta_est(pcs, zc)
+        bc = _beta_est(pcs, zc, closed)
         SMOOTH_STATS = dict(status=stats[-1], all=stats, f=float(sol["f"]), shift=float(np.abs(shc).max()))
         return zc, bc
     lbx = np.full(nP * 2 * nf + 3 * nP + nP, -np.inf); ubx = -lbx.copy()
@@ -301,12 +302,12 @@ def _ends_num(pc, zz, tt):
     return [(pc["e1"] if d == 1 else 0) + (Rp[d] @ f)[0] * pc["e2"] + (Rp[d] @ g)[0] * pc["e3"] for d in (1, 2, 3)]
 
 
-def _beta_est(pcs, z):
+def _beta_est(pcs, z, closed=True):
     """Joint reparametrisation (b1, b2, b3) that best matches the two sides (least squares along the tangent)."""
     nf = DEG_P + 1
     nP = len(pcs)
     out = np.zeros(3 * nP)
-    for i in range(nP):
+    for i in range(nP if closed else nP - 1):
         k = (i + 1) % nP
         A1, A2, A3 = _ends_num(pcs[i], z[i * 2 * nf:(i + 1) * 2 * nf], 1.0)
         B1, B2, B3 = _ends_num(pcs[k], z[k * 2 * nf:(k + 1) * 2 * nf], -1.0)
@@ -319,8 +320,10 @@ def _beta_est(pcs, z):
 
 
 def _plan(pcs, gate_at, gates, path, P0, s0, motor, sigma0_fn, ds, tol, lam, w_max, eta, f_min, max_iter, ipopt_tol,
-          z_start, b_start, fix_path, trust=None, fix_h=None):
-    """fix_h: optional {piece index: h coefficients}, speed fixed on those pieces."""
+          z_start, b_start, fix_path, trust=None, fix_h=None, closed=True, v_max=None, v_start=None):
+    """fix_h: optional {piece index: h coefficients}, speed fixed on those pieces. closed=False: open path (no joint
+    between the last piece and the first; speed free at both ends; "lap" is then the time from start to end).
+    v_max: speed ceiling (default 60 m/s). v_start: speed at the start of piece 0 (open paths)."""
     t_start = time.perf_counter()
     nP = len(pcs)
     nf, nv = DEG_P + 1, DEG_V + 1
@@ -356,7 +359,7 @@ def _plan(pcs, gate_at, gates, path, P0, s0, motor, sigma0_fn, ds, tol, lam, w_m
     gS, jS = _sample_fun().map(N)(ca.reshape(X, 14, N), ca.DM(frames), ca.DM(dxs).T, ca.repmat(ca.DM(par), 1, N))
     gs = [ca.vec(gS), ca.mtimes(ca.sparsify(ca.DM(A)), z) - X]
     lbs = [np.tile([0.25, f_min ** 2, -np.inf, 0, 0, 0, 0], N), np.zeros(14 * N)]
-    ubs = [np.tile([3600.0, np.inf, 1, np.inf, np.inf, np.inf, np.inf], N), np.zeros(14 * N)]
+    ubs = [np.tile([3600.0 if v_max is None else v_max ** 2, np.inf, 1, np.inf, np.inf, np.inf, np.inf], N), np.zeros(14 * N)]
 
     def ends(i, tt):
         """World-frame position and x-derivatives 1..3 of the path, and V and its x-derivatives 0..2, at t = tt."""
@@ -374,7 +377,7 @@ def _plan(pcs, gate_at, gates, path, P0, s0, motor, sigma0_fn, ds, tol, lam, w_m
         Vd = [ca.mtimes(ca.DM(Rv[d]), hz) for d in range(3)]
         return Pd, Vd
 
-    for i in range(nP):
+    for i in range(nP if closed else nP - 1):
         k = (i + 1) % nP
         (Pa, Va), (Pb, Vb) = ends(i, 1.0), ends(k, -1.0)
         b1, b2, b3 = beta[3 * i], beta[3 * i + 1], beta[3 * i + 2]
@@ -384,6 +387,8 @@ def _plan(pcs, gate_at, gates, path, P0, s0, motor, sigma0_fn, ds, tol, lam, w_m
                    Pa[3] - b1 ** 3 * Pb[3] - 3 * b1 * b2 * Pb[2] - b3 * Pb[1]]
         for e in jc:
             gs.append(e); lbs.append(np.zeros(e.shape[0])); ubs.append(np.zeros(e.shape[0]))
+    if v_start is not None:
+        gs.append(ends(0, -1.0)[1][0]); lbs.append(np.full(1, -0.5 * v_start ** 2)); ubs.append(np.full(1, -0.5 * v_start ** 2))
     for gi, (i, xg) in enumerate(gate_at if not fix_path else []):
         pc = pcs[i]
         Rp = cheb_rows(np.array([2 * xg / pc["l"] - 1]), DEG_P, 0, 1.0)[0]
@@ -478,10 +483,14 @@ def dense_cpc(d, per=20):
             V.append((dh00*p0 + dh10*h*v0 + dh01*p1 + dh11*h*v1) / h)
     return np.array(P), np.array(V), float(T.sum())
 
-def pieces_from(P, gates, maxang=np.deg2rad(60.0), maxlen=6.0):
-    """Cut a dense closed path into graph pieces (turn <= maxang from the piece start, length <= maxlen) and fit."""
+def pieces_from(P, gates, maxang=np.deg2rad(60.0), maxlen=6.0, closed=True):
+    """Cut a dense closed path into graph pieces (turn <= maxang from the piece start, length <= maxlen) and fit.
+    closed=False: open path from P[0] to P[-1]."""
     n = len(P)
-    tan = np.roll(P, -1, 0) - P; tan /= np.linalg.norm(tan, axis=1)[:, None]
+    tan = np.roll(P, -1, 0) - P
+    if not closed:
+        tan[-1] = tan[-2]
+    tan /= np.linalg.norm(tan, axis=1)[:, None]
     sl_ = np.linalg.norm(np.roll(P, -1, 0) - P, axis=1)
     cuts, start, run = [0], 0, 0.0
     for k in range(1, n):
@@ -490,7 +499,7 @@ def pieces_from(P, gates, maxang=np.deg2rad(60.0), maxlen=6.0):
             cuts.append(k); start = k; run = 0.0
     pcs = []
     for i in range(len(cuts)):
-        i0, i1 = cuts[i], (cuts[(i + 1) % len(cuts)] if i + 1 < len(cuts) else n)
+        i0, i1 = cuts[i], (cuts[(i + 1) % len(cuts)] if i + 1 < len(cuts) else (n if closed else n - 1))
         ii = np.arange(i0, i1 + 1) % n
         Q = P[ii]; O = Q[0]; ch = Q[-1] - O; l = np.linalg.norm(ch); e1 = ch / l
         dev = Q - O - np.outer((Q - O) @ e1, e1); k = np.argmax(np.linalg.norm(dev, axis=1))

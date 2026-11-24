@@ -1,0 +1,88 @@
+blended B-spline pieces: core turning 45 deg, overlap +-1.0 m, knots <= 2.0 m, degree 5, lateral window 1.0..2.0 m, gains wp 16.0 wH 12.0; source 2026-11-24_perfect_maze/results/min_curvature, mazes [0, 1, 2, 3, 4]
+maze 0: path 54.7 m, plan 3.98 s | old: 10 Chebyshev pieces, 380 numbers | new: 4 pieces (0.1 s), lengths 9.0..24.0 m, max tilt from chord 34 deg, fit err 0.51 mm, V err 0.720, 201 numbers (150 without g)
+  offset 0.0 m old (switch) : goal at 3.97 s | off path max 0.008 m, after 1 s 0.008 m, last > 5 cm at 0.00 s | clearance 0.47 m | sat 0.0% | max |w| 32593, max step of w 17095.4 (99.9% 7052.5)
+  offset 0.0 m new (blend)  : goal at 3.97 s | off path max 0.008 m, after 1 s 0.008 m, last > 5 cm at 0.00 s | clearance 0.47 m | sat 0.0% | max |w| 5096, max step of w 613.4 (99.9% 85.1) | steps blending 2+ laws 11%, fallback 0.0%
+  offset 0.5 m old (switch) : goal at 3.98 s | off path max 0.495 m, after 1 s 0.008 m, last > 5 cm at 0.42 s | clearance 0.47 m | sat 0.1% | max |w| 32603, max step of w 15150.2 (99.9% 6326.3)
+  offset 0.5 m new (blend)  : goal at 3.99 s | off path max 0.495 m, after 1 s 0.008 m, last > 5 cm at 0.42 s | clearance 0.47 m | sat 0.8% | max |w| 34086, max step of w 2858.0 (99.9% 1785.9) | steps blending 2+ laws 10%, fallback 0.0%
+  offset 1.0 m old (switch) : goal at 4.04 s | off path max 0.991 m, after 1 s 0.008 m, last > 5 cm at 0.48 s | clearance 0.47 m | sat 5.8% | max |w| 64917, max step of w 17510.3 (99.9% 7021.5)
+  offset 1.0 m new (blend)  : goal at 4.07 s | off path max 0.991 m, after 1 s 0.008 m, last > 5 cm at 0.45 s | clearance 0.47 m | sat 6.2% | max |w| 67190, max step of w 5942.4 (99.9% 2406.0) | steps blending 2+ laws 10%, fallback 0.0%
+  2 gusts old (switch) : goal at 3.98 s | off path max 0.316 m, rms 0.078 m | clearance 0.42 m | sat 8.8% | max |w| 32788, max step of w 20078.3 (99.9% 15515.1)
+  2 gusts new (blend)  : goal at 3.98 s | off path max 0.316 m, rms 0.078 m | clearance 0.42 m | sat 9.3% | max |w| 33739, max step of w 26759.1 (99.9% 16574.4)
+maze 1: path 74.3 m, plan 5.64 s | old: 13 Chebyshev pieces, 494 numbers | new: 10 pieces (0.1 s), lengths 4.5..13.2 m, max tilt from chord 43 deg, fit err 0.62 mm, V err 0.658, 417 numbers (318 without g)
+  offset 0.0 m old (switch) : goal at 5.62 s | off path max 0.009 m, after 1 s 0.009 m, last > 5 cm at 0.00 s | clearance 0.47 m | sat 0.0% | max |w| 6809, max step of w 7822.4 (99.9% 2883.1)
+  offset 0.0 m new (blend)  : goal at 5.62 s | off path max 0.008 m, after 1 s 0.008 m, last > 5 cm at 0.00 s | clearance 0.47 m | sat 0.0% | max |w| 3319, max step of w 116.5 (99.9% 115.5) | steps blending 2+ laws 25%, fallback 0.0%
+  offset 0.5 m old (switch) : goal at 5.63 s | off path max 0.497 m, after 1 s 0.009 m, last > 5 cm at 0.42 s | clearance 0.47 m | sat 0.1% | max |w| 32580, max step of w 7463.3 (99.9% 2948.8)
+  offset 0.5 m new (blend)  : goal at 5.64 s | off path max 0.497 m, after 1 s 0.008 m, last > 5 cm at 0.42 s | clearance 0.47 m | sat 0.3% | max |w| 34305, max step of w 3066.4 (99.9% 1700.0) | steps blending 2+ laws 25%, fallback 0.0%
+  offset 1.0 m old (switch) : goal at 5.69 s | off path max 0.995 m, after 1 s 0.009 m, last > 5 cm at 0.47 s | clearance 0.47 m | sat 4.3% | max |w| 65172, max step of w 7395.9 (99.9% 3951.1)
+  offset 1.0 m new (blend)  : goal at 5.75 s | off path max 0.995 m, after 1 s 0.008 m, last > 5 cm at 0.58 s | clearance 0.47 m | sat 5.4% | max |w| 68047, max step of w 6415.7 (99.9% 2363.3) | steps blending 2+ laws 24%, fallback 0.0%
+  5 gusts old (switch) : goal at 5.69 s | off path max 0.455 m, rms 0.127 m | clearance 0.45 m | sat 16.3% | max |w| 55953, max step of w 20076.8 (99.9% 15987.9)
+  5 gusts new (blend)  : goal at 5.68 s | off path max 0.460 m, rms 0.128 m | clearance 0.44 m | sat 16.3% | max |w| 46433, max step of w 18181.1 (99.9% 16066.5)
+maze 2: path 52.8 m, plan 3.75 s | old: 9 Chebyshev pieces, 342 numbers | new: 2 pieces (0.1 s), lengths 20.0..33.2 m, max tilt from chord 22 deg, fit err 0.22 mm, V err 0.582, 138 numbers (100 without g)
+  offset 0.0 m old (switch) : goal at 3.76 s | off path max 0.008 m, after 1 s 0.008 m, last > 5 cm at 0.00 s | clearance 0.49 m | sat 0.0% | max |w| 3376, max step of w 2743.1 (99.9% 511.5)
+  offset 0.0 m new (blend)  : goal at 3.76 s | off path max 0.008 m, after 1 s 0.008 m, last > 5 cm at 0.00 s | clearance 0.49 m | sat 0.0% | max |w| 1852, max step of w 47.4 (99.9% 40.7) | steps blending 2+ laws 4%, fallback 0.0%
+  offset 0.5 m old (switch) : goal at 3.78 s | off path max 0.500 m, after 1 s 0.008 m, last > 5 cm at 0.42 s | clearance 0.49 m | sat 0.1% | max |w| 32765, max step of w 3000.8 (99.9% 1820.2)
+  offset 0.5 m new (blend)  : goal at 3.80 s | off path max 0.500 m, after 1 s 0.008 m, last > 5 cm at 0.42 s | clearance 0.49 m | sat 0.1% | max |w| 33263, max step of w 3034.0 (99.9% 1773.3) | steps blending 2+ laws 4%, fallback 0.0%
+  offset 1.0 m old (switch) : goal at 3.86 s | off path max 1.000 m, after 1 s 0.008 m, last > 5 cm at 0.45 s | clearance 0.49 m | sat 7.1% | max |w| 65530, max step of w 5440.4 (99.9% 2606.0)
+  offset 1.0 m new (blend)  : goal at 3.94 s | off path max 1.000 m, after 1 s 0.008 m, last > 5 cm at 0.69 s | clearance 0.49 m | sat 8.8% | max |w| 66902, max step of w 6890.3 (99.9% 2392.2) | steps blending 2+ laws 3%, fallback 0.0%
+  1 gusts old (switch) : goal at 3.76 s | off path max 0.038 m, rms 0.011 m | clearance 0.49 m | sat 0.1% | max |w| 15582, max step of w 15522.6 (99.9% 1294.1)
+  1 gusts new (blend)  : goal at 3.76 s | off path max 0.038 m, rms 0.011 m | clearance 0.49 m | sat 0.1% | max |w| 15435, max step of w 15420.7 (99.9% 861.1)
+maze 3: path 111.5 m, plan 8.03 s | old: 19 Chebyshev pieces, 722 numbers | new: 10 pieces (0.1 s), lengths 5.9..29.7 m, max tilt from chord 45 deg, fit err 0.66 mm, V err 0.376, 471 numbers (354 without g)
+  offset 0.0 m old (switch) : goal at 8.03 s | off path max 0.008 m, after 1 s 0.008 m, last > 5 cm at 0.00 s | clearance 0.50 m | sat 0.0% | max |w| 3366, max step of w 4649.0 (99.9% 1311.2)
+  offset 0.0 m new (blend)  : goal at 8.03 s | off path max 0.008 m, after 1 s 0.008 m, last > 5 cm at 0.00 s | clearance 0.50 m | sat 0.0% | max |w| 1970, max step of w 48.6 (99.9% 47.0) | steps blending 2+ laws 17%, fallback 0.0%
+  offset 0.5 m old (switch) : goal at 8.05 s | off path max 0.500 m, after 1 s 0.008 m, last > 5 cm at 0.42 s | clearance 0.50 m | sat 0.1% | max |w| 32767, max step of w 4717.3 (99.9% 1822.0)
+  offset 0.5 m new (blend)  : goal at 8.05 s | off path max 0.500 m, after 1 s 0.008 m, last > 5 cm at 0.42 s | clearance 0.50 m | sat 0.1% | max |w| 33211, max step of w 2582.8 (99.9% 1563.2) | steps blending 2+ laws 17%, fallback 0.0%
+  offset 1.0 m old (switch) : goal at 8.13 s | off path max 1.000 m, after 1 s 0.008 m, last > 5 cm at 0.45 s | clearance 0.50 m | sat 3.3% | max |w| 65535, max step of w 5408.1 (99.9% 2583.0)
+  offset 1.0 m new (blend)  : goal at 8.16 s | off path max 1.000 m, after 1 s 0.008 m, last > 5 cm at 0.56 s | clearance 0.50 m | sat 3.9% | max |w| 66232, max step of w 5776.3 (99.9% 1408.0) | steps blending 2+ laws 17%, fallback 0.0%
+  5 gusts old (switch) : goal at 8.20 s | off path max 1.427 m, rms 0.413 m | clearance -0.25 m | sat 24.1% | max |w| 767653, max step of w 932535.7 (99.9% 39411.8)
+  5 gusts new (blend)  : goal at 8.18 s | off path max 1.322 m, rms 0.378 m | clearance -0.25 m | sat 23.3% | max |w| 117935, max step of w 38947.1 (99.9% 27452.0)
+maze 4: path 98.9 m, plan 7.42 s | old: 18 Chebyshev pieces, 684 numbers | new: 13 pieces (0.1 s), lengths 4.5..22.1 m, max tilt from chord 38 deg, fit err 0.45 mm, V err 0.483, 555 numbers (422 without g)
+  offset 0.0 m old (switch) : goal at 7.41 s | off path max 0.008 m, after 1 s 0.008 m, last > 5 cm at 0.00 s | clearance 0.47 m | sat 0.0% | max |w| 30985, max step of w 25124.5 (99.9% 4852.6)
+  offset 0.0 m new (blend)  : goal at 7.41 s | off path max 0.008 m, after 1 s 0.008 m, last > 5 cm at 0.00 s | clearance 0.47 m | sat 0.0% | max |w| 4698, max step of w 127.2 (99.9% 74.9) | steps blending 2+ laws 26%, fallback 0.0%
+  offset 0.5 m old (switch) : goal at 7.42 s | off path max 0.499 m, after 1 s 0.008 m, last > 5 cm at 0.42 s | clearance 0.47 m | sat 0.1% | max |w| 32687, max step of w 22705.8 (99.9% 4959.7)
+  offset 0.5 m new (blend)  : goal at 7.44 s | off path max 0.499 m, after 1 s 0.008 m, last > 5 cm at 0.42 s | clearance 0.47 m | sat 0.4% | max |w| 34623, max step of w 2805.1 (99.9% 1639.0) | steps blending 2+ laws 26%, fallback 0.0%
+  offset 1.0 m old (switch) : goal at 7.49 s | off path max 0.998 m, after 1 s 0.008 m, last > 5 cm at 0.46 s | clearance 0.47 m | sat 3.3% | max |w| 65377, max step of w 28066.3 (99.9% 5297.8)
+  offset 1.0 m new (blend)  : goal at 7.54 s | off path max 0.998 m, after 1 s 0.008 m, last > 5 cm at 0.61 s | clearance 0.47 m | sat 4.3% | max |w| 67834, max step of w 5685.6 (99.9% 1935.5) | steps blending 2+ laws 25%, fallback 0.0%
+  6 gusts old (switch) : goal at 7.56 s | off path max 0.933 m, rms 0.243 m | clearance 0.33 m | sat 17.0% | max |w| 95005, max step of w 49971.9 (99.9% 22708.1)
+  6 gusts new (blend)  : goal at 7.56 s | off path max 0.901 m, rms 0.232 m | clearance 0.34 m | sat 16.8% | max |w| 83141, max step of w 28325.4 (99.9% 21489.8)
+
+summary: maze | test | law | goal | time s | off path max m | off path rms m | max step of w
+0 | offset 0.0 | old (switch) | yes | 3.97 | 0.008 | 0.004 | 17095.4
+0 | offset 0.0 | new (blend) | yes | 3.97 | 0.008 | 0.004 | 613.4
+0 | offset 0.5 | old (switch) | yes | 3.98 | 0.495 | 0.106 | 15150.2
+0 | offset 0.5 | new (blend) | yes | 3.99 | 0.495 | 0.106 | 2858.0
+0 | offset 1.0 | old (switch) | yes | 4.04 | 0.991 | 0.220 | 17510.3
+0 | offset 1.0 | new (blend) | yes | 4.07 | 0.991 | 0.218 | 5942.4
+0 | 2 gusts | old (switch) | yes | 3.98 | 0.316 | 0.078 | 20078.3
+0 | 2 gusts | new (blend) | yes | 3.98 | 0.316 | 0.078 | 26759.1
+1 | offset 0.0 | old (switch) | yes | 5.62 | 0.009 | 0.004 | 7822.4
+1 | offset 0.0 | new (blend) | yes | 5.62 | 0.008 | 0.004 | 116.5
+1 | offset 0.5 | old (switch) | yes | 5.63 | 0.497 | 0.090 | 7463.3
+1 | offset 0.5 | new (blend) | yes | 5.64 | 0.497 | 0.090 | 3066.4
+1 | offset 1.0 | old (switch) | yes | 5.69 | 0.995 | 0.186 | 7395.9
+1 | offset 1.0 | new (blend) | yes | 5.75 | 0.995 | 0.185 | 6415.7
+1 | 5 gusts | old (switch) | yes | 5.69 | 0.455 | 0.127 | 20076.8
+1 | 5 gusts | new (blend) | yes | 5.68 | 0.460 | 0.128 | 18181.1
+2 | offset 0.0 | old (switch) | yes | 3.76 | 0.008 | 0.004 | 2743.1
+2 | offset 0.0 | new (blend) | yes | 3.76 | 0.008 | 0.004 | 47.4
+2 | offset 0.5 | old (switch) | yes | 3.78 | 0.500 | 0.110 | 3000.8
+2 | offset 0.5 | new (blend) | yes | 3.80 | 0.500 | 0.110 | 3034.0
+2 | offset 1.0 | old (switch) | yes | 3.86 | 1.000 | 0.226 | 5440.4
+2 | offset 1.0 | new (blend) | yes | 3.94 | 1.000 | 0.226 | 6890.3
+2 | 1 gusts | old (switch) | yes | 3.76 | 0.038 | 0.011 | 15522.6
+2 | 1 gusts | new (blend) | yes | 3.76 | 0.038 | 0.011 | 15420.7
+3 | offset 0.0 | old (switch) | yes | 8.03 | 0.008 | 0.004 | 4649.0
+3 | offset 0.0 | new (blend) | yes | 8.03 | 0.008 | 0.004 | 48.6
+3 | offset 0.5 | old (switch) | yes | 8.05 | 0.500 | 0.075 | 4717.3
+3 | offset 0.5 | new (blend) | yes | 8.05 | 0.500 | 0.075 | 2582.8
+3 | offset 1.0 | old (switch) | yes | 8.13 | 1.000 | 0.155 | 5408.1
+3 | offset 1.0 | new (blend) | yes | 8.16 | 1.000 | 0.155 | 5776.3
+3 | 5 gusts | old (switch) | yes | 8.20 | 1.427 | 0.413 | 932535.7
+3 | 5 gusts | new (blend) | yes | 8.18 | 1.322 | 0.378 | 38947.1
+4 | offset 0.0 | old (switch) | yes | 7.41 | 0.008 | 0.004 | 25124.5
+4 | offset 0.0 | new (blend) | yes | 7.41 | 0.008 | 0.004 | 127.2
+4 | offset 0.5 | old (switch) | yes | 7.42 | 0.499 | 0.078 | 22705.8
+4 | offset 0.5 | new (blend) | yes | 7.44 | 0.499 | 0.078 | 2805.1
+4 | offset 1.0 | old (switch) | yes | 7.49 | 0.998 | 0.162 | 28066.3
+4 | offset 1.0 | new (blend) | yes | 7.54 | 0.998 | 0.161 | 5685.6
+4 | 6 gusts | old (switch) | yes | 7.56 | 0.933 | 0.243 | 49971.9
+4 | 6 gusts | new (blend) | yes | 7.56 | 0.901 | 0.232 | 28325.4

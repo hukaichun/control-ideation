@@ -1,0 +1,94 @@
+perfect mazes [0, 1, 2, 3, 4]: 8 x 6 points, spacing 5.0 m, walls 0.5 m, clearance 0.5 m
+maze 0: start [ 3.  22.5], goal [52.  17.5], 46 wall segments
+ baseline:
+  A* 209 cells -> 8 vertices | smoothing Solve_Succeeded
+  fit: 10 pieces, err 0.030 m (0.1 s) | speed: Solve_Succeeded time 5.46 s (5.9 s) | length 54.7 m, turns 7, k max 0.62 1/m, clearance 0.46 m
+  flight: reached the goal line at 5.45 s, 0.49 m from the goal | |phi| max 0.032 m, clearance 0.46 m, sat 0.2%, max |w| 15.6
+ min snap:
+  11-vertex polyline, 13 segments | stage 1 Solve_Succeeded, stage 2 uniform scaling: factor 0.178 (7 it, 50.3 s), own time 3.94 s
+  fit: 10 pieces, err 0.010 m (0.1 s) | speed: Solve_Succeeded time 4.04 s (1.4 s) | length 55.2 m, turns 2, k max 0.16 1/m, clearance 0.52 m
+  flight: reached the goal line at 4.03 s, 0.00 m from the goal | |phi| max 0.001 m, clearance 0.52 m, sat 0.0%, max |w| 14.7
+ min curvature:
+  round 1: Solve_Succeeded (30 it, 0.0 s) int k^2 0.236, 54.7 m, clearance 0.50 m
+  round 2: Solve_Succeeded (15 it, 0.0 s) int k^2 0.234, 54.7 m, clearance 0.50 m
+  round 3: Solve_Succeeded (15 it, 0.0 s) int k^2 0.234, 54.7 m, clearance 0.50 m
+  fit: 10 pieces, err 0.010 m (0.1 s) | speed: Solve_Succeeded time 3.98 s (2.2 s) | length 54.7 m, turns 2, k max 0.17 1/m, clearance 0.47 m
+  flight: reached the goal line at 3.97 s, 0.00 m from the goal | |phi| max 0.001 m, clearance 0.47 m, sat 0.0%, max |w| 14.2
+maze 1: start [3.  2.5], goal [52.  22.5], 46 wall segments
+ baseline:
+  A* 261 cells -> 14 vertices | smoothing Solve_Succeeded
+  fit: 14 pieces, err 0.013 m (0.2 s) | speed: Solve_Succeeded time 7.19 s (4.2 s) | length 73.2 m, turns 8, k max 0.61 1/m, clearance 0.67 m
+  flight: reached the goal line at 7.09 s, 0.48 m from the goal | |phi| max 0.001 m, clearance 0.67 m, sat 0.1%, max |w| 15.4
+ min snap:
+  20-vertex polyline, 22 segments | stage 1 Solve_Succeeded, stage 2 uniform scaling: factor 0.202 (7 it, 118.0 s), own time 6.23 s
+  fit: 14 pieces, err 0.028 m (0.1 s) | speed: Solve_Succeeded time 6.10 s (4.6 s) | length 75.5 m, turns 4, k max 0.83 1/m, clearance 0.54 m
+  flight: reached the goal line at 6.04 s, 0.00 m from the goal | |phi| max 0.001 m, clearance 0.54 m, sat 0.0%, max |w| 14.7
+ min curvature:
+  round 1: Solve_Succeeded (23 it, 0.0 s) int k^2 1.127, 74.5 m, clearance 0.51 m
+  round 2: Solve_Succeeded (14 it, 0.0 s) int k^2 1.120, 74.4 m, clearance 0.50 m
+  round 3: Solve_Succeeded (14 it, 0.0 s) int k^2 1.117, 74.4 m, clearance 0.50 m
+  fit: 13 pieces, err 0.011 m (0.1 s) | speed: Solve_Succeeded time 5.64 s (2.8 s) | length 74.3 m, turns 4, k max 0.30 1/m, clearance 0.47 m
+  flight: reached the goal line at 5.62 s, 0.01 m from the goal | |phi| max 0.001 m, clearance 0.47 m, sat 0.0%, max |w| 14.5
+maze 2: start [3.  2.5], goal [52.  17.5], 46 wall segments
+ baseline:
+  A* 197 cells -> 6 vertices | smoothing Solve_Succeeded
+  fit: 9 pieces, err 0.010 m (0.1 s) | speed: Solve_Succeeded time 3.74 s (1.4 s) | length 52.6 m, turns 2, k max 0.09 1/m, clearance 0.73 m
+  flight: reached the goal line at 3.75 s, 0.50 m from the goal | |phi| max 0.001 m, clearance 0.73 m, sat 0.0%, max |w| 13.9
+ min snap:
+  6-vertex polyline, 9 segments | stage 1 Solve_Succeeded, stage 2 free durations: Solved_To_Acceptable_Level (307 it, 3.6 s), own time 3.53 s
+  fit: 9 pieces, err 0.010 m (0.1 s) | speed: Solve_Succeeded time 3.76 s (1.2 s) | length 52.9 m, turns 0, k max 0.04 1/m, clearance 0.50 m
+  flight: reached the goal line at 3.77 s, 0.01 m from the goal | |phi| max 0.000 m, clearance 0.50 m, sat 0.0%, max |w| 14.0
+ min curvature:
+  round 1: Solve_Succeeded (10 it, 0.0 s) int k^2 0.035, 52.8 m, clearance 0.50 m
+  round 2: Solve_Succeeded (9 it, 0.0 s) int k^2 0.035, 52.8 m, clearance 0.51 m
+  round 3: Solve_Succeeded (9 it, 0.0 s) int k^2 0.035, 52.8 m, clearance 0.51 m
+  fit: 9 pieces, err 0.010 m (0.1 s) | speed: Solve_Succeeded time 3.75 s (1.2 s) | length 52.8 m, turns 0, k max 0.05 1/m, clearance 0.49 m
+  flight: reached the goal line at 3.76 s, 0.00 m from the goal | |phi| max 0.000 m, clearance 0.49 m, sat 0.0%, max |w| 13.9
+maze 3: start [ 3.  22.5], goal [52.  12.5], 46 wall segments
+ baseline:
+  A* 381 cells -> 14 vertices | smoothing Solve_Succeeded
+  fit: 18 pieces, err 0.011 m (0.2 s) | speed: Solve_Succeeded time 8.49 s (6.4 s) | length 99.1 m, turns 7, k max 0.39 1/m, clearance 0.77 m
+  flight: reached the goal line at 8.38 s, 0.50 m from the goal | |phi| max 0.004 m, clearance 0.77 m, sat 0.1%, max |w| 15.9
+ min snap:
+  17-vertex polyline, 23 segments | stage 1 Solve_Succeeded, stage 2 uniform scaling: factor 0.198 (7 it, 95.3 s), own time 7.87 s
+  fit: 18 pieces, err 0.010 m (0.2 s) | speed: Solve_Succeeded time 7.60 s (3.2 s) | length 103.2 m, turns 2, k max 0.29 1/m, clearance 0.52 m
+  flight: reached the goal line at 7.59 s, 0.01 m from the goal | |phi| max 0.001 m, clearance 0.52 m, sat 0.0%, max |w| 15.3
+ min curvature:
+  round 1: Solve_Succeeded (18 it, 0.0 s) int k^2 0.991, 111.5 m, clearance 0.50 m
+  round 2: Solve_Succeeded (16 it, 0.0 s) int k^2 0.992, 111.5 m, clearance 0.50 m
+  round 3: Solve_Succeeded (15 it, 0.0 s) int k^2 0.992, 111.5 m, clearance 0.50 m
+  fit: 19 pieces, err 0.011 m (0.2 s) | speed: Solve_Succeeded time 8.03 s (3.2 s) | length 111.5 m, turns 2, k max 0.19 1/m, clearance 0.50 m
+  flight: reached the goal line at 8.03 s, 0.00 m from the goal | |phi| max 0.001 m, clearance 0.50 m, sat 0.0%, max |w| 13.9
+maze 4: start [3.  2.5], goal [52.  12.5], 46 wall segments
+ baseline:
+  A* 333 cells -> 18 vertices | smoothing Solve_Succeeded
+  fit: 17 pieces, err 0.010 m (0.2 s) | speed: Solve_Succeeded time 7.97 s (8.5 s) | length 90.7 m, turns 8, k max 0.68 1/m, clearance 0.68 m
+  flight: reached the goal line at 7.87 s, 0.50 m from the goal | |phi| max 0.001 m, clearance 0.68 m, sat 0.0%, max |w| 15.1
+ min snap:
+  21-vertex polyline, 24 segments | stage 1 Solve_Succeeded, stage 2 uniform scaling: factor 0.202 (7 it, 132.7 s), own time 7.51 s
+  fit: 17 pieces, err 0.010 m (0.2 s) | speed: Solve_Succeeded time 7.19 s (4.1 s) | length 93.8 m, turns 3, k max 0.56 1/m, clearance 0.53 m
+  flight: reached the goal line at 7.17 s, 0.00 m from the goal | |phi| max 0.001 m, clearance 0.53 m, sat 0.0%, max |w| 13.5
+ min curvature:
+  round 1: Solve_Succeeded (19 it, 0.0 s) int k^2 1.467, 99.0 m, clearance 0.51 m
+  round 2: Solve_Succeeded (16 it, 0.0 s) int k^2 1.466, 98.9 m, clearance 0.48 m
+  round 3: Solve_Succeeded (13 it, 0.0 s) int k^2 1.464, 98.9 m, clearance 0.50 m
+  fit: 18 pieces, err 0.011 m (0.2 s) | speed: Solve_Succeeded time 7.42 s (3.2 s) | length 98.9 m, turns 3, k max 0.28 1/m, clearance 0.47 m
+  flight: reached the goal line at 7.41 s, 0.00 m from the goal | |phi| max 0.001 m, clearance 0.47 m, sat 0.0%, max |w| 12.1
+
+summary:
+maze | method | plan time s | flown s | length m | turns | k max 1/m | clearance flown m | |phi| max m | goal miss m
+0 | baseline | 5.46 | 5.45 | 54.7 | 7 | 0.62 | 0.46 | 0.032 | 0.49
+0 | min snap | 4.04 | 4.03 | 55.2 | 2 | 0.16 | 0.52 | 0.001 | 0.00
+0 | min curvature | 3.98 | 3.97 | 54.7 | 2 | 0.17 | 0.47 | 0.001 | 0.00
+1 | baseline | 7.19 | 7.09 | 73.2 | 8 | 0.61 | 0.67 | 0.001 | 0.48
+1 | min snap | 6.10 | 6.04 | 75.5 | 4 | 0.83 | 0.54 | 0.001 | 0.00
+1 | min curvature | 5.64 | 5.62 | 74.3 | 4 | 0.30 | 0.47 | 0.001 | 0.01
+2 | baseline | 3.74 | 3.75 | 52.6 | 2 | 0.09 | 0.73 | 0.001 | 0.50
+2 | min snap | 3.76 | 3.77 | 52.9 | 0 | 0.04 | 0.50 | 0.000 | 0.01
+2 | min curvature | 3.75 | 3.76 | 52.8 | 0 | 0.05 | 0.49 | 0.000 | 0.00
+3 | baseline | 8.49 | 8.38 | 99.1 | 7 | 0.39 | 0.77 | 0.004 | 0.50
+3 | min snap | 7.60 | 7.59 | 103.2 | 2 | 0.29 | 0.52 | 0.001 | 0.01
+3 | min curvature | 8.03 | 8.03 | 111.5 | 2 | 0.19 | 0.50 | 0.001 | 0.00
+4 | baseline | 7.97 | 7.87 | 90.7 | 8 | 0.68 | 0.68 | 0.001 | 0.50
+4 | min snap | 7.19 | 7.17 | 93.8 | 3 | 0.56 | 0.53 | 0.001 | 0.00
+4 | min curvature | 7.42 | 7.41 | 98.9 | 3 | 0.28 | 0.47 | 0.001 | 0.00

@@ -10,3 +10,5 @@ __pycache__/
 logs/
 # local settings
 .claude/settings.local.json
+# experiment result arrays (regenerable by each run.py; 13 MB)
+experiments/**/*.npz
