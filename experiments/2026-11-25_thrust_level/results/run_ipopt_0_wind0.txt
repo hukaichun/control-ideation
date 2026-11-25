@@ -1,0 +1,60 @@
+track 0, solver ipopt: path 77.5 m (fit 0.12 mm), 78 knots -> 156 variables, 620 samples x 14 limits, start 38.75 s (2 m/s), CPC 6.170 s
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+This is Ipopt version 3.14.19, running with linear solver MUMPS 5.8.2.
+
+Number of nonzeros in equality constraint Jacobian...:        0
+Number of nonzeros in inequality constraint Jacobian.:    86800
+Number of nonzeros in Lagrangian Hessian.............:     1482
+
+Total number of variables............................:      156
+                     variables with only lower bounds:       78
+                variables with lower and upper bounds:        0
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:        0
+Total number of inequality constraints...............:     8680
+        inequality constraints with only lower bounds:     8680
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  3.8751171e+01 0.00e+00 9.95e-01  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+  20  1.6407481e+01 1.16e-04 1.66e+03  -3.8 1.22e+00  -1.8 2.39e-01 5.87e-01h  1
+  40  1.2650140e+01 1.13e-03 5.35e+02  -3.8 8.00e-01  -1.4 2.47e-01 1.80e-01h  1
+  60  9.9755826e+00 7.65e-04 4.66e+03  -3.8 2.55e+00  -2.0 2.86e-01 2.15e-01h  1
+  80  9.0254386e+00 8.57e-04 3.70e+02  -3.8 7.33e-01  -1.6 1.97e-01 5.89e-01h  1
+ 100  8.3196611e+00 1.92e-03 6.57e+02  -3.8 2.74e-01  -1.2 4.37e-01 3.37e-01h  1
+ 120  7.8860384e+00 2.68e-03 5.92e+02  -3.8 1.37e+01    -  1.28e-01 1.58e-01h  1
+ 140  7.6371247e+00 5.52e-01 6.68e+00  -3.8 1.21e+02    -  3.36e-01 2.68e-01h  1
+ 160  7.5870810e+00 5.19e-03 4.41e-01  -3.8 2.80e+01    -  3.83e-01 9.45e-01h  1
+ 180  7.4877211e+00 1.44e-02 1.23e+00  -5.7 6.66e+01  -7.3 6.25e-02 1.52e-01h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+ 200  7.4719989e+00 3.07e-03 1.97e-01  -5.7 9.64e+01  -7.8 1.50e-01 8.26e-02h  1
+
+Number of Iterations....: 218
+
+                                   (scaled)                 (unscaled)
+Objective...............:   7.4708383048865858e+00    7.4708383048865858e+00
+Dual infeasibility......:   2.5066995125073517e-09    2.5066995125073517e-09
+Constraint violation....:   0.0000000000000000e+00    0.0000000000000000e+00
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   2.8568336325148418e-09    2.8568336325148418e-09
+Overall NLP error.......:   2.8568336325148418e-09    2.8568336325148418e-09
+
+
+Number of objective function evaluations             = 224
+Number of objective gradient evaluations             = 219
+Number of equality constraint evaluations            = 0
+Number of inequality constraint evaluations          = 224
+Number of equality constraint Jacobian evaluations   = 0
+Number of inequality constraint Jacobian evaluations = 219
+Number of Lagrangian Hessian evaluations             = 218
+Total seconds in IPOPT                               = 30.379
+
+EXIT: Optimal Solution Found.
+  result: Solve_Succeeded, 218 iterations, 30.4 s | lap 7.4708 s (+21.1% vs CPC) | speed range 5.3-18.9 m/s (control points) | 4x finer grid: min scaled limit -3.09e-01 (rotor 2 <= Tmax)

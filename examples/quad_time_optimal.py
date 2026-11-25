@@ -71,8 +71,11 @@ def quat_from_thrust_dir(z):
     return np.concatenate([[np.cos(ang / 2)], np.sin(ang / 2) * ax])
 
 
-def solve(gates, tol, N, T_pm, p_pm, v_pm, cold=False, vel_guess=3.0):
+def solve(gates, tol, N, T_pm, p_pm, v_pm, cold=False, vel_guess=3.0, thrust_scale=1.0, wxy=None, init=None):
+    """thrust_scale, wxy: a restricted vehicle (max rotor thrust x thrust_scale, |w_x|, |w_y| <= wxy).
+    init: (T, x, u) of an earlier solution to start from (instead of the point-mass / cold guess)."""
     f, P = quad_model()
+    P = dict(P, Tmax=P["Tmax"] * thrust_scale, wxy=P["wxy"] if wxy is None else wxy)
     M = len(gates)
     opti = ca.Opti()
     T = opti.variable(M)
@@ -101,6 +104,14 @@ def solve(gates, tol, N, T_pm, p_pm, v_pm, cold=False, vel_guess=3.0):
             opti.set_initial(X[i], x0.T)
             opti.set_initial(T[i], Tg)
             opti.set_initial(U[i], np.full((4, N), P["m"] * rc.G / 4))
+
+    if init is not None:
+        T0, x0_, u0_ = init
+        for i in range(M):
+            xs = x0_[i * N:(i + 1) * N]
+            opti.set_initial(X[i], np.vstack([xs, x0_[((i + 1) * N) % len(x0_)][None]]).T)
+            opti.set_initial(U[i], np.clip(u0_[i * N:(i + 1) * N].T, P["Tmin"], P["Tmax"]))
+            opti.set_initial(T[i], T0[i])
 
     for i in range(M):
         dt = T[i] / N

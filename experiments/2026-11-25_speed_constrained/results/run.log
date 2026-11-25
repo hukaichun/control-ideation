@@ -1,0 +1,59 @@
+speed assignment, constraints as constraints (QP step + per-sample correction), knots 1.0 m, 2 samples per span, tracks [0]
+track 0: 3432 variables, start T 25.834 s, start feasible False
+  track 0: T 25.8341 s (saved CPC lap 6.170) | 0 steps, 30 rejected, 2.1 s | |eq| 1.3e-15 | between samples (check only): 4.0e-01 (w_z)
+speed assignment, constraints as constraints (QP step + per-sample correction), knots 1.0 m, 2 samples per span, tracks [0]
+track 0: 3432 variables, start T 38.751 s, start feasible True
+      it   0: T 36.5692 s, alpha 2.0e-02, scaled step 1.2e-02, rejections 0
+      it   1: T 33.5377 s, alpha 4.0e-02, scaled step 2.0e-02, rejections 0
+      it   2: T 29.9175 s, alpha 8.0e-02, scaled step 3.4e-02, rejections 0
+      it   3: T 26.1524 s, alpha 1.6e-01, scaled step 5.5e-02, rejections 0
+      it   4: T 22.6064 s, alpha 3.2e-01, scaled step 8.1e-02, rejections 0
+      it  20: T 15.0509 s, alpha 5.0e-03, scaled step 2.3e-04, rejections 22
+      it  40: T 14.9838 s, alpha 5.0e-03, scaled step 2.3e-04, rejections 42
+  track 0: T 14.9215 s (saved CPC lap 6.170) | 60 steps, 61 rejected, 9.6 s | |eq| 3.3e-09 | between samples (check only): 3.5e-01 (w_z)
+speed assignment, constraints as constraints (QP step + per-sample correction), knots 1.0 m, 2 samples per span, tracks [0]
+track 0: 3432 variables, start T 38.751 s, start feasible True
+      it   0: T 36.5688 s, alpha 2.0e-02, scaled step 1.2e-02, rejections 0
+      it   1: T 33.5367 s, alpha 4.0e-02, scaled step 2.0e-02, rejections 0
+      it   2: T 29.9159 s, alpha 8.0e-02, scaled step 3.4e-02, rejections 0
+      it   3: T 26.1500 s, alpha 1.6e-01, scaled step 5.5e-02, rejections 0
+      it   4: T 22.6029 s, alpha 3.2e-01, scaled step 8.1e-02, rejections 0
+      it  20: T 14.0730 s, alpha 1.0e-02, scaled step 4.3e-04, rejections 21
+      it  40: T 13.8073 s, alpha 5.0e-03, scaled step 2.0e-04, rejections 42
+      it  60: T 13.7639 s, alpha 5.0e-03, scaled step 2.0e-04, rejections 62
+      it  80: T 13.7211 s, alpha 5.0e-03, scaled step 2.0e-04, rejections 82
+      it 100: T 13.6791 s, alpha 5.0e-03, scaled step 2.0e-04, rejections 102
+      it 120: T 13.6377 s, alpha 5.0e-03, scaled step 2.0e-04, rejections 122
+      it 140: T 13.5969 s, alpha 5.0e-03, scaled step 1.9e-04, rejections 142
+  track 0: T 13.5788 s (saved CPC lap 6.170) | 150 steps, 151 rejected, 18.3 s | |eq| 6.2e-09 | between samples (check only): 2.7e-01 (w_z)
+speed assignment, constraints as constraints (QP step + per-sample correction), knots 1.0 m, 2 samples per span, tracks [0]
+track 0: 3432 variables, start T 38.751 s, start feasible True
+      it   0: T 36.5688 s, alpha 2.0e-02, scaled step 1.2e-02, rejections 0 (correction 0, bounds 0 None by 0.0e+00, Armijo 0)
+      it   1: T 33.5367 s, alpha 4.0e-02, scaled step 2.0e-02, rejections 0 (correction 0, bounds 0 None by 0.0e+00, Armijo 0)
+      it   2: T 29.9159 s, alpha 8.0e-02, scaled step 3.4e-02, rejections 0 (correction 0, bounds 0 None by 0.0e+00, Armijo 0)
+      it   3: T 26.1500 s, alpha 1.6e-01, scaled step 5.5e-02, rejections 0 (correction 0, bounds 0 None by 0.0e+00, Armijo 0)
+      it   4: T 22.6029 s, alpha 3.2e-01, scaled step 8.1e-02, rejections 0 (correction 0, bounds 0 None by 0.0e+00, Armijo 0)
+      it  20: T 14.0730 s, alpha 1.0e-02, scaled step 4.3e-04, rejections 21 (correction 0, bounds 21 [11] by 1.7e-07, Armijo 0)
+  track 0: T 13.9801 s (saved CPC lap 6.170) | 30 steps, 27 rejected, 4.2 s | |eq| 1.6e-14 | between samples (check only): 2.4e-01 (w_z)
+speed assignment, constraints as constraints (QP step + per-sample correction), knots 1.0 m, 2 samples per span, tracks [0]
+track 0: 3432 variables, start T 38.751 s, start feasible True
+      it   0: T 36.5688 s, alpha 2.0e-02, scaled step 1.2e-02, rejections 0 (correction 0, bounds 0 None by 0.0e+00, Armijo 0)
+      it   1: T 33.5367 s, alpha 4.0e-02, scaled step 2.0e-02, rejections 0 (correction 0, bounds 0 None by 0.0e+00, Armijo 0)
+      it   2: T 29.9159 s, alpha 8.0e-02, scaled step 3.4e-02, rejections 0 (correction 0, bounds 0 None by 0.0e+00, Armijo 0)
+      it   3: T 26.1500 s, alpha 1.6e-01, scaled step 5.5e-02, rejections 0 (correction 0, bounds 0 None by 0.0e+00, Armijo 0)
+      it   4: T 22.6029 s, alpha 3.2e-01, scaled step 8.1e-02, rejections 0 (correction 0, bounds 0 None by 0.0e+00, Armijo 0)
+      it  20: T 14.0345 s, alpha 4.0e-02, scaled step 1.7e-03, rejections 19 (correction 0, bounds 19 [11] by 2.0e-06, Armijo 0)
+      it  40: T 13.7898 s, alpha 5.0e-03, scaled step 2.0e-04, rejections 42 (correction 0, bounds 42 [11] by 3.1e-07, Armijo 0)
+      it  60: T 13.7467 s, alpha 5.0e-03, scaled step 2.0e-04, rejections 62 (correction 0, bounds 62 [11] by 3.0e-07, Armijo 0)
+      it  80: T 13.6665 s, alpha 1.0e-02, scaled step 3.9e-04, rejections 81 (correction 0, bounds 81 [11] by 1.1e-06, Armijo 0)
+      it 100: T 13.5848 s, alpha 1.0e-02, scaled step 3.9e-04, rejections 101 (correction 0, bounds 101 [11] by 1.1e-06, Armijo 0)
+      it 120: T 13.5055 s, alpha 1.0e-02, scaled step 3.8e-04, rejections 121 (correction 0, bounds 121 [11] by 9.9e-07, Armijo 0)
+      it 140: T 13.4285 s, alpha 1.0e-02, scaled step 3.8e-04, rejections 141 (correction 0, bounds 141 [11] by 9.3e-07, Armijo 0)
+      it 160: T 13.3537 s, alpha 1.0e-02, scaled step 3.8e-04, rejections 161 (correction 0, bounds 161 [11] by 8.7e-07, Armijo 0)
+      it 180: T 13.2810 s, alpha 1.0e-02, scaled step 3.8e-04, rejections 181 (correction 0, bounds 181 [11] by 3.4e-07, Armijo 0)
+      it 200: T 13.2104 s, alpha 1.0e-02, scaled step 3.8e-04, rejections 201 (correction 0, bounds 201 [11] by 3.1e-07, Armijo 0)
+      it 220: T 13.1689 s, alpha 5.0e-03, scaled step 1.9e-04, rejections 222 (correction 0, bounds 222 [11] by 4.1e-07, Armijo 0)
+      it 240: T 13.1349 s, alpha 5.0e-03, scaled step 1.9e-04, rejections 242 (correction 0, bounds 242 [11] by 4.0e-07, Armijo 0)
+      it 260: T 13.1014 s, alpha 5.0e-03, scaled step 1.9e-04, rejections 262 (correction 0, bounds 262 [11] by 4.0e-07, Armijo 0)
+      it 280: T 13.0682 s, alpha 5.0e-03, scaled step 1.9e-04, rejections 282 (correction 0, bounds 282 [11] by 3.9e-07, Armijo 0)
+  track 0: T 13.0372 s (saved CPC lap 6.170) | 300 steps, 301 rejected, 42.5 s | |eq| 1.4e-08 | between samples (check only): 3.4e-01 (w_z)

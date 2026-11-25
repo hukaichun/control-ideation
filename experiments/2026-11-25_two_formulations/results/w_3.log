@@ -1,0 +1,11 @@
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+[w] track 3: path 54.1 m, 54 variables, 540 samples x 4 limits, start 27.05 s | Solve_Succeeded, 103 it, 4.2 s | lap 4.2260 s (+9.8% vs CPC 3.847)
+  optimizer samples: |w| max 15.00 rad/s (15) | torque needed/allowed max 1.000 (1) | collective [12.15, 32.37] (max 32.37) m/s^2
+  40x finer: |w| max 16.35 rad/s (15) | torque needed/allowed max 1.044 (1) | collective [12.15, 32.37] (max 32.37) m/s^2
+  1% faster everywhere, 40x finer: |w| max 16.55 rad/s (15) | torque needed/allowed max 48227.643 (1) | collective [12.30, 32.98] (max 32.37) m/s^2

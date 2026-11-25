@@ -10,3 +10,8 @@ __pycache__/
 logs/
 # local settings
 .claude/settings.local.json
+# experiment result arrays (regenerable by each run.py; 13 MB)
+experiments/**/*.npz
+# casadi JIT build files
+jit_tmp*.c
+tmp_casadi_compiler_shell*

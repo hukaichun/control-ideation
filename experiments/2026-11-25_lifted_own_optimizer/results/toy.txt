@@ -1,0 +1,18 @@
+analytic: a1 22.563 m/s^2, switch at 3.030 m, peak 11.737 m/s, T* = 1.5703 s
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+    4 intervals: Solve_Succeeded         196 it | T 1.5211 s (-3.13% vs analytic) | |eq| 2.0e-11 | c min 0.000 max 32.37 (analytic 0 / 32.37) | rotor spread 6.2e-07 N | max |w| 5.8e-06 | peak speed 10.346
+        fine check: exact time 1.5969 s (+1.69%), thrust c between samples [-0.03, 32.94] (limits [0, 32.37])
+    8 intervals: Solve_Succeeded          89 it | T 1.5392 s (-1.98% vs analytic) | |eq| 6.0e-10 | c min 0.000 max 32.37 (analytic 0 / 32.37) | rotor spread 2.0e-12 N | max |w| 1.0e-11 | peak speed 11.089
+        fine check: exact time 1.5757 s (+0.34%), thrust c between samples [-0.05, 32.46] (limits [0, 32.37])
+   16 intervals: Error_In_Step_Computation  109 it | T 1.5570 s (-0.84% vs analytic) | |eq| 1.1e-11 | c min -0.000 max 32.37 (analytic 0 / 32.37) | rotor spread 1.1e-07 N | max |w| 1.1e-06 | peak speed 11.299
+        fine check: exact time 1.5725 s (+0.14%), thrust c between samples [-0.00, 32.37] (limits [0, 32.37])
+   32 intervals: Solved_To_Acceptable_Level  235 it | T 1.5652 s (-0.32% vs analytic) | |eq| 1.6e-10 | c min -0.000 max 32.37 (analytic 0 / 32.37) | rotor spread 9.1e-07 N | max |w| 8.4e-07 | peak speed 11.531
+        fine check: exact time 1.5708 s (+0.03%), thrust c between samples [-0.00, 32.37] (limits [0, 32.37])
+   64 intervals: Restoration_Failed      198 it | T 1.5797 s (+0.60% vs analytic) | |eq| 1.1e-09 | c min 0.001 max 32.10 (analytic 0 / 32.37) | rotor spread 1.2e-03 N | max |w| 2.1e-02 | peak speed 11.474
+        fine check: exact time 1.5814 s (+0.71%), thrust c between samples [0.00, 32.12] (limits [0, 32.37])

@@ -1,0 +1,11 @@
+[q] start 7.259 s, 40x finer: |w| max 12.55 rad/s (15) | torque needed/allowed max 0.356 (1) | collective [22.16, 25.75] (max 32.37) m/s^2
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+[q] Solve_Succeeded, 31 it, 0.3 s | lap 6.1850 s (CPC 6.170)
+   samples: |w| max 15.00 rad/s (15) | torque needed/allowed max 1.000 (1) | collective [28.67, 32.37] (max 32.37) m/s^2
+   40x finer: |w| max 15.04 rad/s (15) | torque needed/allowed max 1.525 (1) | collective [28.67, 32.37] (max 32.37) m/s^2

@@ -1,0 +1,13 @@
+analytic: full thrust to 3.030 m, then zero thrust; peak 11.737 m/s, T* = 1.5703 s
+      stop: converged (step < 1e-13)
+    4 intervals (7 variables): T 1.6015 s (+1.985%), 12 steps, 7 ms | thrust on a dense grid [0.000, 32.373] (limits [0, 32.37]), end speed check q(1) 1.000000 (= v0^2 1.0)
+      stop: line search failed (q<=0 rejections 0, Armijo rejections 69), |proj step| 1.6e-13
+    8 intervals (11 variables): T 1.5761 s (+0.368%), 15 steps, 56 ms | thrust on a dense grid [0.000, 32.373] (limits [0, 32.37]), end speed check q(1) 1.000000 (= v0^2 1.0)
+      stop: converged (step < 1e-13)
+   16 intervals (19 variables): T 1.5723 s (+0.128%), 16 steps, 11 ms | thrust on a dense grid [0.000, 32.373] (limits [0, 32.37]), end speed check q(1) 1.000000 (= v0^2 1.0)
+      stop: converged (step < 1e-13)
+   32 intervals (35 variables): T 1.5707 s (+0.026%), 19 steps, 13 ms | thrust on a dense grid [0.000, 32.373] (limits [0, 32.37]), end speed check q(1) 1.000000 (= v0^2 1.0)
+      stop: line search failed (q<=0 rejections 0, Armijo rejections 75), |proj step| 2.2e-13
+   64 intervals (67 variables): T 1.5704 s (+0.006%), 21 steps, 60 ms | thrust on a dense grid [0.000, 32.373] (limits [0, 32.37]), end speed check q(1) 1.000000 (= v0^2 1.0)
+      stop: converged (step < 1e-13)
+  128 intervals (131 variables): T 1.5703 s (+0.002%), 23 steps, 17 ms | thrust on a dense grid [0.000, 32.373] (limits [0, 32.37]), end speed check q(1) 1.000000 (= v0^2 1.0)

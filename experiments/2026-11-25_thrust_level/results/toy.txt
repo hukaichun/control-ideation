@@ -1,0 +1,13 @@
+analytic T* = 1.5703 s, c_max 32.37
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+    4 intervals: Solve_Succeeded        T 2.4291 s (+54.688%) | thrust on a dense grid [0.149, 28.553] (limits [0, 32.37]) | min w 1.085
+    8 intervals: Solve_Succeeded        T 1.9670 s (+25.265%) | thrust on a dense grid [0.003, 32.227] (limits [0, 32.37]) | min w 0.937
+   16 intervals: Solve_Succeeded        T 1.7421 s (+10.942%) | thrust on a dense grid [0.000, 32.355] (limits [0, 32.37]) | min w 0.898
+   32 intervals: Solve_Succeeded        T 1.6367 s (+4.229%) | thrust on a dense grid [0.000, 32.372] (limits [0, 32.37]) | min w 0.872
+   64 intervals: Solve_Succeeded        T 1.5920 s (+1.380%) | thrust on a dense grid [0.000, 32.373] (limits [0, 32.37]) | min w 0.859
