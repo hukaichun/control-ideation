@@ -1,0 +1,1 @@
+track 7: planned 3.836 s | flown lap 2 3.834 s (-0.1% vs plan) | worst gate 0.244 m (CPC tol 0.24) | off path max 0.015 m, rms 0.006 m | motor saturation 24.9% | no-weight fallback 0.0% | 9 pieces, lateral window 1.00..2.00 m (leg gap 5.47)

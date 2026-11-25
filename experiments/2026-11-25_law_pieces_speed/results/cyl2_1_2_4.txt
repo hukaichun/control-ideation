@@ -1,0 +1,6 @@
+1 piece(s): 32 variables, 133 constraints (0 junctions), build 0.7 s | start T 6.5412 s, violation 9.3e-14
+   T 1.6060 s | 74 SQP steps, 5.84 s | violation 4.7e-08 | 10x finer: |w| max 8.70, torque ratio max 93.408, collective [31.6, 32.37], closest to the cylinder axis 1.000 m
+2 piece(s): 72 variables, 270 constraints (1 junctions), build 1.5 s | start T 6.5412 s, violation 1.5e-01
+   T 1.6059 s | 300 SQP steps, 26.98 s | violation 3.0e-05 | 10x finer: |w| max 7.90, torque ratio max 9.801, collective [31.3, 32.42], closest to the cylinder axis 0.975 m
+4 piece(s): 104 variables, 344 constraints (3 junctions), build 3.7 s | start T 6.5412 s, violation 4.1e-01
+   T 1.6044 s | 259 SQP steps, 56.66 s | violation 4.8e-12 | 10x finer: |w| max 8.20, torque ratio max 1.276, collective [31.7, 32.35], closest to the cylinder axis 0.988 m

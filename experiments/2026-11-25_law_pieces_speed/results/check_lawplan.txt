@@ -1,0 +1,2 @@
+1. junction state vs finite differences in time: v [ 1.2657e+00 -2.7103e+00 -3.0000e-04] [ 1.2657e+00 -2.7103e+00 -3.0000e-04] | a [0.231 0.131 0.004] [0.231 0.131 0.004] | j [0.18 0.04 0.01] [0.18 0.04 0.01]
+2. Jacobian vs central differences: 2.0e-09; Lagrangian Hessian vs differences of its gradient: 5.2e-09

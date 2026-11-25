@@ -1,0 +1,2 @@
+track 0: joint limits at the start vs run.py (path fixed): max difference 1.3e-13
+   limit gradient w.r.t. f, g, r coefficients vs central differences: max relative error 2.1e-06

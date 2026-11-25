@@ -1,0 +1,1 @@
+track 0: rotor at a bound (mean over rotors) / at T_max / at 0 / all four at a bound:  CPC 91% / 91% / 0% / 76%  |  ours (flown, +3.1%) 48% / 48% / 0% / 36%

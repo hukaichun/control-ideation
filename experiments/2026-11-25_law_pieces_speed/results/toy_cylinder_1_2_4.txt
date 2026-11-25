@@ -1,0 +1,4 @@
+cylinder turn: initial parabola y = 0.2 x^2, x in [-6.0, 6.0]; cylinder axis (0.0, 2.5), radius 1.0 m; ends fixed, speed 3.0 m/s there; knots: ADAPT=True KMAX=2.0 FTOL=0.001
+  1 piece(s): T 1.6071 s | 192 SQP steps, 6.4 s | violation 1.5e-15 | 40x finer: |w| max 8.22, torque ratio max 1.032, collective [31.8, 32.33], closest to the cylinder axis 1.000 m (radius 1.0)
+  2 piece(s): T 2.2515 s | 300 SQP steps, 24.0 s | violation 1.1e-09 | 40x finer: |w| max 6.22, torque ratio max 1.220, collective [8.0, 32.14], closest to the cylinder axis 2.389 m (radius 1.0)
+  4 piece(s): T 2.2489 s | 300 SQP steps, 46.1 s | violation 1.1e-04 | 40x finer: |w| max 15.35, torque ratio max 1.153, collective [6.9, 32.28], closest to the cylinder axis 2.499 m (radius 1.0)

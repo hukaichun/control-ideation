@@ -1,0 +1,6 @@
+speed-spline resolution on the parabola (no junction-derivative equality; overlap speeds agree; limits on whole pieces)
+  knots 2.000 m | 1 piece: 1.8751 s (Solve, 24 it, 0.0 s) | 2 pieces: 1.8550 s (Solve, 29 it, 0.1 s) | 4 pieces: 1.8402 s (Solve, 50 it, 0.2 s)
+  knots 1.000 m | 1 piece: 1.8398 s (Solve, 34 it, 0.0 s) | 2 pieces: 1.8409 s (Solve, 45 it, 0.1 s) | 4 pieces: 1.8316 s (Solve, 191 it, 0.8 s)
+  knots 0.500 m | 1 piece: 1.8522 s (Maxim, 3000 it, 5.1 s) | 2 pieces: 1.8289 s (Solve, 2219 it, 6.4 s) | 4 pieces: 1.8254 s (Solve, 750 it, 2.9 s)
+  knots 0.250 m | 1 piece: 1.8260 s (Maxim, 3000 it, 4.9 s) | 2 pieces: 1.8252 s (Solve, 875 it, 2.6 s) | 4 pieces: 1.8237 s (Solve, 882 it, 11.0 s)
+  knots 0.125 m | 1 piece: 1.9242 s (Maxim, 3000 it, 18.1 s) | 2 pieces: 1.8244 s (Solve, 588 it, 6.8 s) | 4 pieces: 2.4718 s (Maxim, 3000 it, 74.1 s)

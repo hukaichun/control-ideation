@@ -15,7 +15,7 @@ from scipy.interpolate import BSpline, make_lsq_spline
 TH_CORE = np.deg2rad(45.0)
 D = 1.0
 KP = 0.5
-KR = 1.0
+KR = float(__import__("os").environ.get("KR", 1.0))   # speed knots (m)
 DEGR = 4
 
 
@@ -39,16 +39,21 @@ def clamped(a, b, h, k):
     return np.r_[[a] * (k + 1), np.linspace(a, b, n + 1)[1:-1], [b] * (k + 1)]
 
 
+ADAPT = __import__("os").environ.get("ADAPT", "0") == "1"   # shared adaptive knots for f, g and the speed
+KMAX = float(__import__("os").environ.get("KMAX", 2.0))     # coarsest span (m)
+FTOL = float(__import__("os").environ.get("FTOL", 1e-3))    # path fit tolerance (m)
 FITX = float(__import__("os").environ.get("FITX", 0.0))   # fit f, g on FITX m more at both ends (end effects)
 
 
 class Piece:
-    def __init__(self, P3, s3, a, b, core):
+    def __init__(self, P3, s3, a, b, core, frame=None):
         m = (s3 >= a - 1e-9) & (s3 <= b + 1e-9)
         Q = P3[m]
         self.O = Q[0].copy()
         e1 = Q[-1] - Q[0]
         self.e1 = e1 / np.linalg.norm(e1)
+        if frame is not None:                     # given frame (O, e1) instead of the chord (toy tests)
+            self.O, self.e1 = np.asarray(frame[0], float), np.asarray(frame[1], float)
         e2 = np.cross([0, 0, 1.0], self.e1)
         self.e2 = e2 / np.linalg.norm(e2)
         self.e3 = np.cross(self.e1, self.e2)
@@ -65,12 +70,33 @@ class Piece:
             x, y, z = qw @ self.e1, qw @ self.e2, qw @ self.e3
             if not np.all(np.diff(x) > 0):
                 raise RuntimeError("widened fit range not monotone along the chord")
-        kn = clamped(x[0], x[-1], KP, 5)
+        if ADAPT:
+            inner = self._adapt(x, y, z)
+            kn = np.r_[[x[0]] * 6, inner, [x[-1]] * 6]
+        else:
+            kn = clamped(x[0], x[-1], KP, 5)
         self.f, self.g = (make_lsq_spline(x, v, kn, 5) for v in (y, z))
         self.fit_err = float(max(np.abs(self.f(x) - y).max(), np.abs(self.g(x) - z).max()))
-        self.tk = clamped(x[0], x[-1], KR, DEGR)
+        # speed: same knots as the path when ADAPT (user, 2026-11-25), else every KR m
+        self.tk = np.r_[[x[0]] * (DEGR + 1), inner, [x[-1]] * (DEGR + 1)] if ADAPT else clamped(x[0], x[-1], KR, DEGR)
         self.nr = len(self.tk) - DEGR - 1
         self.knots = np.unique(np.r_[kn, self.tk])
+
+    @staticmethod
+    def _adapt(x, y, z):
+        """Knots as coarse as possible (user, 2026-11-25: "細網格應該要是擬合不佳才變細，平時應該盡量大"): start with spans
+        of at most KMAX m, split the span with the worst fit in half until the fit error is <= FTOL everywhere."""
+        inner = list(np.linspace(x[0], x[-1], int(np.ceil((x[-1] - x[0]) / KMAX)) + 1)[1:-1])
+        for _ in range(400):
+            kn = np.r_[[x[0]] * 6, sorted(inner), [x[-1]] * 6]
+            f, g = (make_lsq_spline(x, v, kn, 5) for v in (y, z))
+            err = np.maximum(np.abs(f(x) - y), np.abs(g(x) - z))
+            if err.max() <= FTOL:
+                break
+            br = np.r_[x[0], sorted(inner), x[-1]]
+            j = min(int(np.searchsorted(br, x[np.argmax(err)], side="right")) - 1, len(br) - 2)
+            inner.append(0.5 * (br[j] + br[j + 1]))
+        return np.array(sorted(inner))
 
     def xof(self, p):
         return (np.atleast_2d(p) - self.O) @ self.e1

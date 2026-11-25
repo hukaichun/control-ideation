@@ -1,0 +1,5 @@
+[overlaps in the problem (limits on the whole piece, |dv^2| <= 1.0)] track 9: lap 55.2 m, 11 pieces, 125 speed variables, path fit max 0.77 mm, junction mismatch max: position 0.23 mm, tangent 0.113 deg, curvature 0.008 1/m
+   start 27.608 s | Solve_Succeeded, 199 it, 2.4 s | lap 5.0477 s (+11.5% vs CPC 4.526)
+   solver samples: |w| max 15.00 rad/s (15) | torque needed/allowed max 1.000 (1) | collective [6.77, 32.35] (max 32.37) m/s^2
+   40x finer: |w| max 15.88 rad/s (15) | torque needed/allowed max 1.322 (1) | collective [6.77, 32.35] (max 32.37) m/s^2
+   overlaps: speed difference between neighbouring pieces max 0.103 m/s

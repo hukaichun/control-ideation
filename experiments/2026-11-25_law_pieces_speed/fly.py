@@ -69,7 +69,8 @@ class LawPiece:
     weight = BL.Piece.weight
 
 
-def build_law(k, tag=""):
+def build_law(k, tag=None):
+    tag = __import__("os").environ.get("TAG", "") if tag is None else tag
     P, lap_cpc = R.C.cpc_lap(k)
     pcs, junc, Llap = PC.build(P)
     d = np.load(HERE / "results" / f"track{k}{tag}.npz")
@@ -97,7 +98,8 @@ def main(tracks):
     out = []
     for k in tracks:
         P, lap_cpc, pcs, cs, law, gap = build_law(k)
-        lap_plan = float(open(HERE / "results" / f"run_{k}.txt").read().split("lap ")[2].split(" s")[0])
+        tag = __import__("os").environ.get("TAG", "")
+        lap_plan = float(open(HERE / "results" / f"run_{k}{tag}.txt").read().split("lap ")[2].split(" s")[0])
         p0, v0, a0, j0 = start_state(pcs[0], cs[0])
         pol = BL.BlendPolicy(law)
         lg = fe.fly(quad, pol, p0, v0, a0, j0, 2.2 * lap_plan, mode="B")
@@ -117,8 +119,8 @@ def main(tracks):
                 f"{len(law)} pieces, lateral window {BL.R_IN:.2f}..{BL.R_OUT:.2f} m (leg gap {gap:.2f})")
         print(line, flush=True)
         out.append(line)
-        np.save(HERE / "results" / f"fly_{k}.npy", lg)
-    (HERE / "results" / f"fly_{'_'.join(map(str, tracks))}.txt").write_text("\n".join(out) + "\n")
+        np.save(HERE / "results" / f"fly_{k}{tag}.npy", lg)
+    (HERE / "results" / f"fly_{'_'.join(map(str, tracks))}{__import__('os').environ.get('TAG', '')}.txt").write_text("\n".join(out) + "\n")
 
 
 if __name__ == "__main__":

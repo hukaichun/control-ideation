@@ -1,0 +1,1 @@
+track 1 (path fixed): T 4.7165 s (+26.6% vs CPC) | 200 SQP steps, 39.4 s | violation 4.5e-05 | 40x finer: |w| max 9.39, torque ratio max 1.552, collective [4.9, 32.36]

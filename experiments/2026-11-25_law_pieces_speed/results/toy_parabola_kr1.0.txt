@@ -1,0 +1,5 @@
+parabola y = 0.2 x^2, x in [-6.0, 6.0] (vertex radius 2.5 m), start / end speed 3.0 m/s, speed knots 1.0 m
+  1 piece                             : Solve_Succeeded, 34 it, 0.0 s | T 1.8398 s | path fit 0.000 mm | |w|   2%, torque   5%, collective  55%, none  43% | max over the cores: |w| 15.03, torque 1.120
+  2 pieces, x frame                   : Solve_Succeeded, 150 it, 0.3 s | T 1.8399 s | path fit 0.000 mm | |w|   1%, torque   6%, collective  55%, none  43% | max over the cores: |w| 15.01, torque 1.341
+  2 pieces, chord frames              : Solve_Succeeded, 30 it, 0.1 s | T 2.6735 s | path fit 0.223 mm | |w|   1%, torque   4%, collective  20%, none  78% | max over the cores: |w| 15.03, torque 1.384
+  2 pieces, x frame, core limits only : Solve_Succeeded, 60 it, 0.1 s | T 1.8399 s | path fit 0.000 mm | |w|   1%, torque   7%, collective  55%, none  43% | max over the cores: |w| 15.01, torque 1.345

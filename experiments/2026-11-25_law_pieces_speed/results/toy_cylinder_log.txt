@@ -1,0 +1,88 @@
+  1 piece(s): 32 variables, 521 constraints, build 0.5 s, start T 6.5412 s, start violation 9.3e-14
+      it   0: T 6.01380 s, violation 3.2e-14, rho +1.03, step 1.8e+00, trust path 4.0e-02 m / rel 4.0e-01, nu 1.0e+01, QP Solved, 2.1 s
+      it  10: T 1.80874 s, violation 1.8e-03, rho +0.86, step 9.6e+00, trust path 6.2e-02 m / rel 1.2e-01, nu 1.0e+01, QP Solved, 2.4 s
+      it  20: T 1.65450 s, violation 3.9e-14, rho -325.54, step 1.2e+01, trust path 6.2e-02 m / rel 1.2e-01, nu 1.0e+01, QP Solved, 2.6 s
+      it  30: T 1.63877 s, violation 6.7e-06, rho -19.13, step 1.3e-01, trust path 2.4e-04 m / rel 4.9e-04, nu 1.0e+01, QP Solved, 2.9 s
+      it  40: T 1.63871 s, violation 1.5e-07, rho +0.79, step 9.8e-03, trust path 1.2e-04 m / rel 2.4e-04, nu 1.0e+01, QP Solved, 3.0 s
+      it  50: T 1.63844 s, violation 2.9e-06, rho +0.61, step 7.0e-02, trust path 4.9e-04 m / rel 9.8e-04, nu 1.0e+01, QP Solved, 3.2 s
+      it  60: T 1.63799 s, violation 3.0e-06, rho +0.60, step 7.1e-02, trust path 4.9e-04 m / rel 9.8e-04, nu 1.0e+01, QP Solved, 3.4 s
+      it  70: T 1.63756 s, violation 3.0e-06, rho +0.59, step 7.2e-02, trust path 4.9e-04 m / rel 9.8e-04, nu 1.0e+01, QP Solved, 3.6 s
+      it  80: T 1.63713 s, violation 3.1e-06, rho +0.58, step 7.3e-02, trust path 4.9e-04 m / rel 9.8e-04, nu 1.0e+01, QP Solved, 3.7 s
+      it  90: T 1.63630 s, violation 9.7e-10, rho +1.00, step 2.5e-01, trust path 7.8e-03 m / rel 1.6e-02, nu 1.0e+01, QP Solved, 3.9 s
+      it 100: T 1.61958 s, violation 4.2e-05, rho +0.83, step 2.2e+00, trust path 6.2e-02 m / rel 1.2e-01, nu 1.0e+01, QP Solved, 4.2 s
+      it 110: T 1.61287 s, violation 5.2e-05, rho +0.63, step 1.4e+00, trust path 3.1e-02 m / rel 6.2e-02, nu 1.0e+01, QP Solved, 4.5 s
+      it 120: T 1.60918 s, violation 8.5e-06, rho +0.72, step 8.1e-01, trust path 1.6e-02 m / rel 3.1e-02, nu 1.0e+01, QP Solved, 4.8 s
+      it 130: T 1.60777 s, violation 9.1e-06, rho +0.62, step 1.1e+00, trust path 1.6e-02 m / rel 3.1e-02, nu 1.0e+01, QP Solved, 5.0 s
+      it 140: T 1.60719 s, violation 2.4e-06, rho +0.67, step 1.2e+00, trust path 1.6e-02 m / rel 3.1e-02, nu 1.0e+01, QP Solved, 5.3 s
+      it 150: T 1.60706 s, violation 3.6e-15, rho +1.69, step 1.5e-02, trust path 1.2e-01 m / rel 2.5e-01, nu 1.0e+01, QP Solved, 5.6 s
+      it 160: T 1.60706 s, violation 2.7e-15, rho +2.93, step 3.4e-04, trust path 5.0e-01 m / rel 1.0e+00, nu 1.0e+01, QP Solved, 5.9 s
+      it 170: T 1.60706 s, violation 2.6e-15, rho +1.00, step 7.8e-06, trust path 5.0e-01 m / rel 1.0e+00, nu 1.0e+01, QP Solved, 6.0 s
+      it 180: T 1.60706 s, violation 1.6e-15, rho -1.00, step 9.1e-05, trust path 2.4e-04 m / rel 4.9e-04, nu 1.0e+01, QP Solved, 6.2 s
+      it 190: T 1.60706 s, violation 1.5e-15, rho -1.00, step 2.1e-07, trust path 1.9e-09 m / rel 3.7e-09, nu 1.0e+01, QP Solved, 6.3 s
+  1 piece(s): T 1.6071 s | 192 SQP steps, 6.4 s | violation 1.5e-15 | 40x finer: |w| max 8.22, torque ratio max 1.032, collective [31.8, 32.33], closest to the cylinder axis 1.000 m (radius 1.0)
+  2 piece(s): 70 variables, 925 constraints, build 0.8 s, start T 6.5412 s, start violation 1.9e-04
+      it   0: T 5.98007 s, violation 5.2e-14, rho +1.02, step 1.8e+00, trust path 4.0e-02 m / rel 4.0e-01, nu 1.0e+01, QP Solved, 4.9 s
+      it  10: T 2.86132 s, violation 1.5e-02, rho -10.68, step 6.4e+00, trust path 5.0e-03 m / rel 3.1e-02, nu 1.0e+01, QP Solved, 5.7 s
+      it  20: T 2.57547 s, violation 6.2e-03, rho +0.11, step 3.9e+00, trust path 1.0e-02 m / rel 6.2e-02, nu 1.0e+01, QP Solved, 6.3 s
+      it  30: T 2.41438 s, violation 7.2e-05, rho -7.75, step 6.1e-01, trust path 3.1e-04 m / rel 2.0e-03, nu 1.0e+01, QP Solved, 7.1 s
+      it  40: T 2.36354 s, violation 4.4e-04, rho -16.87, step 2.6e+00, trust path 1.3e-03 m / rel 7.8e-03, nu 1.0e+01, QP Solved, 7.8 s
+      it  50: T 2.31369 s, violation 2.7e-04, rho -9.32, step 6.8e-01, trust path 3.1e-04 m / rel 2.0e-03, nu 1.0e+01, QP Solved, 8.6 s
+      it  60: T 2.27460 s, violation 5.1e-05, rho -5.92, step 2.8e+00, trust path 1.3e-03 m / rel 7.8e-03, nu 1.0e+01, QP Solved, 9.4 s
+      it  70: T 2.25664 s, violation 1.8e-04, rho -0.57, step 2.3e-02, trust path 9.8e-06 m / rel 6.1e-05, nu 1.0e+01, QP Solved, 10.0 s
+      it  80: T 2.25609 s, violation 2.3e-06, rho -3.21, step 4.6e-02, trust path 2.0e-05 m / rel 1.2e-04, nu 1.0e+01, QP Solved, 10.5 s
+      it  90: T 2.25602 s, violation 1.8e-13, rho +1.00, step 8.9e-05, trust path 3.1e-07 m / rel 1.9e-06, nu 1.0e+01, QP Solved, 11.2 s
+      it 100: T 2.25602 s, violation 3.0e-09, rho +0.66, step 1.4e-06, trust path 2.4e-09 m / rel 1.5e-08, nu 1.0e+01, QP Solved, 11.8 s
+      it 110: T 2.25600 s, violation 1.1e-13, rho +1.16, step 7.1e-04, trust path 2.4e-06 m / rel 1.5e-05, nu 1.0e+01, QP Solved, 12.4 s
+      it 120: T 2.25364 s, violation 1.5e-05, rho +0.87, step 2.3e-02, trust path 7.8e-05 m / rel 4.9e-04, nu 1.0e+01, QP Solved, 12.9 s
+      it 130: T 2.25164 s, violation 2.1e-06, rho -1.77, step 1.4e-03, trust path 6.1e-07 m / rel 3.8e-06, nu 1.0e+01, QP Solved, 13.5 s
+      it 140: T 2.25163 s, violation 2.4e-13, rho +1.00, step 4.5e-05, trust path 1.5e-07 m / rel 9.5e-07, nu 1.0e+01, QP Solved, 14.1 s
+      it 150: T 2.25162 s, violation 1.6e-09, rho +0.96, step 4.5e-05, trust path 1.5e-07 m / rel 9.5e-07, nu 1.0e+01, QP Solved, 14.8 s
+      it 160: T 2.25160 s, violation 9.1e-08, rho -24.73, step 3.5e-04, trust path 3.1e-07 m / rel 1.9e-06, nu 1.0e+01, QP Solved, 15.4 s
+      it 170: T 2.25159 s, violation 1.8e-08, rho +0.94, step 9.0e-05, trust path 3.1e-07 m / rel 1.9e-06, nu 1.0e+01, QP Solved, 15.9 s
+      it 180: T 2.25159 s, violation 5.7e-09, rho +0.71, step 2.2e-05, trust path 3.8e-08 m / rel 2.4e-07, nu 1.0e+01, QP Solved, 16.6 s
+      it 190: T 2.25159 s, violation 8.3e-14, rho -10.09, step 2.2e-05, trust path 9.5e-09 m / rel 6.0e-08, nu 1.0e+01, QP Solved, 17.1 s
+      it 200: T 2.25159 s, violation 3.4e-08, rho +0.72, step 9.0e-05, trust path 1.5e-07 m / rel 9.5e-07, nu 1.0e+01, QP Solved, 17.7 s
+      it 210: T 2.25151 s, violation 5.9e-09, rho +1.00, step 7.2e-04, trust path 2.4e-06 m / rel 1.5e-05, nu 1.0e+01, QP Solved, 18.3 s
+      it 220: T 2.25150 s, violation 5.3e-08, rho +0.30, step 2.2e-05, trust path 3.8e-08 m / rel 2.4e-07, nu 1.0e+01, QP Solved, 18.9 s
+      it 230: T 2.25150 s, violation 1.0e-08, rho +1.03, step 1.8e-04, trust path 6.1e-07 m / rel 3.8e-06, nu 1.0e+01, QP Solved, 19.4 s
+      it 240: T 2.25149 s, violation 3.0e-08, rho +0.36, step 2.2e-05, trust path 3.8e-08 m / rel 2.4e-07, nu 1.0e+01, QP Solved, 20.1 s
+      it 250: T 2.25149 s, violation 7.6e-14, rho -1.02, step 2.2e-05, trust path 9.5e-09 m / rel 6.0e-08, nu 1.0e+01, QP Solved, 20.8 s
+      it 260: T 2.25148 s, violation 2.9e-09, rho -1.10, step 2.8e-06, trust path 1.2e-09 m / rel 7.5e-09, nu 1.0e+01, QP Solved, 21.5 s
+      it 270: T 2.25148 s, violation 1.2e-09, rho +0.71, step 3.4e-07, trust path 6.0e-10 m / rel 3.7e-09, nu 1.0e+01, QP Solved, 22.1 s
+      it 280: T 2.25148 s, violation 7.7e-14, rho -11.07, step 2.2e-05, trust path 9.5e-09 m / rel 6.0e-08, nu 1.0e+01, QP Solved, 22.6 s
+      it 290: T 2.25148 s, violation 4.5e-09, rho +0.70, step 1.1e-05, trust path 1.9e-08 m / rel 1.2e-07, nu 1.0e+01, QP Solved, 23.3 s
+  2 piece(s): T 2.2515 s | 300 SQP steps, 24.0 s | violation 1.1e-09 | 40x finer: |w| max 6.22, torque ratio max 1.220, collective [8.0, 32.14], closest to the cylinder axis 2.389 m (radius 1.0)
+  4 piece(s): 98 variables, 1240 constraints, build 1.6 s, start T 6.5412 s, start violation 6.8e-06
+      it   0: T 5.98076 s, violation 1.7e-04, rho +1.02, step 1.8e+00, trust path 4.0e-02 m / rel 4.0e-01, nu 1.0e+01, QP Solved, 12.4 s
+      it  10: T 2.75998 s, violation 1.5e-02, rho +0.27, step 6.5e+00, trust path 2.0e-02 m / rel 1.2e-01, nu 1.0e+01, QP Solved, 13.4 s
+      it  20: T 2.57610 s, violation 1.1e-04, rho +0.77, step 2.7e-01, trust path 1.3e-03 m / rel 7.8e-03, nu 1.0e+01, QP Solved, 14.4 s
+      it  30: T 2.46531 s, violation 1.2e-03, rho +0.46, step 1.2e+00, trust path 2.5e-03 m / rel 1.6e-02, nu 1.0e+01, QP Solved, 15.6 s
+      it  40: T 2.39135 s, violation 1.8e-04, rho +0.83, step 6.5e-01, trust path 2.5e-03 m / rel 1.6e-02, nu 1.0e+01, QP Solved, 16.8 s
+      it  50: T 2.36811 s, violation 2.9e-04, rho -0.16, step 3.3e-01, trust path 1.6e-04 m / rel 9.8e-04, nu 1.0e+01, QP Solved, 17.9 s
+      it  60: T 2.36012 s, violation 2.3e-05, rho +0.84, step 4.2e-02, trust path 1.6e-04 m / rel 9.8e-04, nu 1.0e+01, QP Solved, 19.1 s
+      it  70: T 2.35524 s, violation 2.4e-05, rho +0.53, step 4.2e-02, trust path 7.8e-05 m / rel 4.9e-04, nu 1.0e+01, QP Solved, 20.0 s
+      it  80: T 2.35081 s, violation 3.0e-05, rho +0.59, step 4.3e-02, trust path 7.8e-05 m / rel 4.9e-04, nu 1.0e+01, QP Solved, 20.8 s
+      it  90: T 2.34020 s, violation 1.9e-04, rho +0.17, step 8.6e-02, trust path 1.6e-04 m / rel 9.8e-04, nu 1.0e+01, QP Solved, 21.6 s
+      it 100: T 2.33143 s, violation 2.5e-04, rho +0.24, step 8.7e-02, trust path 1.6e-04 m / rel 9.8e-04, nu 1.0e+01, QP Solved, 22.4 s
+      it 110: T 2.32246 s, violation 2.1e-15, rho +1.00, step 1.1e-02, trust path 3.9e-05 m / rel 2.4e-04, nu 1.0e+01, QP Solved, 23.5 s
+      it 120: T 2.32198 s, violation 1.0e-06, rho -83.23, step 2.2e-02, trust path 9.8e-06 m / rel 6.1e-05, nu 1.0e+01, QP Solved, 25.0 s
+      it 130: T 2.32112 s, violation 1.8e-05, rho +0.29, step 1.1e-02, trust path 2.0e-05 m / rel 1.2e-04, nu 1.0e+01, QP Solved, 26.7 s
+      it 140: T 2.32091 s, violation 8.0e-16, rho +1.00, step 1.4e-03, trust path 4.9e-06 m / rel 3.1e-05, nu 1.0e+01, QP Solved, 28.0 s
+      it 150: T 2.32055 s, violation 9.4e-07, rho +0.75, step 2.8e-03, trust path 4.9e-06 m / rel 3.1e-05, nu 1.0e+01, QP Solved, 29.3 s
+      it 160: T 2.31998 s, violation 1.7e-07, rho +0.99, step 2.2e-02, trust path 7.8e-05 m / rel 4.9e-04, nu 1.0e+01, QP Solved, 30.4 s
+      it 170: T 2.31918 s, violation 2.7e-05, rho +0.12, step 1.1e-02, trust path 2.0e-05 m / rel 1.2e-04, nu 1.0e+01, QP Solved, 32.1 s
+      it 180: T 2.31906 s, violation 5.9e-08, rho +0.97, step 1.4e-03, trust path 4.9e-06 m / rel 3.1e-05, nu 1.0e+01, QP Solved, 33.5 s
+      it 190: T 2.31844 s, violation 5.0e-06, rho +0.69, step 1.1e-02, trust path 2.0e-05 m / rel 1.2e-04, nu 1.0e+01, QP Solved, 34.5 s
+      it 200: T 2.31737 s, violation 4.5e-07, rho +0.97, step 1.1e-02, trust path 3.9e-05 m / rel 2.4e-04, nu 1.0e+01, QP Solved, 35.3 s
+      it 210: T 2.31075 s, violation 1.4e-04, rho +0.20, step 4.5e-02, trust path 7.8e-05 m / rel 4.9e-04, nu 1.0e+01, QP Solved, 36.2 s
+      it 220: T 2.30649 s, violation 2.3e-04, rho +0.12, step 4.5e-02, trust path 7.8e-05 m / rel 4.9e-04, nu 1.0e+01, QP Solved, 37.0 s
+      it 230: T 2.30097 s, violation 1.4e-04, rho +0.32, step 9.0e-02, trust path 1.6e-04 m / rel 9.8e-04, nu 1.0e+01, QP Solved, 38.1 s
+      it 240: T 2.29272 s, violation 9.2e-06, rho +1.08, step 8.8e-02, trust path 3.1e-04 m / rel 2.0e-03, nu 1.0e+01, QP Solved, 39.2 s
+      it 250: T 2.28424 s, violation 1.4e-07, rho +0.95, step 2.9e-03, trust path 9.8e-06 m / rel 6.1e-05, nu 1.0e+01, QP Solved, 40.2 s
+      it 260: T 2.28237 s, violation 1.5e-06, rho +0.97, step 2.3e-02, trust path 7.8e-05 m / rel 4.9e-04, nu 1.0e+01, QP Solved, 41.3 s
+      it 270: T 2.27942 s, violation 2.9e-05, rho +0.56, step 4.6e-02, trust path 7.8e-05 m / rel 4.9e-04, nu 1.0e+01, QP Solved, 42.8 s
+      it 280: T 2.27584 s, violation 2.5e-05, rho +0.67, step 4.6e-02, trust path 7.8e-05 m / rel 4.9e-04, nu 1.0e+01, QP Solved, 44.0 s
+      it 290: T 2.27248 s, violation 1.4e-14, rho +1.10, step 4.6e-02, trust path 1.6e-04 m / rel 9.8e-04, nu 1.0e+01, QP Solved, 45.1 s
+  4 piece(s): T 2.2489 s | 300 SQP steps, 46.1 s | violation 1.1e-04 | 40x finer: |w| max 15.35, torque ratio max 1.153, collective [6.9, 32.28], closest to the cylinder axis 2.499 m (radius 1.0)
+
+[exited with code 0]

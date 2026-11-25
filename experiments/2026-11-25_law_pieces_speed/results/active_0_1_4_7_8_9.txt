@@ -1,0 +1,24 @@
+track 0:
+   CPC                : |w_x| or |w_y| at limit    1%, a rotor at a bound  100%, neither    0%
+   pieces plan        : |w| at limit    0%, torque at limit    3%, collective at max   49%, none   50%
+   one-spline q plan  : |w| at limit    0%, torque at limit    5%, collective at max   75%, none   24%
+track 1:
+   CPC                : |w_x| or |w_y| at limit    5%, a rotor at a bound  100%, neither    0%
+   pieces plan        : |w| at limit    3%, torque at limit    4%, collective at max   44%, none   51%
+   one-spline q plan  : |w| at limit    2%, torque at limit    7%, collective at max   57%, none   38%
+track 4:
+   CPC                : |w_x| or |w_y| at limit    3%, a rotor at a bound  100%, neither    0%
+   pieces plan        : |w| at limit    1%, torque at limit    3%, collective at max   39%, none   60%
+   one-spline q plan  : |w| at limit    0%, torque at limit    4%, collective at max   59%, none   40%
+track 7:
+   CPC                : |w_x| or |w_y| at limit    6%, a rotor at a bound  100%, neither    0%
+   pieces plan        : |w| at limit    2%, torque at limit    4%, collective at max   39%, none   58%
+   one-spline q plan  : |w| at limit    2%, torque at limit    4%, collective at max   59%, none   38%
+track 8:
+   CPC                : |w_x| or |w_y| at limit   11%, a rotor at a bound  100%, neither    0%
+   pieces plan        : |w| at limit    1%, torque at limit    4%, collective at max   26%, none   71%
+   one-spline q plan  : |w| at limit    2%, torque at limit    4%, collective at max   46%, none   51%
+track 9:
+   CPC                : |w_x| or |w_y| at limit    9%, a rotor at a bound   99%, neither    0%
+   pieces plan        : |w| at limit    2%, torque at limit    2%, collective at max   17%, none   79%
+   one-spline q plan  : |w| at limit    1%, torque at limit    4%, collective at max   35%, none   62%
