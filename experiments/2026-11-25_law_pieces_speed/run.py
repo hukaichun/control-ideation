@@ -39,6 +39,7 @@ OVL = __import__("os").environ.get("OVL", "1") == "1"    # overlaps in the probl
 EPS = float(__import__("os").environ.get("EPS", 1.0))   # |v_i^2 - v_(i+1)^2| <= EPS m^2/s^2 in the overlaps (~0.05 m/s at 10 m/s)
 
 
+JUNC = __import__("os").environ.get("JUNC", "1") == "1"  # junction: v^2 and 3 arc-length derivatives equal
 LIMW = __import__("os").environ.get("LIMW", "1") == "1"  # limits on the whole piece (else cores only)
 
 
@@ -104,8 +105,9 @@ def solve(k):
     for i, J in enumerate(junc):
         a, b = pcs[i], pcs[(i + 1) % len(pcs)]
         xa, xb = float(a.xof(J)[0]), float(b.xof(J)[0])
-        e = junction_derivs(a, xa, cs[i]) - junction_derivs(b, xb, cs[(i + 1) % len(pcs)])
-        g.append(e); lbg.append(np.zeros(4)); ubg.append(np.zeros(4))
+        if JUNC:
+            e = junction_derivs(a, xa, cs[i]) - junction_derivs(b, xb, cs[(i + 1) % len(pcs)])
+            g.append(e); lbg.append(np.zeros(4)); ubg.append(np.zeros(4))
         # path mismatch at the junction (fixed path, measured only)
         qa = a.O + xa * a.e1 + a.f(xa) * a.e2 + a.g(xa) * a.e3
         qb = b.O + xb * b.e1 + b.f(xb) * b.e2 + b.g(xb) * b.e3

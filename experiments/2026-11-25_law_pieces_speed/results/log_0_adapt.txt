@@ -1,0 +1,16 @@
+CasADi - 2026-11-25 12:37:34 WARNING("s:nlp_g failed: NaN detected for output g, at (row 1804, col 0).") [.../casadi/core/oracle_function.cpp:411]
+CasADi - 2026-11-25 12:37:34 WARNING("s:nlp_g failed: NaN detected for output g, at (row 1804, col 0).") [.../casadi/core/oracle_function.cpp:411]
+CasADi - 2026-11-25 12:37:34 WARNING("s:nlp_g failed: NaN detected for output g, at (row 1804, col 0).") [.../casadi/core/oracle_function.cpp:411]
+CasADi - 2026-11-25 12:37:34 WARNING("s:nlp_g failed: NaN detected for output g, at (row 1804, col 0).") [.../casadi/core/oracle_function.cpp:411]
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+[overlaps in the problem (limits on the whole piece, |dv^2| <= 1.0)] track 0: lap 77.5 m, 16 pieces, 132 speed variables, path fit max 0.81 mm, junction mismatch max: position 0.40 mm, tangent 0.052 deg, curvature 0.005 1/m
+   start 38.751 s | Solve_Succeeded, 133 it, 3.0 s | lap 6.2139 s (+0.7% vs CPC 6.170)
+   solver samples: |w| max 14.32 rad/s (15) | torque needed/allowed max 1.000 (1) | collective [23.43, 32.37] (max 32.37) m/s^2
+   40x finer: |w| max 14.32 rad/s (15) | torque needed/allowed max 2.805 (1) | collective [23.43, 32.37] (max 32.37) m/s^2
+   overlaps: speed difference between neighbouring pieces max 0.280 m/s

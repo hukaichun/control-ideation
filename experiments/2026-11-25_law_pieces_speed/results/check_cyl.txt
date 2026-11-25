@@ -1,0 +1,3 @@
+1. r, r', r'', r''' (quotient rule vs JAX): [ 8.749008  0.232181 -0.028236 -0.073765] [ 8.749008  0.232181 -0.028236 -0.073765]
+2. objective at the start 6.541233 s vs core arc length / 3 m/s 6.541233 s
+3. start: violation 1.9e-04

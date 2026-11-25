@@ -1,0 +1,52 @@
+An NVIDIA GPU may be present on this machine, but a CUDA-enabled jaxlib is not installed. Falling back to cpu.
+1 piece(s): 32 variables, 133 constraints (0 junctions), build 0.7 s | start T 6.5412 s, violation 9.3e-14
+      it   0: T 5.44748 s, violation 4.9e-14, alpha 0.500, |step| 3.2e+00, 5.24 s
+      it  10: T 1.60780 s, violation 4.1e-01, alpha 1.000, |step| 3.5e-01, 5.33 s
+      it  20: T 1.60602 s, violation 5.6e-06, alpha 1.000, |step| 1.4e-03, 5.39 s
+      it  30: T 1.60602 s, violation 1.5e-13, alpha 1.000, |step| 6.1e-06, 5.46 s
+      it  40: T 1.60602 s, violation 1.5e-13, alpha 1.000, |step| 2.7e-08, 5.52 s
+   T 1.6060 s | 43 SQP steps, 5.53 s | violation 1.5e-13 | 10x finer: |w| max 8.70, torque ratio max 93.406, collective [31.6, 32.37], closest to the cylinder axis 1.000 m
+2 piece(s): 72 variables, 270 constraints (1 junctions), build 1.6 s | start T 6.5412 s, violation 1.5e-01
+      it   0: T 6.37507 s, violation 1.1e+00, alpha 0.062, |step| 1.2e-01, 16.10 s
+      it  10: T 5.35845 s, violation 1.5e+00, alpha 0.016, |step| 3.1e-02, 16.74 s
+      it  20: T 4.68541 s, violation 1.5e+00, alpha 0.002, |step| 5.0e-02, 17.20 s
+      it  30: T 4.62670 s, violation 1.5e+00, alpha 0.004, |step| 2.6e-01, 17.68 s
+      it  40: T 4.60641 s, violation 1.5e+00, alpha 0.000, |step| 4.7e-02, 18.23 s
+      it  50: T 4.59688 s, violation 1.5e+00, alpha 0.000, |step| 3.3e-02, 18.81 s
+      it  60: T 4.59174 s, violation 1.5e+00, alpha 0.000, |step| 2.6e-02, 19.39 s
+      it  70: T 4.58618 s, violation 1.5e+00, alpha 0.000, |step| 2.9e-02, 19.99 s
+      it  80: T 4.56061 s, violation 1.5e+00, alpha 0.000, |step| 3.7e-01, 20.56 s
+      it  90: T 4.52548 s, violation 1.5e+00, alpha 0.002, |step| 2.3e-02, 21.08 s
+      it 100: T 4.24987 s, violation 1.5e+00, alpha 0.004, |step| 6.3e-03, 21.57 s
+      it 110: T 4.08880 s, violation 1.5e+00, alpha 0.004, |step| 5.2e-03, 22.08 s
+      it 120: T 3.94701 s, violation 1.5e+00, alpha 0.008, |step| 1.4e-02, 22.62 s
+      it 130: T 3.79631 s, violation 1.5e+00, alpha 0.008, |step| 1.4e-02, 23.08 s
+      it 140: T 3.65307 s, violation 1.5e+00, alpha 0.008, |step| 1.4e-02, 23.49 s
+      it 150: T 3.50718 s, violation 1.5e+00, alpha 0.008, |step| 1.4e-02, 23.94 s
+      it 160: T 3.36854 s, violation 1.5e+00, alpha 0.008, |step| 1.3e-02, 24.43 s
+      it 170: T 3.23666 s, violation 1.5e+00, alpha 0.016, |step| 2.3e-02, 25.11 s
+      it 180: T 3.11141 s, violation 1.5e+00, alpha 0.016, |step| 2.0e-02, 25.59 s
+      it 190: T 3.00001 s, violation 1.5e+00, alpha 0.008, |step| 1.7e-02, 26.05 s
+   T 2.4405 s | 200 SQP steps, 26.42 s | violation 1.2e+00 | 10x finer: |w| max 8.10, torque ratio max 0.121, collective [9.5, 29.99], closest to the cylinder axis 1.184 m
+4 piece(s): 104 variables, 344 constraints (3 junctions), build 3.7 s | start T 6.5412 s, violation 4.1e-01
+      it   0: T 6.21745 s, violation 1.5e+00, alpha 0.125, |step| 2.0e-01, 39.06 s
+      it  10: T 4.87281 s, violation 4.1e+00, alpha 0.031, |step| 5.7e-02, 39.92 s
+      it  20: T 4.14827 s, violation 4.0e+00, alpha 0.062, |step| 1.5e-01, 40.71 s
+      it  30: T 3.52317 s, violation 4.0e+00, alpha 0.031, |step| 8.5e-02, 41.58 s
+      it  40: T 3.13860 s, violation 4.0e+00, alpha 0.031, |step| 8.7e-02, 42.42 s
+      it  50: T 2.85333 s, violation 4.0e+00, alpha 0.031, |step| 8.8e-02, 43.29 s
+      it  60: T 2.60067 s, violation 3.9e+00, alpha 0.062, |step| 2.0e-01, 44.09 s
+      it  70: T 2.30337 s, violation 3.9e+00, alpha 0.031, |step| 1.7e-01, 44.94 s
+      it  80: T 2.14687 s, violation 3.9e+00, alpha 0.016, |step| 5.2e-02, 45.98 s
+      it  90: T 2.10888 s, violation 4.1e+00, alpha 0.008, |step| 2.6e-02, 46.89 s
+      it 100: T 2.07997 s, violation 4.1e+00, alpha 0.004, |step| 1.3e-02, 47.79 s
+      it 110: T 2.05373 s, violation 4.1e+00, alpha 0.008, |step| 2.8e-02, 48.71 s
+      it 120: T 2.03989 s, violation 4.1e+00, alpha 0.002, |step| 7.1e-03, 49.67 s
+      it 130: T 2.02628 s, violation 4.1e+00, alpha 0.002, |step| 7.0e-03, 50.65 s
+      it 140: T 2.01287 s, violation 4.1e+00, alpha 0.002, |step| 7.4e-03, 51.63 s
+      it 150: T 1.99795 s, violation 4.1e+00, alpha 0.004, |step| 1.5e-02, 52.61 s
+      it 160: T 1.98675 s, violation 4.1e+00, alpha 0.002, |step| 7.6e-03, 53.58 s
+      it 170: T 1.97738 s, violation 4.1e+00, alpha 0.002, |step| 8.2e-03, 54.53 s
+      it 180: T 1.96813 s, violation 4.1e+00, alpha 0.002, |step| 8.4e-03, 55.52 s
+      it 190: T 1.95819 s, violation 4.1e+00, alpha 0.002, |step| 9.1e-03, 56.67 s
+   T 1.9461 s | 200 SQP steps, 57.50 s | violation 4.1e+00 | 10x finer: |w| max 13.45, torque ratio max 0.619, collective [9.8, 31.50], closest to the cylinder axis 1.055 m
