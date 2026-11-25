@@ -1,0 +1,4 @@
+[w] track 1: path 53.0 m, 53 variables, 530 samples x 4 limits, start 26.49 s | Solve_Succeeded, 210 it, 8.8 s | lap 3.8605 s (+3.6% vs CPC 3.726)
+  optimizer samples: |w| max 15.00 rad/s (15) | torque needed/allowed max 1.000 (1) | collective [9.66, 32.37] (max 32.37) m/s^2
+  40x finer: |w| max 15.41 rad/s (15) | torque needed/allowed max 1.157 (1) | collective [9.61, 32.37] (max 32.37) m/s^2
+  1% faster everywhere, 40x finer: |w| max 15.69 rad/s (15) | torque needed/allowed max 1309.348 (1) | collective [9.72, 32.97] (max 32.37) m/s^2

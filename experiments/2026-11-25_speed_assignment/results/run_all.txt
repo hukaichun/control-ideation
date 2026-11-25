@@ -1,0 +1,106 @@
+speed assignment on a fixed path, own augmented-Lagrangian Newton, q degree 4, knots 1.0 m, 4 samples per span, tracks [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      outer  0: T 6.2916, max violation 3.33e-02, mu 1e+01, inner total 60
+      outer  1: T 6.2424, max violation 2.77e-03, mu 1e+01, inner total 120
+      outer  2: T 6.2383, max violation 1.58e-03, mu 1e+01, inner total 132
+      outer  3: T 6.2397, max violation 3.99e-04, mu 1e+02, inner total 140
+      outer  4: T 6.2402, max violation 5.57e-05, mu 1e+03, inner total 151
+track 0: path 77.5 m (fit 0.13 mm), heading margin 23.1 deg, 78 variables, 620 samples | own (banded): lap 6.2402 s (4x finer 6.2402), solve 12.52 s (build 4.4 s), 5 outer / 151 Newton steps (82.7 ms per step), violation 5.6e-05, 4x finer 1.0e-02 (rotor 3 hi)
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+          IPOPT (check only): Solve_Succeeded, lap 6.2402 s, 43.28 s, 4x finer violation 1.0e-02 | max |q_own - q_ipopt| / max q = 1.0e-03
+      outer  0: T 3.9914, max violation 1.64e-02, mu 1e+01, inner total 60
+      outer  1: T 3.9654, max violation 9.19e-03, mu 1e+01, inner total 105
+      outer  2: T 3.9663, max violation 5.68e-04, mu 1e+02, inner total 120
+      outer  3: T 3.9665, max violation 4.28e-04, mu 1e+02, inner total 128
+      outer  4: T 3.9667, max violation 3.73e-05, mu 1e+03, inner total 135
+track 1: path 53.0 m (fit 0.24 mm), heading margin 14.7 deg, 53 variables, 424 samples | own (banded): lap 3.9667 s (4x finer 3.9667), solve 9.43 s (build 4.0 s), 5 outer / 135 Newton steps (69.2 ms per step), violation 3.7e-05, 4x finer 6.6e-02 (rotor 1 hi)
+          IPOPT (check only): Solve_Succeeded, lap 4.0170 s, 17.70 s, 4x finer violation 6.6e-02 | max |q_own - q_ipopt| / max q = 2.5e-01
+      outer  0: T 5.8904, max violation 3.74e-02, mu 1e+01, inner total 60
+      outer  1: T 5.9153, max violation 9.26e-03, mu 1e+01, inner total 78
+      outer  2: T 5.9205, max violation 3.89e-03, mu 1e+01, inner total 92
+      outer  3: T 5.9243, max violation 2.62e-04, mu 1e+02, inner total 99
+      outer  4: T 5.9244, max violation 1.14e-04, mu 1e+02, inner total 104
+      outer  5: T 5.9244, max violation 3.14e-05, mu 1e+03, inner total 109
+track 2: path 66.3 m (fit 21.98 mm), heading margin 21.5 deg, 66 variables, 532 samples | own (banded): lap 5.9244 s (4x finer 5.9244), solve 7.62 s (build 4.3 s), 6 outer / 109 Newton steps (69.1 ms per step), violation 3.1e-05, 4x finer 1.6e+02 (rotor 1 lo)
+          IPOPT (check only): Solve_Succeeded, lap 5.8900 s, 66.11 s, 4x finer violation 1.1e+02 | max |q_own - q_ipopt| / max q = 7.8e-02
+      outer  0: T 4.4960, max violation 3.54e-02, mu 1e+01, inner total 60
+      outer  1: T 4.4162, max violation 5.04e-03, mu 1e+01, inner total 97
+      outer  2: T 4.4160, max violation 2.57e-03, mu 1e+01, inner total 111
+      outer  3: T 4.4167, max violation 4.09e-04, mu 1e+02, inner total 169
+      outer  4: T 4.4168, max violation 1.14e-04, mu 1e+02, inner total 195
+      outer  5: T 4.4168, max violation 4.76e-05, mu 1e+03, inner total 243
+track 3: path 54.1 m (fit 7.67 mm), heading margin 33.4 deg, 54 variables, 432 samples | own (banded): lap 4.4168 s (4x finer 4.4168), solve 18.41 s (build 4.5 s), 6 outer / 243 Newton steps (75.4 ms per step), violation 4.8e-05, 4x finer 6.4e-02 (rotor 3 hi)
+          IPOPT (check only): Solve_Succeeded, lap 4.4160 s, 24.60 s, 4x finer violation 4.6e-02 | max |q_own - q_ipopt| / max q = 4.2e-02
+      outer  0: T 4.6642, max violation 2.93e-02, mu 1e+01, inner total 60
+      outer  1: T 4.6651, max violation 2.32e-03, mu 1e+01, inner total 120
+      outer  2: T 4.6623, max violation 1.65e-03, mu 1e+01, inner total 180
+      outer  3: T 4.6623, max violation 1.65e-03, mu 1e+02, inner total 182
+      outer  4: T 4.6623, max violation 4.60e-05, mu 1e+03, inner total 242
+track 4: path 54.8 m (fit 0.50 mm), heading margin 20.9 deg, 55 variables, 440 samples | own (banded): lap 4.6623 s (4x finer 4.6623), solve 29.02 s (build 5.3 s), 5 outer / 242 Newton steps (119.6 ms per step), violation 4.6e-05, 4x finer 1.9e+01 (rotor 2 lo)
+          IPOPT (check only): Solve_Succeeded, lap 4.0618 s, 7.21 s, 4x finer violation 3.9e-02 | max |q_own - q_ipopt| / max q = 5.3e-01
+      outer  0: T 14.1307, max violation 6.16e-01, mu 1e+01, inner total 9
+      outer  1: T 14.1307, max violation 6.16e-01, mu 1e+01, inner total 10
+      outer  2: T 14.1307, max violation 6.16e-01, mu 1e+02, inner total 11
+      outer  3: T 14.1307, max violation 6.16e-01, mu 1e+03, inner total 12
+      outer  4: T 14.1307, max violation 6.16e-01, mu 1e+04, inner total 13
+      outer  5: T 14.1307, max violation 6.16e-01, mu 1e+05, inner total 14
+      outer  6: T 14.1307, max violation 6.16e-01, mu 1e+06, inner total 15
+      outer  7: T 14.1307, max violation 6.16e-01, mu 1e+07, inner total 16
+      outer  8: T 14.1307, max violation 6.16e-01, mu 1e+08, inner total 17
+      outer  9: T 14.1307, max violation 6.16e-01, mu 1e+09, inner total 18
+      outer 10: T 14.1307, max violation 6.16e-01, mu 1e+10, inner total 19
+      outer 11: T 14.1307, max violation 6.16e-01, mu 1e+11, inner total 20
+      outer 12: T 14.1307, max violation 6.16e-01, mu 1e+12, inner total 21
+      outer 13: T 14.1307, max violation 6.16e-01, mu 1e+13, inner total 22
+      outer 14: T 14.1307, max violation 6.16e-01, mu 1e+14, inner total 23
+      outer 15: T 14.1307, max violation 6.16e-01, mu 1e+15, inner total 24
+      outer 16: T 14.1307, max violation 6.16e-01, mu 1e+16, inner total 25
+      outer 17: T 14.1307, max violation 6.16e-01, mu 1e+17, inner total 26
+      outer 18: T 14.1307, max violation 6.16e-01, mu 1e+18, inner total 27
+      outer 19: T 14.1307, max violation 6.16e-01, mu 1e+19, inner total 28
+      outer 20: T 14.1307, max violation 6.16e-01, mu 1e+20, inner total 29
+      outer 21: T 14.1307, max violation 6.16e-01, mu 1e+21, inner total 30
+      outer 22: T 14.1307, max violation 6.16e-01, mu 1e+22, inner total 31
+      outer 23: T 14.1307, max violation 6.16e-01, mu 1e+23, inner total 32
+      outer 24: T 14.1307, max violation 6.16e-01, mu 1e+24, inner total 33
+      outer 25: T 14.1307, max violation 6.16e-01, mu 1e+25, inner total 34
+      outer 26: T 14.1307, max violation 6.16e-01, mu 1e+26, inner total 35
+      outer 27: T 14.1307, max violation 6.16e-01, mu 1e+27, inner total 36
+      outer 28: T 14.1307, max violation 6.16e-01, mu 1e+28, inner total 37
+      outer 29: T 14.1307, max violation 6.16e-01, mu 1e+29, inner total 38
+track 5: path 56.1 m (fit 58.71 mm), heading margin 16.7 deg, 56 variables, 448 samples | own (banded): lap 14.1307 s (4x finer 14.1307), solve 0.29 s (build 0.6 s), 30 outer / 38 Newton steps (6.6 ms per step), violation 6.2e-01, 4x finer 7.0e-01 (w_x)
+          IPOPT (check only): Solve_Succeeded, lap 7.3902 s, 2.60 s, 4x finer violation 1.4e-01 | max |q_own - q_ipopt| / max q = 9.4e-01
+      outer  0: T 7.4955, max violation 3.80e-02, mu 1e+01, inner total 60
+      outer  1: T 7.4298, max violation 8.93e-03, mu 1e+01, inner total 113
+      outer  2: T 7.4292, max violation 2.96e-03, mu 1e+01, inner total 125
+      outer  3: T 7.4301, max violation 8.92e-04, mu 1e+02, inner total 133
+      outer  4: T 7.4304, max violation 2.84e-05, mu 1e+03, inner total 143
+track 6: path 66.1 m (fit 52.06 mm), heading margin 11.2 deg, 66 variables, 528 samples | own (banded): lap 7.4304 s (4x finer 7.4304), solve 1.41 s (build 0.6 s), 5 outer / 143 Newton steps (9.8 ms per step), violation 2.8e-05, 4x finer 7.7e-02 (rotor 1 lo)
+          IPOPT (check only): Solve_Succeeded, lap 7.4639 s, 3.62 s, 4x finer violation 8.7e-02 | max |q_own - q_ipopt| / max q = 1.1e-01
+      outer  0: T 3.8047, max violation 6.89e-03, mu 1e+01, inner total 55
+      outer  1: T 3.8092, max violation 1.28e-03, mu 1e+01, inner total 90
+      outer  2: T 3.8096, max violation 1.20e-03, mu 1e+01, inner total 120
+      outer  3: T 3.8100, max violation 3.38e-04, mu 1e+02, inner total 145
+      outer  4: T 3.8103, max violation 2.49e-05, mu 1e+03, inner total 175
+track 7: path 54.5 m (fit 0.19 mm), heading margin 20.5 deg, 55 variables, 436 samples | own (banded): lap 3.8103 s (4x finer 3.8103), solve 1.35 s (build 0.6 s), 5 outer / 175 Newton steps (7.7 ms per step), violation 2.5e-05, 4x finer 7.4e-02 (rotor 3 hi)
+          IPOPT (check only): Solve_Succeeded, lap 3.7953 s, 2.42 s, 4x finer violation 3.1e-02 | max |q_own - q_ipopt| / max q = 1.3e-01
+      outer  0: T 3.7413, max violation 1.45e-02, mu 1e+01, inner total 60
+      outer  1: T 3.7494, max violation 4.80e-03, mu 1e+01, inner total 78
+      outer  2: T 3.7501, max violation 4.62e-04, mu 1e+02, inner total 93
+      outer  3: T 3.7503, max violation 1.11e-04, mu 1e+02, inner total 98
+      outer  4: T 3.7503, max violation 9.61e-05, mu 1e+02, inner total 101
+track 8: path 49.1 m (fit 0.47 mm), heading margin 17.5 deg, 49 variables, 392 samples | own (banded): lap 3.7503 s (4x finer 3.7503), solve 0.65 s (build 0.6 s), 5 outer / 101 Newton steps (6.4 ms per step), violation 9.6e-05, 4x finer 4.7e-02 (rotor 3 hi)
+          IPOPT (check only): Solve_Succeeded, lap 3.7033 s, 1.73 s, 4x finer violation 2.7e-02 | max |q_own - q_ipopt| / max q = 2.6e-01
+      outer  0: T 5.2132, max violation 2.35e-02, mu 1e+01, inner total 60
+      outer  1: T 5.2189, max violation 1.14e-02, mu 1e+01, inner total 120
+      outer  2: T 5.2220, max violation 1.47e-03, mu 1e+02, inner total 180
+      outer  3: T 5.2229, max violation 2.51e-04, mu 1e+02, inner total 240
+      outer  4: T 5.2228, max violation 1.79e-04, mu 1e+02, inner total 300
+      outer  5: T 5.2229, max violation 2.16e-05, mu 1e+03, inner total 360
+track 9: path 55.2 m (fit 0.25 mm), heading margin 21.0 deg, 55 variables, 440 samples | own (banded): lap 5.2229 s (4x finer 5.2229), solve 2.86 s (build 0.5 s), 6 outer / 360 Newton steps (7.9 ms per step), violation 2.2e-05, 4x finer 7.1e-02 (rotor 4 hi)
+          IPOPT (check only): Solve_Succeeded, lap 5.2221 s, 8.55 s, 4x finer violation 7.1e-02 | max |q_own - q_ipopt| / max q = 4.0e-03

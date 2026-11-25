@@ -1,0 +1,8 @@
+track 0, solver ipopt: path 77.5 m (fit 0.12 mm), 78 knots -> 156 variables, 620 samples x 14 limits, start 38.75 s (2 m/s), CPC 6.170 s
+  result: Solve_Succeeded, 218 iterations, 20.6 s | lap 7.4708 s (+21.1% vs CPC) | speed range 5.3-18.9 m/s (control points) | 4x finer grid: min scaled limit -3.09e-01 (rotor 2 <= Tmax)
+track 0, solver ipopt: path 77.5 m (fit 0.12 mm), 78 knots -> 156 variables, 620 samples x 14 limits, start 38.75 s (2 m/s), CPC 6.170 s
+  result: Solve_Succeeded, 218 iterations, 30.4 s | lap 7.4708 s (+21.1% vs CPC) | speed range 5.3-18.9 m/s (control points) | 4x finer grid: min scaled limit -3.09e-01 (rotor 2 <= Tmax)
+track 0, solver ipopt: path 77.5 m (fit 0.12 mm), 78 knots -> 156 variables, 620 samples x 14 limits, start 38.75 s (2 m/s), CPC 6.170 s
+  result: Solve_Succeeded, 336 iterations, 47.0 s | lap 8.2571 s (+33.8% vs CPC) | speed range 3.5-14.2 m/s (control points) | 4x finer grid: min scaled limit -2.15e-01 (rotor 2 <= Tmax)
+track 0, solver ipopt: path 77.5 m (fit 0.12 mm), 78 knots -> 156 variables, 620 samples x 14 limits, start 38.75 s (2 m/s), CPC 6.170 s
+  result: Solve_Succeeded, 511 iterations, 68.0 s | lap 10.6105 s (+72.0% vs CPC) | speed range 3.1-15.4 m/s (control points) | 4x finer grid: min scaled limit -7.37e-01 (rotor 3 <= Tmax)

@@ -1,0 +1,5 @@
+path + speed together, own optimiser: degree 4 on both, knots every 1.0 m of the start path, 4 samples per span, gate tol 0.24 m, start: spline through the gates at 3.0 m/s, tracks [0]
+      outer  0: T 8.3861, max violation 6.07e-02, mu 1e+01, Newton steps 80, 27.6 s
+      outer  1: T 7.8399, max violation 5.60e-02, mu 1e+01, Newton steps 160, 57.4 s
+      outer  2: T 7.8382, max violation 2.46e-05, mu 1e+02, Newton steps 240, 88.7 s
+track 0: start path 78.1 m, 78 knots (312 variables), 312 samples | lap 7.838 s, path 76.9 m, worst gate 0.240 m | 3 outer / 240 Newton steps, 88.7 s (+ build 14.8 s), violation 2.5e-05, 4x finer 4.1e+01 (rotor 4 hi) | |dr/du| max/min 2.00 | heading margin start 16.0 deg, end 13.9 deg

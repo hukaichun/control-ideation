@@ -1,0 +1,13 @@
+toy, 8 intervals, analytic T* 1.5703 s, IPOPT on this problem 1.5392 s, start T 10.0 s; projected gradient descent + Armijo, 20000 steps
+  equations raw:
+    mu 1e+01: 4000 steps, T 9.8851 s, max |eq| 1.5e-03, ends 3.1e-07, last step 1.2e-07, 1 s
+    mu 1e+02: 4000 steps, T 9.8756 s, max |eq| 3.0e-04, ends 2.8e-06, last step 7.8e-09, 3 s
+    mu 1e+03: 4000 steps, T 9.8746 s, max |eq| 2.5e-04, ends 5.2e-06, last step 9.8e-10, 5 s
+    mu 1e+04: 4000 steps, T 9.8745 s, max |eq| 2.5e-04, ends 7.4e-06, last step 6.1e-11, 6 s
+    mu 1e+05: 4000 steps, T 9.8745 s, max |eq| 2.5e-04, ends 9.5e-06, last step 7.6e-12, 8 s
+  equations scaled:
+    mu 1e+01: 4000 steps, T 6.9627 s, max |eq| 7.7e-02, ends 1.7e-02, last step 4.0e-06, 2 s
+    mu 1e+02: 4000 steps, T 6.9957 s, max |eq| 4.2e-02, ends 7.6e-03, last step 5.0e-07, 4 s
+    mu 1e+03: 4000 steps, T 7.1226 s, max |eq| 2.9e-02, ends 4.8e-03, last step 3.1e-08, 6 s
+    mu 1e+04: 4000 steps, T 7.2153 s, max |eq| 2.5e-02, ends 4.0e-03, last step 7.8e-09, 7 s
+    mu 1e+05: 4000 steps, T 7.2918 s, max |eq| 2.2e-02, ends 3.5e-03, last step 4.9e-10, 9 s

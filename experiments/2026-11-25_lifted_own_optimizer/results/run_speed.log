@@ -1,0 +1,15 @@
+lifted, no division, own optimiser: MODE speed, degree 4, knots 1.0 m, 2 samples per span, heading a variable, tracks [0]
+      outer  0: T 10.1586, |eq| 2.8e-02, ineq viol 7.0e-02, mu 1e+01, Newton 60, 2.2 s
+      outer  1: T 8.3110, |eq| 2.9e-02, ineq viol 5.4e-02, mu 1e+01, Newton 120, 4.4 s
+      outer  2: T 8.0789, |eq| 6.0e-03, ineq viol 6.4e-03, mu 1e+02, Newton 180, 6.9 s
+      outer  3: T 7.7480, |eq| 8.8e-03, ineq viol 5.0e-03, mu 1e+02, Newton 240, 9.1 s
+      outer  4: T 7.6782, |eq| 5.5e-04, ineq viol 1.2e-03, mu 1e+03, Newton 300, 11.4 s
+      outer  5: T 7.5089, |eq| 5.9e-04, ineq viol 2.9e-06, mu 1e+03, Newton 360, 13.8 s
+      outer  6: T 7.4932, |eq| 2.4e-04, ineq viol 2.9e-05, mu 1e+04, Newton 420, 16.3 s
+      outer  7: T 7.4866, |eq| 3.5e-05, ineq viol 1.3e-06, mu 1e+05, Newton 480, 18.8 s
+      outer  8: T 7.4575, |eq| 7.0e-05, ineq viol 7.5e-07, mu 1e+05, Newton 540, 21.1 s
+      outer  9: T 7.4472, |eq| 6.8e-06, ineq viol 4.2e-10, mu 1e+06, Newton 600, 23.5 s
+      outer 10: T 7.4377, |eq| 2.7e-06, ineq viol 6.7e-07, mu 1e+06, Newton 660, 25.8 s
+      outer 11: T 7.4323, |eq| 2.1e-06, ineq viol 6.2e-08, mu 1e+07, Newton 720, 28.1 s
+      outer 12: T 7.4303, |eq| 6.8e-07, ineq viol 3.7e-08, mu 1e+08, Newton 780, 30.5 s
+track 0: 312 knot + 3120 sample variables, start |eq| 1.3e-15 | lap 7.4303 s (4x finer 7.4303) | 13 outer / 780 Newton, 30.5 s | |eq| 6.8e-07, bounds/gates viol 3.7e-08 | between samples (check): 2.4e+03 (w_z)

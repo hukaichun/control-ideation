@@ -1,0 +1,17 @@
+time-optimal inside our space: quintic periodic B-splines, gate tol 0.24 m, V spacings (2.0, 1.0, 0.5) m, tracks [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+track 0: CPC 6.170 s, restricted CPC (start) 6.997 s (+13.4%), length 77.3 m, reference fit 0.16 mm | previous (fitted G3 pieces, speed only) +2.6% (no rate limit) / +2.6% (rate 0.9 x 15)
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+  ours 90%, safe torque  V 2.00 m offsets 1.98 m (39 + 78 vars): Solve_Succeeded          61 it    6.6 s | lap 6.578 ( +6.6%), 4x finer check 6.578, worst limit +0.001 | gates <= 0.240 m, max offset coef 0.13 m | start: lap 6.997, worst limit -0.004 | rounds: Solve 41 it 6.578 / Solve 20 it 6.578
+  ours 90%, safe torque  V 1.00 m offsets 1.00 m (77 + 154 vars): Solve_Succeeded          90 it   11.6 s | lap 6.563 ( +6.4%), 4x finer check 6.563, worst limit +0.001 | gates <= 0.240 m, max offset coef 0.06 m | start: lap 6.997, worst limit -0.004 | rounds: Solve 63 it 6.563 / Solve 27 it 6.563
+  ours 90%, safe torque  V 0.50 m offsets 1.00 m (155 + 154 vars): Solve_Succeeded         130 it   18.1 s | lap 6.560 ( +6.3%), 4x finer check 6.560, worst limit +0.002 | gates <= 0.240 m, max offset coef 0.06 m | start: lap 6.997, worst limit -0.004 | rounds: Solve 73 it 6.560 / Solve 57 it 6.560
+track 1: CPC 3.726 s, restricted CPC (start) 4.232 s (+13.6%), length 53.0 m, reference fit 0.19 mm | previous (fitted G3 pieces, speed only) +3.6% (no rate limit) / +4.2% (rate 0.9 x 15)
+  ours 90%, safe torque  V 2.00 m offsets 1.96 m (27 + 54 vars): Solve_Succeeded         274 it   23.7 s | lap 4.151 (+11.4%), 4x finer check 4.151, worst limit +195.335 | gates <= 0.240 m, max offset coef 0.35 m | start: lap 4.231, worst limit +103826.911 | rounds: Solve 232 it 4.151 / Solve 42 it 4.151
+  ours 90%, safe torque  V 1.00 m offsets 1.00 m (53 + 106 vars): Maximum_Iterations_Exc 1000 it   92.9 s | lap 3.994 ( +7.2%), 4x finer check 3.994, worst limit +0.044 | gates <= 0.240 m, max offset coef 0.07 m | start: lap 4.232, worst limit +21914.810 | rounds: Maxim 1000 it 3.994
+  ours 90%, safe torque  V 0.50 m offsets 1.00 m (106 + 106 vars): Solve_Succeeded         891 it  108.4 s | lap 3.972 ( +6.6%), 4x finer check 3.972, worst limit +26035.280 | gates <= 0.240 m, max offset coef 0.05 m | start: lap 4.232, worst limit +2622080.699 | rounds: Solve 730 it 3.972 / Solve 161 it 3.972
+track 2: CPC 4.773 s, restricted CPC (start) 5.401 s (+13.1%), length 66.3 m, reference fit 20.47 mm | previous (fitted G3 pieces, speed only) +10.0% (no rate limit) / +11.2% (rate 0.9 x 15)

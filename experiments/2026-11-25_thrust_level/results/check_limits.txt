@@ -1,0 +1,10 @@
+1. CPC track 0 (210 nodes): rotor thrust error max 2.9e-01 N, body rate error max 3.4e-02 rad/s | collective thrust range [30.10, 32.37] m/s^2 | all finite True | min scaled limit value -1.2e-03 (CPC sits on its limits: ~0)
+1. CPC track 1 (210 nodes): rotor thrust error max 1.8e-02 N, body rate error max 6.6e-03 rad/s | collective thrust range [0.02, 32.37] m/s^2 | all finite True | min scaled limit value -1.2e-06 (CPC sits on its limits: ~0)
+1. CPC track 5 (210 nodes): rotor thrust error max 8.7e-02 N, body rate error max 1.0e-02 rad/s | collective thrust range [29.52, 32.37] m/s^2 | all finite True | min scaled limit value -7.4e-06 (CPC sits on its limits: ~0)
+2. zero / tiny collective thrust:
+   free fall, vertical, nothing turning (fine): finite True, min limit value +0.00e+00, violated: none | (check only, divides) rotors [nan nan nan nan], w [nan nan nan]
+   c = 1e-6, vertical, no jerk (fine): finite True, min limit value +7.54e-96, violated: none | (check only, divides) rotors [0. 0. 0. 0.], w [0. 0. 0.]
+   c = 1e-3, sideways jerk 0.1 (needs w = 100 rad/s: violated): finite True, min limit value -1.68e-21, violated: none | (check only, divides) rotors [ 23.998 -23.997  23.998 -23.997], w [29.552 95.534  0.   ]
+   c = 1, sideways jerk 0.1 (w = 0.1 rad/s: fine): finite True, min limit value +7.54e-18, violated: none | (check only, divides) rotors [0.213 0.212 0.213 0.212], w [0.03  0.096 0.   ]
+   hover c = g (fine): finite True, min limit value +5.88e-05, violated: none | (check only, divides) rotors [2.085 2.085 2.085 2.085], w [0. 0. 0.]
+3. gradient vs central differences at 20 random points: max error relative to the largest entry 5.9e-10

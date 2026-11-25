@@ -1,0 +1,10 @@
+speed knots along the path: CPC's path fixed, q = (v/L)^2 periodic B-spline, degrees (4, 5), spacings (2.0, 1.0, 0.5, 0.25) m, limits exact, tracks [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+track 0: CPC 6.170 s, length 77.5 m, path fit 0.13 mm, CPC heading fit 1.12 deg
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+  100% deg 4 knots 1.99 m ( 39 vars): Infeasible_Problem_Det 1417 it  111.0 s | lap 7.436, 4x finer 7.436 (+20.5%) | worst limit +0.1026 (w_z) | start worst +2.535

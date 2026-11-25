@@ -1,0 +1,7 @@
+1. CPC track 0: |w_xy| error max 5.0e-04 rad/s, torque error max 6.7e-03 N m (CPC has |w_z| <= 0.3: not in our heading-free formulas)
+1. CPC track 1: |w_xy| error max 3.4e-05 rad/s, torque error max 9.0e-03 N m (CPC has |w_z| <= 0.3: not in our heading-free formulas)
+1. CPC track 5: |w_xy| error max 2.1e-05 rad/s, torque error max 6.5e-03 N m (CPC has |w_z| <= 0.3: not in our heading-free formulas)
+2. chains on an analytic path: w chain vs q chain max relative difference 4.2e-16; vs direct time differentiation 1.6e-03 (finite differences, h = 2 ms)
+3. 20000 random points: limit rows vs physical margins, max relative difference 7.8e-13
+4. [w] limit gradients vs central differences, 20 points: max error per row 6.1e-09
+4. [q] limit gradients vs central differences, 20 points: max error per row 4.0e-09

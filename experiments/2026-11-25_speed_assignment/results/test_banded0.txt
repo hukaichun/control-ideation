@@ -1,0 +1,15 @@
+speed assignment on a fixed path, own augmented-Lagrangian Newton, q degree 4, knots 1.0 m, 4 samples per span, tracks [0]
+      outer  0: T 6.2916, max violation 3.33e-02, mu 1e+01, inner total 60
+      outer  1: T 6.2424, max violation 2.77e-03, mu 1e+01, inner total 120
+      outer  2: T 6.2383, max violation 1.58e-03, mu 1e+01, inner total 132
+      outer  3: T 6.2397, max violation 3.99e-04, mu 1e+02, inner total 140
+      outer  4: T 6.2402, max violation 5.57e-05, mu 1e+03, inner total 151
+track 0: path 77.5 m (fit 0.13 mm), heading margin 23.1 deg, 78 variables, 620 samples | own (banded): lap 6.2402 s (4x finer 6.2402), solve 20.28 s (build 5.4 s), 5 outer / 151 Newton steps (133.9 ms per step), violation 5.6e-05, 4x finer 1.0e-02 (rotor 3 hi)
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+          IPOPT (check only): Solve_Succeeded, lap 6.2402 s, 43.66 s, 4x finer violation 1.0e-02 | max |q_own - q_ipopt| / max q = 1.0e-03
