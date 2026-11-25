@@ -66,11 +66,21 @@ class Path_:
     def __init__(self, k, hp=None):
         hp = float(os.environ.get("HP", 0.5)) if hp is None else hp
         P, self.lap_cpc = cpc_lap(k)
+        self.cut = os.environ.get("CUT", "0") == "1"
+        self.i0 = 0
+        if self.cut:                               # start the lap at CPC's slowest node (the tip of the V turn)
+            x = np.load(ROOT / "logs" / f"cpc_traj_tol0.24_{k}.npz")["x"]
+            self.i0 = int(np.argmin(np.linalg.norm(x[:, 3:6], axis=1)))
+            P = np.roll(P, -20 * self.i0, axis=0)
+        self.P = P
         sl = np.linalg.norm(np.roll(P, -1, 0) - P, axis=1)
         s_ = np.r_[0, np.cumsum(sl)[:-1]]
         self.L = sl.sum()
         self.nref = int(round(self.L / hp))        # path knots every hp m
-        self.Cp = np.linalg.lstsq(prows(s_ / self.L, self.nref, 5, 0), P, rcond=None)[0]
+        if self.cut:
+            self._fit_cut(s_ / self.L, P, int(os.environ.get("CUTC", 3)))
+        else:
+            self.Cp = np.linalg.lstsq(prows(s_ / self.L, self.nref, 5, 0), P, rcond=None)[0]
         self.n = int(round(self.L / HK))          # speed spline control points
         self.M0 = SPS * max(self.nref, self.n)
         self.us = self.grid(1)                    # constraint samples
@@ -82,9 +92,31 @@ class Path_:
         mid = (np.arange(fac * self.M0) + 0.5) / (fac * self.M0)
         return np.unique(np.r_[mid, np.arange(self.nref) / self.nref, np.arange(self.n) / self.n])
 
+    def _fit_cut(self, u, P, cont):
+        """CUT=1 (user, 2026-11-25: "直接在尖點用兩條不同的 spline"): the lap is one open (clamped) quintic B-spline that
+        starts and ends at the tip of the V turn, so the tip is a junction instead of the middle of a uniform span.
+        At the junction p and its u-derivatives 1..cont are equal on both sides (cont = 3: p, velocity, acceleration
+        and jerk continuous; the 4th derivative (torque) may jump). No assumption on the speed there.
+        Least squares with these equalities (KKT system)."""
+        self.tk = np.r_[np.zeros(5), np.linspace(0, 1, self.nref + 1), np.ones(5)]
+        nc = len(self.tk) - 6
+        A = self._rows(u, 0)
+        E = np.vstack([self._rows(np.array([0.0]), d) - self._rows(np.array([1.0]), d) for d in range(cont + 1)])
+        K = np.block([[A.T @ A, E.T], [E, np.zeros((len(E), len(E)))]])
+        self.Cp = np.linalg.solve(K, np.vstack([A.T @ P, np.zeros((len(E), 3))]))[:nc]
+
+    def _rows(self, u, d):
+        nc = len(self.tk) - 6
+        b = BSpline(self.tk, np.eye(nc), 5)
+        b = b.derivative(d) if d else b
+        return b(np.clip(np.asarray(u, float), 0, 1))
+
+    def prow(self, u, d):
+        return self._rows(u, d) if self.cut else prows(u, self.nref, 5, d)
+
     def at(self, u):
         """p_u .. p_uuuu (12 x len(u)) and speed-spline rows (0..3 derivatives)."""
-        Pd = np.vstack([(prows(u, self.nref, 5, d) @ self.Cp).T for d in range(1, 5)])
+        Pd = np.vstack([(self.prow(u, d) @ self.Cp).T for d in range(1, 5)])
         B = [prows(u, self.n, DEG, d) for d in range(4)]
         return Pd, B
 

@@ -1,0 +1,12 @@
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+track 4: lap 54.8 m, 10 pieces, 116 speed variables, path fit max 0.50 mm, junction mismatch max: position 0.20 mm, tangent 0.040 deg, curvature 0.006 1/m
+   start 27.425 s | Solve_Succeeded, 299 it, 3.8 s | lap 3.9841 s (+1.5% vs CPC 3.924)
+   solver samples: |w| max 15.00 rad/s (15) | torque needed/allowed max 1.000 (1) | collective [18.69, 32.36] (max 32.37) m/s^2
+   40x finer: |w| max 15.10 rad/s (15) | torque needed/allowed max 1.275 (1) | collective [18.60, 32.36] (max 32.37) m/s^2
+   overlaps: speed difference between neighbouring pieces max 425.368 m/s

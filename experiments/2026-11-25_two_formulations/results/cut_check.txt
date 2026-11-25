@@ -1,0 +1,8 @@
+track 5, uniform periodic  , knots 0.5 m: position error max  58.43 mm | curvature at the tip: CPC  77.27, fit  45.85 1/m | curvature error max over CPC nodes  42.19 1/m (at node 118)
+track 5, cut at tip (C3)   , knots 0.5 m: position error max  46.96 mm | curvature at the tip: CPC  77.27, fit  33.56 1/m | curvature error max over CPC nodes  43.71 1/m (at node 120)
+track 5, cut at tip (C2)   , knots 0.5 m: position error max  31.56 mm | curvature at the tip: CPC  77.27, fit  88.20 1/m | curvature error max over CPC nodes  30.47 1/m (at node 121)
+track 5, cut at tip (C3)   , knots 0.1 m: position error max   6.00 mm | curvature at the tip: CPC  77.27, fit  39.99 1/m | curvature error max over CPC nodes  37.28 1/m (at node 120)
+track 6, uniform periodic  , knots 0.5 m: position error max  51.76 mm | curvature at the tip: CPC  28.01, fit  15.87 1/m | curvature error max over CPC nodes  12.15 1/m (at node 90)
+track 6, cut at tip (C3)   , knots 0.5 m: position error max  38.35 mm | curvature at the tip: CPC  28.01, fit  13.37 1/m | curvature error max over CPC nodes  14.65 1/m (at node 90)
+track 6, cut at tip (C2)   , knots 0.5 m: position error max  12.49 mm | curvature at the tip: CPC  28.01, fit  33.05 1/m | curvature error max over CPC nodes   5.49 1/m (at node 89)
+track 6, cut at tip (C3)   , knots 0.1 m: position error max   2.51 mm | curvature at the tip: CPC  28.01, fit  19.58 1/m | curvature error max over CPC nodes   8.44 1/m (at node 90)

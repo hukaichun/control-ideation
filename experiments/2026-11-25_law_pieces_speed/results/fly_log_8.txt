@@ -1,0 +1,1 @@
+track 8: planned 3.961 s | flown lap 2 3.959 s (-0.1% vs plan) | worst gate 0.240 m (CPC tol 0.24) | off path max 0.011 m, rms 0.004 m | motor saturation 2.4% | no-weight fallback 0.0% | 9 pieces, lateral window 1.00..2.00 m (leg gap 5.60)
