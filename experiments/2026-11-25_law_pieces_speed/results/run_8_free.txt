@@ -1,0 +1,5 @@
+track 8: lap 49.1 m, 9 pieces, 103 speed variables, path fit max 0.42 mm, junction mismatch max: position 0.13 mm, tangent 0.030 deg, curvature 0.008 1/m
+   start 24.529 s | Solve_Succeeded, 1118 it, 12.7 s | lap 3.6581 s (+5.9% vs CPC 3.453)
+   solver samples: |w| max 15.00 rad/s (15) | torque needed/allowed max 1.000 (1) | collective [13.48, 32.36] (max 32.37) m/s^2
+   40x finer: |w| max 15.23 rad/s (15) | torque needed/allowed max 1.061 (1) | collective [13.40, 32.36] (max 32.37) m/s^2
+   overlaps: speed difference between neighbouring pieces max 4.462 m/s

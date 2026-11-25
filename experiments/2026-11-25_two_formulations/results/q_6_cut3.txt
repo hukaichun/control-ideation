@@ -1,0 +1,5 @@
+[q] track 6: path 66.1 m, path knots 0.50 m, cut at the tip (node 90), 66 variables, 660 samples x 4 limits, start 33.05 s | Solve_Succeeded, 41 it, 0.7 s | lap 6.7894 s (+32.1% vs CPC 5.141)
+  optimizer samples: |w| max 15.00 rad/s (15) | torque needed/allowed max 1.000 (1) | collective [8.64, 32.36] (max 32.37) m/s^2
+  40x finer: |w| max 16.21 rad/s (15) | torque needed/allowed max 1.033 (1) | collective [8.56, 32.36] (max 32.37) m/s^2
+  1% faster everywhere, 40x finer: |w| max 16.57 rad/s (15) | torque needed/allowed max 116.153 (1) | collective [8.54, 32.93] (max 32.37) m/s^2
+  objective quadrature: 6 points 6.789432 s, 8 points 6.789432 s, 32 points 6.789432 s

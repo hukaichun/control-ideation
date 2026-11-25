@@ -1,0 +1,1 @@
+track 0: cutting failed: widened fit range not monotone along the chord

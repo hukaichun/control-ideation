@@ -1,0 +1,12 @@
+1. track 0: 16 pieces, lap 77.5 m, path fit max 3.81 mm, max tangent angle to the chord 74.9 deg
+2. piece geometry vs finite differences (track 0, piece 2): max relative error 1.0e-05
+3. junction derivatives vs a fit along the arc length: [15.7975  3.6214 15.0795  0.1275] vs [15.7975  3.6214 15.0795  0.1275]
+1. track 1: 8 pieces, lap 53.0 m, path fit max 0.30 mm, max tangent angle to the chord 58.4 deg
+1. track 2: cutting failed (piece not monotone along its chord (turns more than 90 deg))
+1. track 3: cutting failed (piece not monotone along its chord (turns more than 90 deg))
+1. track 4: 10 pieces, lap 54.8 m, path fit max 0.50 mm, max tangent angle to the chord 43.6 deg
+1. track 5: cutting failed (piece not monotone along its chord (turns more than 90 deg))
+1. track 6: cutting failed (piece not monotone along its chord (turns more than 90 deg))
+1. track 7: 9 pieces, lap 54.5 m, path fit max 0.15 mm, max tangent angle to the chord 39.2 deg
+1. track 8: 9 pieces, lap 49.1 m, path fit max 0.42 mm, max tangent angle to the chord 36.8 deg
+1. track 9: 11 pieces, lap 55.2 m, path fit max 2.69 mm, max tangent angle to the chord 67.0 deg

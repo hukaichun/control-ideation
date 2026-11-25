@@ -15,3 +15,5 @@ experiments/**/*.npz
 # casadi JIT build files
 jit_tmp*.c
 tmp_casadi_compiler_shell*
+# flight logs (regenerable by fly.py; ~3 MB each)
+experiments/**/results/fly_*.npy

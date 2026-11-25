@@ -1,0 +1,4 @@
+[w] track 5: path 56.1 m, path knots 0.50 m, cut at the tip (node 120), 56 variables, 560 samples x 4 limits, start 28.06 s | Solve_Succeeded, 506 it, 17.2 s | lap 7.3874 s (+43.1% vs CPC 5.163)
+  optimizer samples: |w| max 15.00 rad/s (15) | torque needed/allowed max 1.000 (1) | collective [9.39, 32.35] (max 32.37) m/s^2
+  40x finer: |w| max 18.29 rad/s (15) | torque needed/allowed max 1.380 (1) | collective [9.27, 32.35] (max 32.37) m/s^2
+  1% faster everywhere, 40x finer: |w| max 18.76 rad/s (15) | torque needed/allowed max 2199.289 (1) | collective [9.30, 32.96] (max 32.37) m/s^2
